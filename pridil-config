@@ -1,0 +1,63 @@
+# This is a basic configuration file for the Prisoner's Dilemma
+# simulator. Use the -c or --configfile options from the command line,
+# e.g.:
+#
+#   pridil -cpridil-config
+#
+# or:
+#
+#   pridil --configfile=pridil-config
+#
+# Lines starting with a '#' character (like this one) are comments, and
+# are ignored. Blank lines are also ignored. 
+
+
+# Creatures
+# =========
+#
+# Use these settings to initially populate the world with creatures having
+# the listed strategies. The default is zero for any not provided.
+
+random_strategy = 1    
+tit_for_tat = 1
+tit_for_two_tats = 1
+susp_tit_for_tat = 1
+naive_prober = 1
+always_cooperate = 1
+always_defect = 1
+
+
+# World options
+# =============
+#
+# - 'default_life_expectancy' is given in days. Each creature plays one
+#    game each day (unless there are an odd number of creatures, in which
+#    case one random creature will not play a game that day)
+# - 'default_life_expectancy_range' is given in days, and represents a
+#    range around default_life_expectancy within which a given creature's
+#    actual life expectancy can randomly vary.
+# - 'default_starting_resources' is given in nominal resource units, each
+#    creature will start its life with this quantity of resources, which
+#    may increase or decrease as a result of each game.
+# - 'days_to_run' is given in days. The simulation will run for this
+#    number of days.
+
+default_life_expectancy = 10000
+default_life_expectancy_range = 0
+default_starting_resources = 100
+days_to_run = 10000
+
+
+# Display options
+# ===============
+#
+# 'summary resources' shows summarized resource statistics by creature
+# strategy, equivalent to the '-r' command line flag
+# 'summary creatures' shows summarized statistics for each creature,
+# equivalent to the '-s' command line flag.
+# 'detailed memories' shows detailed memories for each creature, equivalent
+# to the '-d' command line flag.
+
+summary resources
+# summary creatures
+# detailed memories
