@@ -1,6 +1,9 @@
 # Compiled main program
 pridil
 
+# Unit test loader
+unittests
+
 # Compiled Object files
 *.slo
 *.lo
