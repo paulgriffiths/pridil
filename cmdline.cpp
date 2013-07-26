@@ -65,7 +65,9 @@ CmdLineOptions::CmdLineOptions()
  */
 
 void CmdLineOptions::set_program_name(const string& program_name) {
-    assert(!m_parse_called);
+    if ( m_parse_called ) {
+        throw cmdline::ParseAlreadyCalled("set_program_name()");
+    }
     m_program_name = program_name;
 }
 
@@ -76,7 +78,9 @@ void CmdLineOptions::set_program_name(const string& program_name) {
  */
 
 void CmdLineOptions::set_version_number(const string& version_number) {
-    assert(!m_parse_called);
+    if ( m_parse_called ) {
+        throw cmdline::ParseAlreadyCalled("set_version_number()");
+    }
     m_version_number = version_number;
 }
 
@@ -95,7 +99,9 @@ void CmdLineOptions::set_version_number(const string& version_number) {
  */
 
 void CmdLineOptions::set_config_file_option(const string& option) {
-    assert(!m_parse_called);
+    if ( m_parse_called ) {
+        throw cmdline::ParseAlreadyCalled("set_config_file_option()");
+    }
     m_config_file_option = option;
 }
 
@@ -131,7 +137,9 @@ void CmdLineOptions::set_intopt(const string& name,
     m_intopt_defs.push_back(IntOptDef(name, short_option, long_option,
                                       description, has_default,
                                       default_value));
-    assert(!m_parse_called);
+    if ( m_parse_called ) {
+        throw cmdline::ParseAlreadyCalled("set_intopt()");
+    }
     if ( has_default ) {
         m_intopts[name] = default_value;
     }
@@ -169,7 +177,9 @@ void CmdLineOptions::set_stropt(const string& name,
     m_stropt_defs.push_back(StrOptDef(name, short_option, long_option,
                                       description, has_default,
                                       default_value));
-    assert(!m_parse_called);
+    if ( m_parse_called ) {
+        throw cmdline::ParseAlreadyCalled("set_stropt()");
+    }
     if ( has_default ) {
         m_stropts[name] = default_value;
     }
@@ -200,7 +210,9 @@ void CmdLineOptions::set_flag(const string& name,
                               const string& long_flag,
                               const string& description,
                               const bool default_on) {
-    assert(!m_parse_called);
+    if ( m_parse_called ) {
+        throw cmdline::ParseAlreadyCalled("set_flag()");
+    }
     m_flag_defs.push_back(FlagDef(name, short_flag, long_flag, description,
                                   default_on));
     if ( default_on ) {
@@ -283,7 +295,9 @@ bool CmdLineOptions::parse(const int argc, char const* const* argv) {
  */
 
 bool CmdLineOptions::is_flag_set(const string& name) const {
-    assert(m_parse_called);
+    if ( !m_parse_called ) {
+        throw cmdline::ParseNotCalled("is_flag_set()");
+    }
     bool is_set = true;
     if ( m_flags.find(name) == m_flags.end() ) {
         is_set = false;
@@ -297,7 +311,9 @@ bool CmdLineOptions::is_flag_set(const string& name) const {
  */
 
 bool CmdLineOptions::is_intopt_set(const std::string& option) const {
-    assert(m_parse_called);
+    if ( !m_parse_called ) {
+        throw cmdline::ParseNotCalled("is_intopt_set()");
+    }
     bool is_set = true;
     if ( m_intopts.find(option) == m_intopts.end() ) {
         is_set = false;
@@ -311,7 +327,9 @@ bool CmdLineOptions::is_intopt_set(const std::string& option) const {
  */
 
 bool CmdLineOptions::is_stropt_set(const std::string& option) const {
-    assert(m_parse_called);
+    if ( !m_parse_called ) {
+        throw cmdline::ParseNotCalled("is_stropt_set()");
+    }
     bool is_set = true;
     if ( m_stropts.find(option) == m_stropts.end() ) {
         is_set = false;
@@ -325,7 +343,9 @@ bool CmdLineOptions::is_stropt_set(const std::string& option) const {
  */
 
 bool CmdLineOptions::is_posarg_set(const std::string& option) const {
-    assert(m_parse_called);
+    if ( !m_parse_called ) {
+        throw cmdline::ParseNotCalled("is_posarg_set()");
+    }
     bool is_set = true;
     if ( find(m_posargs.begin(), m_posargs.end(), option) == m_posargs.end() ) {
         is_set = false;
@@ -342,7 +362,9 @@ bool CmdLineOptions::is_posarg_set(const std::string& option) const {
  */
 
 int CmdLineOptions::get_intopt_value(const string& name) const {
-    assert(m_parse_called);
+    if ( !m_parse_called ) {
+        throw cmdline::ParseNotCalled("get_intopt_value()");
+    }
     IntOptMap::const_iterator opt = m_intopts.find(name);
     if ( opt == m_intopts.end() ) {
         throw OptionNotProvided(name);
@@ -359,7 +381,9 @@ int CmdLineOptions::get_intopt_value(const string& name) const {
  */
 
 string CmdLineOptions::get_stropt_value(const string& name) const {
-    assert(m_parse_called);
+    if ( !m_parse_called ) {
+        throw cmdline::ParseNotCalled("get_stropt_value()");
+    }
     StrOptMap::const_iterator opt = m_stropts.find(name);
     if ( opt == m_stropts.end() ) {
         throw OptionNotProvided(name);
@@ -379,7 +403,9 @@ string CmdLineOptions::get_stropt_value(const string& name) const {
  */
 
 const list<string>& CmdLineOptions::get_pos_args() const {
-    assert(m_parse_called);
+    if ( !m_parse_called ) {
+        throw cmdline::ParseNotCalled("get_posargs()");
+    }
     return m_posargs;
 }
 
@@ -555,7 +581,6 @@ void CmdLineOptions::process_config_file() {
  */
 
 void CmdLineOptions::show_help() const {
-    assert(m_parse_called);
     show_version();
     cout << endl;
     show_all_options();
@@ -568,7 +593,6 @@ void CmdLineOptions::show_help() const {
  */
 
 void CmdLineOptions::show_version() const {
-    assert(m_parse_called);
     if ( m_program_name != "" ) {
         string header = m_program_name;
         if ( m_version_number != "" ) {
@@ -598,7 +622,6 @@ void CmdLineOptions::show_version() const {
  */
 
 void CmdLineOptions::show_all_options() const {
-    assert(m_parse_called);
     map<string, string> opt_map, get_map;
 
     get_map = intopt_def_map();
@@ -631,7 +654,6 @@ void CmdLineOptions::show_all_options() const {
  */
 
 map<string, string> CmdLineOptions::intopt_def_map() const {
-    assert(m_parse_called);
     map<string, string> return_map;
     IntOptDefList::const_iterator i;
 
@@ -661,7 +683,6 @@ map<string, string> CmdLineOptions::intopt_def_map() const {
  */
 
 map<string, string> CmdLineOptions::stropt_def_map() const {
-    assert(m_parse_called);
     map<string, string> return_map;
     StrOptDefList::const_iterator i;
 
@@ -691,7 +712,6 @@ map<string, string> CmdLineOptions::stropt_def_map() const {
  */
 
 map<string, string> CmdLineOptions::flag_def_map() const {
-    assert(m_parse_called);
     map<string, string> return_map;
     FlagDefList::const_iterator i;
 

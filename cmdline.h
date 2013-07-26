@@ -164,6 +164,24 @@ namespace cmdline {
     };
 
 
+    //  Thrown when getter functions are called after parse()
+
+    class ParseAlreadyCalled : public CmdLineException {
+        public:
+            explicit ParseAlreadyCalled(const string& func)
+                : CmdLineException(func + " can't be called after parse()") {}
+    };
+
+
+    //  Thrown when setter functions are called before parse()
+
+    class ParseNotCalled : public CmdLineException {
+        public:
+            explicit ParseNotCalled(const string& func)
+                : CmdLineException(func + " can't be called before parse()") {}
+    };
+
+
     //  Command line option definition structure
 
     template<class T>
