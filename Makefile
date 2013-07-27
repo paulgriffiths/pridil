@@ -44,18 +44,22 @@ TESTOBJS+=tests/test_cmdline/test_cmdline_parsereturn.o
 TESTOBJS+=tests/test_pg_string/test_pg_string.o
 TESTOBJS+=tests/test_genes/test_titfortatgene.o
 TESTOBJS+=tests/test_genes/test_susptitfortatgene.o
+TESTOBJS+=tests/test_game/test_simplify_game_move.o
+TESTOBJS+=tests/test_game/test_game_result.o
 
 # Source and clean files and globs
 SRCS=$(wildcard *.cpp *.h)
 SRCS+=$(wildcard tests/*.cpp tests/*.h)
 SRCS+=$(wildcard tests/test_cmdline/*.cpp tests/test_cmdline/*.h)
 SRCS+=$(wildcard tests/test_genes/*.cpp tests/test_genes/*.h)
+SRCS+=$(wildcard tests/test_game/*.cpp tests/test_game/*.h)
 SRCS+=$(wildcard tests/test_pg_string/*.cpp tests/test_pg_string/*.h)
 
 SRCGLOB=*.cpp *.h
 SRCGLOB+=tests/*.cpp tests/*.h
 SRCGLOB+=tests/test_cmdline/*.cpp tests/test_cmdline/*.h
 SRCGLOB+=tests/test_genes/*.cpp tests/test_genes/*.h
+SRCGLOB+=tests/test_game/*.cpp tests/test_game/*.h
 SRCGLOB+=tests/test_pg_string/*.cpp tests/test_pg_string/*.h
 
 CLNGLOB=pridil unittests
@@ -70,6 +74,9 @@ CLNGLOB+=tests/test_genes/*.gcda tests/test_genes/*.gcno
 CLNGLOB+=tests/test_pg_string/*~ tests/test_pg_string/*.o
 CLNGLOB+=tests/test_pg_string/*.gcov tests/test_pg_string/*.out
 CLNGLOB+=tests/test_pg_string/*.gcda tests/test_pg_string/*.gcno
+CLNGLOB+=tests/test_game/*~ tests/test_game/*.o
+CLNGLOB+=tests/test_game/*.gcov tests/test_game/*.out
+CLNGLOB+=tests/test_game/*.gcda tests/test_game/*.gcno
 
 
 # Build targets section
@@ -204,3 +211,10 @@ tests/test_genes/test_susptitfortatgene.o: \
 	tests/test_genes/test_susptitfortatgene.cpp dna.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
+tests/test_game/test_simplify_game_move.o: \
+	tests/test_game/test_simplify_game_move.cpp game.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_game/test_game_result.o: \
+	tests/test_game/test_game_result.cpp game.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
