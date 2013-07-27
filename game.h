@@ -37,6 +37,7 @@ struct GameInfo {
     GameInfo(const CreatureID& i, const GameMove& ow,
              const GameMove& op, const int res) :
         id(i), own_move(ow), opponent_move(op), result(res) {}
+    GameInfo() : id(0), own_move(coop), opponent_move(coop), result(3) {}
 };
 
 
