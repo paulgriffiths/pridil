@@ -6,7 +6,8 @@ MAINOBJ=main.o
 TESTMAINOBJ=unittests.o
 OBJS=cmdline.o creature.o dna.o game.o
 OBJS+=memory.o world.o pg_string_helpers.o
-TESTOBJS=testcmdline.o
+TESTOBJS=test_cmdline_intopt.o test_cmdline_parse_order.o
+TESTOBJS+=test_cmdline_stropt.o
 CXX=g++
 LDFLAGS=
 CXXFLAGS=-ansi -pedantic -Wall -Wextra -Weffc++
@@ -66,8 +67,14 @@ pg_string_helpers.o: pg_string_helpers.cpp pg_string_helpers.h
 unittests.o: tests/testmain.cpp
 	$(CXX) $(CXXFLAGS) -c -o unittests.o tests/testmain.cpp
 
-testcmdline.o: tests/testcmdline.cpp cmdline.h
-	$(CXX) $(CXXFLAGS) -c -o testcmdline.o tests/testcmdline.cpp
+test_cmdline_intopt.o: tests/test_cmdline_intopt.cpp cmdline.h
+	$(CXX) $(CXXFLAGS) -c -o test_cmdline_intopt.o tests/test_cmdline_intopt.cpp
+
+test_cmdline_parse_order.o: tests/test_cmdline_parse_order.cpp cmdline.h
+	$(CXX) $(CXXFLAGS) -c -o test_cmdline_parse_order.o tests/test_cmdline_parse_order.cpp
+
+test_cmdline_stropt.o: tests/test_cmdline_stropt.cpp cmdline.h
+	$(CXX) $(CXXFLAGS) -c -o test_cmdline_stropt.o tests/test_cmdline_stropt.cpp
 
 
 .PHONY: clean
