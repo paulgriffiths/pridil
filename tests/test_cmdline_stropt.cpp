@@ -15,6 +15,9 @@
 
 
 #include <CppUTest/CommandLineTestRunner.h>
+
+#include <string>
+
 #include "../cmdline.h"
 
 TEST_GROUP(StrOptGroup) {
@@ -127,3 +130,157 @@ TEST(StrOptGroup, MissingStrOptTest4) {
         FAIL("Wrong exception thrown on missing stropt value");
     } 
 }
+
+
+/*
+ *  Tests that correct string option is returned when using
+ *  short format option with no '=' sign.
+ */
+
+TEST(StrOptGroup, StrOptValueTest) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "-tfoobar", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_stropt("test", "-t", "--test", "test desc", false, "");
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        std::string t_val = clopt.get_stropt_value("test");
+        CHECK_EQUAL(t_val, std::string("foobar"));
+    }
+    catch ( cmdline::OptionNotProvided ) {
+        FAIL("OptionNotProvided incorrectly thrown on good stropt");
+    }
+    catch (...) {
+        FAIL("Unknown exception incorrectly thrown on good stropt");
+    } 
+}
+
+
+/*
+ *  Tests that correct string option is returned when using
+ *  short format option with '=' sign.
+ */
+
+TEST(StrOptGroup, StrOptValueTest2) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "-t=foobar", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_stropt("test", "-t", "--test", "test desc", false, "");
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        std::string t_val = clopt.get_stropt_value("test");
+        CHECK_EQUAL(t_val, std::string("foobar"));
+    }
+    catch ( cmdline::OptionNotProvided ) {
+        FAIL("OptionNotProvided incorrectly thrown on good stropt");
+    }
+    catch (...) {
+        FAIL("Unknown exception incorrectly thrown on good stropt");
+    } 
+}
+
+
+/*
+ *  Tests that correct string option is returned when using
+ *  long format option with no '=' sign.
+ */
+
+TEST(StrOptGroup, StrOptValueTest3) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "--testfoobar", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_stropt("test", "-t", "--test", "test desc", false, "");
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        std::string t_val = clopt.get_stropt_value("test");
+        CHECK_EQUAL(t_val, std::string("foobar"));
+    }
+    catch ( cmdline::OptionNotProvided ) {
+        FAIL("OptionNotProvided incorrectly thrown on good stropt");
+    }
+    catch (...) {
+        FAIL("Unknown exception incorrectly thrown on good stropt");
+    } 
+}
+
+
+/*
+ *  Tests that correct string option is returned when using
+ *  long format option with '=' sign.
+ */
+
+TEST(StrOptGroup, StrOptValueTest4) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "--test=foobar", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_stropt("test", "-t", "--test", "test desc", false, "");
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        std::string t_val = clopt.get_stropt_value("test");
+        CHECK_EQUAL(t_val, std::string("foobar"));
+    }
+    catch ( cmdline::OptionNotProvided ) {
+        FAIL("OptionNotProvided incorrectly thrown on good stropt");
+    }
+    catch (...) {
+        FAIL("Unknown exception incorrectly thrown on good stropt");
+    } 
+}
+
+
+/*
+ *  Tests that string option is reported as being set when it is provided.
+ */
+
+TEST(StrOptGroup, StrOptSetTest1) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "--test=foobar", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_stropt("test", "-t", "--test", "test desc", false, "");
+    clopt.parse(t_argc, t_argv);
+
+    CHECK(clopt.is_stropt_set("test"));
+}
+
+
+/*
+ *  Tests that string option is reported as being not set when
+ *  it is not provided, but another string option is.
+ */
+
+TEST(StrOptGroup, StrOptSetTest2) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "--test=foobar", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_stropt("test", "-t", "--test", "test desc", false, "");
+    clopt.parse(t_argc, t_argv);
+
+    CHECK(clopt.is_stropt_set("bogus_option") == false);
+}
+
+
+/*
+ *  Tests that string option is reported as being not set when
+ *  it is not provided, and no other string options are provided.
+ */
+
+TEST(StrOptGroup, StrOptSetTest3) {
+    int t_argc = 1;
+    const char * t_argv[] = {"pridil", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.parse(t_argc, t_argv);
+
+    CHECK(clopt.is_stropt_set("bogus_option") == false);
+}
+

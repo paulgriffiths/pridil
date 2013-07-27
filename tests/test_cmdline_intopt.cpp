@@ -235,3 +235,157 @@ TEST(IntOptGroup, MissingIntOptTest4) {
         FAIL("Wrong exception thrown on missing intopt value");
     } 
 }
+
+
+/*
+ *  Tests that correct integer option is returned when using
+ *  short format option with no '=' sign.
+ */
+
+TEST(IntOptGroup, IntOptValueTest) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "-t42", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_intopt("test", "-t", "--test", "test desc", false, 0);
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        int t_val = clopt.get_intopt_value("test");
+        CHECK_EQUAL(t_val, 42);
+    }
+    catch ( cmdline::OptionNotProvided ) {
+        FAIL("OptionNotProvided incorrectly thrown on good intopt");
+    }
+    catch (...) {
+        FAIL("Unknown exception incorrectly thrown on good intopt");
+    } 
+}
+
+
+/*
+ *  Tests that correct integer option is returned when using
+ *  short format option with '=' sign.
+ */
+
+TEST(IntOptGroup, IntOptValueTest2) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "-t=42", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_intopt("test", "-t", "--test", "test desc", false, 0);
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        int t_val = clopt.get_intopt_value("test");
+        CHECK_EQUAL(t_val, 42);
+    }
+    catch ( cmdline::OptionNotProvided ) {
+        FAIL("OptionNotProvided incorrectly thrown on good intopt");
+    }
+    catch (...) {
+        FAIL("Unknown exception incorrectly thrown on good intopt");
+    } 
+}
+
+
+/*
+ *  Tests that correct integer option is returned when using
+ *  long format option with no '=' sign.
+ */
+
+TEST(IntOptGroup, IntOptValueTest3) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "--test42", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_intopt("test", "-t", "--test", "test desc", false, 0);
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        int t_val = clopt.get_intopt_value("test");
+        CHECK_EQUAL(t_val, 42);
+    }
+    catch ( cmdline::OptionNotProvided ) {
+        FAIL("OptionNotProvided incorrectly thrown on good intopt");
+    }
+    catch (...) {
+        FAIL("Unknown exception incorrectly thrown on good intopt");
+    } 
+}
+
+
+/*
+ *  Tests that correct integer option is returned when using
+ *  long format option with '=' sign.
+ */
+
+TEST(IntOptGroup, IntOptValueTest4) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "--test=42", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_intopt("test", "-t", "--test", "test desc", false, 0);
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        int t_val = clopt.get_intopt_value("test");
+        CHECK_EQUAL(t_val, 42);
+    }
+    catch ( cmdline::OptionNotProvided ) {
+        FAIL("OptionNotProvided incorrectly thrown on good intopt");
+    }
+    catch (...) {
+        FAIL("Unknown exception incorrectly thrown on good intopt");
+    } 
+}
+
+
+/*
+ *  Tests that integer option is reported as being set when it is provided.
+ */
+
+TEST(IntOptGroup, IntOptSetTest1) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "--test=42", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_intopt("test", "-t", "--test", "test desc", false, 0);
+    clopt.parse(t_argc, t_argv);
+
+    CHECK(clopt.is_intopt_set("test"));
+}
+
+
+/*
+ *  Tests that integer option is reported as being not set when
+ *  it is not provided, but another integer option is.
+ */
+
+TEST(IntOptGroup, IntOptSetTest2) {
+    int t_argc = 2;
+    const char * t_argv[] = {"pridil", "--test=42", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_intopt("test", "-t", "--test", "test desc", false, 0);
+    clopt.parse(t_argc, t_argv);
+
+    CHECK(clopt.is_intopt_set("bogus_option") == false);
+}
+
+
+/*
+ *  Tests that integer option is reported as being not set when
+ *  it is not provided, and no other integer options are provided.
+ */
+
+TEST(IntOptGroup, IntOptSetTest3) {
+    int t_argc = 1;
+    const char * t_argv[] = {"pridil", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.parse(t_argc, t_argv);
+
+    CHECK(clopt.is_intopt_set("bogus_option") == false);
+}
+
