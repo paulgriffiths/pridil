@@ -155,11 +155,11 @@ void game_result(GameInfo& own_ginfo, GameInfo& opp_ginfo) {
     } else if ( own_move == defect && opp_move == defect ) {
         own_ginfo.result = opp_ginfo.result = -cost_to_play;
     } else if ( own_move == defect && opp_move == coop ) {
-        own_ginfo.result = reward_cheat;
+        own_ginfo.result = reward_cheat - cost_to_play;
         opp_ginfo.result = -cost_to_play;
     } else if ( own_move == coop && opp_move == defect ) {
         own_ginfo.result = -cost_to_play;
-        opp_ginfo.result = reward_cheat;
+        opp_ginfo.result = reward_cheat - cost_to_play;
     } else {
         throw BadGameMove();
     }
