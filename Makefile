@@ -49,6 +49,7 @@ TESTOBJS+=tests/test_genes/test_alwaysdefectgene.o
 TESTOBJS+=tests/test_game/test_simplify_game_move.o
 TESTOBJS+=tests/test_game/test_game_result.o
 TESTOBJS+=tests/test_memory/test_store_memory.o
+TESTOBJS+=tests/test_creature/test_creature_battle.o
 
 # Source and clean files and globs
 SRCS=$(wildcard *.cpp *.h)
@@ -57,6 +58,7 @@ SRCS+=$(wildcard tests/test_cmdline/*.cpp tests/test_cmdline/*.h)
 SRCS+=$(wildcard tests/test_genes/*.cpp tests/test_genes/*.h)
 SRCS+=$(wildcard tests/test_game/*.cpp tests/test_game/*.h)
 SRCS+=$(wildcard tests/test_memory/*.cpp tests/test_memory/*.h)
+SRCS+=$(wildcard tests/test_creature/*.cpp tests/test_creature/*.h)
 SRCS+=$(wildcard tests/test_pg_string/*.cpp tests/test_pg_string/*.h)
 
 SRCGLOB=*.cpp *.h
@@ -65,6 +67,7 @@ SRCGLOB+=tests/test_cmdline/*.cpp tests/test_cmdline/*.h
 SRCGLOB+=tests/test_genes/*.cpp tests/test_genes/*.h
 SRCGLOB+=tests/test_game/*.cpp tests/test_game/*.h
 SRCGLOB+=tests/test_memory/*.cpp tests/test_memory/*.h
+SRCGLOB+=tests/test_creature/*.cpp tests/test_creature/*.h
 SRCGLOB+=tests/test_pg_string/*.cpp tests/test_pg_string/*.h
 
 CLNGLOB=pridil unittests
@@ -85,6 +88,9 @@ CLNGLOB+=tests/test_game/*.gcda tests/test_game/*.gcno
 CLNGLOB+=tests/test_memory/*~ tests/test_memory/*.o
 CLNGLOB+=tests/test_memory/*.gcov tests/test_memory/*.out
 CLNGLOB+=tests/test_memory/*.gcda tests/test_memory/*.gcno
+CLNGLOB+=tests/test_creature/*~ tests/test_creature/*.o
+CLNGLOB+=tests/test_creature/*.gcov tests/test_creature/*.out
+CLNGLOB+=tests/test_creature/*.gcda tests/test_creature/*.gcno
 
 
 # Build targets section
@@ -237,6 +243,10 @@ tests/test_game/test_game_result.o: \
 
 tests/test_memory/test_store_memory.o: \
 	tests/test_memory/test_store_memory.cpp game.h memory.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_creature/test_creature_battle.o: \
+	tests/test_creature/test_creature_battle.cpp creature.h game.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 
