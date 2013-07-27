@@ -44,8 +44,11 @@ TESTOBJS+=tests/test_cmdline/test_cmdline_parsereturn.o
 TESTOBJS+=tests/test_pg_string/test_pg_string.o
 TESTOBJS+=tests/test_genes/test_titfortatgene.o
 TESTOBJS+=tests/test_genes/test_susptitfortatgene.o
+TESTOBJS+=tests/test_genes/test_alwayscooperategene.o
+TESTOBJS+=tests/test_genes/test_alwaysdefectgene.o
 TESTOBJS+=tests/test_game/test_simplify_game_move.o
 TESTOBJS+=tests/test_game/test_game_result.o
+TESTOBJS+=tests/test_memory/test_store_memory.o
 
 # Source and clean files and globs
 SRCS=$(wildcard *.cpp *.h)
@@ -53,6 +56,7 @@ SRCS+=$(wildcard tests/*.cpp tests/*.h)
 SRCS+=$(wildcard tests/test_cmdline/*.cpp tests/test_cmdline/*.h)
 SRCS+=$(wildcard tests/test_genes/*.cpp tests/test_genes/*.h)
 SRCS+=$(wildcard tests/test_game/*.cpp tests/test_game/*.h)
+SRCS+=$(wildcard tests/test_memory/*.cpp tests/test_memory/*.h)
 SRCS+=$(wildcard tests/test_pg_string/*.cpp tests/test_pg_string/*.h)
 
 SRCGLOB=*.cpp *.h
@@ -60,6 +64,7 @@ SRCGLOB+=tests/*.cpp tests/*.h
 SRCGLOB+=tests/test_cmdline/*.cpp tests/test_cmdline/*.h
 SRCGLOB+=tests/test_genes/*.cpp tests/test_genes/*.h
 SRCGLOB+=tests/test_game/*.cpp tests/test_game/*.h
+SRCGLOB+=tests/test_memory/*.cpp tests/test_memory/*.h
 SRCGLOB+=tests/test_pg_string/*.cpp tests/test_pg_string/*.h
 
 CLNGLOB=pridil unittests
@@ -77,6 +82,9 @@ CLNGLOB+=tests/test_pg_string/*.gcda tests/test_pg_string/*.gcno
 CLNGLOB+=tests/test_game/*~ tests/test_game/*.o
 CLNGLOB+=tests/test_game/*.gcov tests/test_game/*.out
 CLNGLOB+=tests/test_game/*.gcda tests/test_game/*.gcno
+CLNGLOB+=tests/test_memory/*~ tests/test_memory/*.o
+CLNGLOB+=tests/test_memory/*.gcov tests/test_memory/*.out
+CLNGLOB+=tests/test_memory/*.gcda tests/test_memory/*.gcno
 
 
 # Build targets section
@@ -113,7 +121,7 @@ clean:
 # lint - runs cpplint with specified options
 .PHONY: lint
 lint:
-	@cpplint --filter=-runtime/references,-build/header_guard,\
+	@cpplint --verbose=5 --filter=-runtime/references,-build/header_guard,\
 -readability/streams,-build/include,-legal/copyright,\
 -runtime/threadsafe_fn,-whitespace/blank_line,-runtime/int \
 $(SRCGLOB)
@@ -211,6 +219,14 @@ tests/test_genes/test_susptitfortatgene.o: \
 	tests/test_genes/test_susptitfortatgene.cpp dna.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
+tests/test_genes/test_alwayscooperategene.o: \
+	tests/test_genes/test_alwayscooperategene.cpp dna.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_genes/test_alwaysdefectgene.o: \
+	tests/test_genes/test_alwaysdefectgene.cpp dna.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
 tests/test_game/test_simplify_game_move.o: \
 	tests/test_game/test_simplify_game_move.cpp game.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
@@ -218,3 +234,9 @@ tests/test_game/test_simplify_game_move.o: \
 tests/test_game/test_game_result.o: \
 	tests/test_game/test_game_result.cpp game.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_memory/test_store_memory.o: \
+	tests/test_memory/test_store_memory.cpp game.h memory.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+
