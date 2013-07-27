@@ -104,6 +104,8 @@ testmain: $(TESTMAINOBJ) $(TESTOBJS) $(OBJS)
 # Object files targets section
 # ============================
 
+# Main program
+
 main.o: main.cpp world.h cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
@@ -127,6 +129,9 @@ world.o: world.cpp world.h creature.h
 
 pg_string_helpers.o: pg_string_helpers.cpp pg_string_helpers.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+
+# Unit tests
 
 unittests.o: tests/testmain.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
