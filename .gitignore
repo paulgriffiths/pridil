@@ -18,5 +18,8 @@ unittests
 *.la
 *.a
 
+# vim swap files
+*.swp
+
 # Temporary configuration files
 pridil-nicenasty
