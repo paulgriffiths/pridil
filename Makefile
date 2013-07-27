@@ -31,6 +31,7 @@ profile: CXXFLAGS+=$(PROFILE_FLAGS)
 profile: main
 
 .PHONY: tests
+tests: CXXFLAGS+=$(CXX_RELEASE_FLAGS)
 tests: LDFLAGS+=$(LD_TEST_FLAGS)
 tests: testmain
 
