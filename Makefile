@@ -87,8 +87,8 @@ indent:
 
 .PHONY: lint
 lint:
-	cpplint --filter=-runtime/references,-build/header_guard,-readability/streams,-build/include,-legal/copyright,-runtime/threadsafe_fn,-whitespace/blank_line,-runtime/int *.cpp *.h
+	cpplint --filter=-runtime/references,-build/header_guard,-readability/streams,-build/include,-legal/copyright,-runtime/threadsafe_fn,-whitespace/blank_line,-runtime/int *.cpp *.h tests/*.cpp
 
 .PHONY: check
 check:
-	cppcheck --enable=all *.cpp *.h
+	cppcheck --enable=all *.cpp *.h tests/*.cpp
