@@ -147,33 +147,33 @@ TEST(PGStringGroup, GetKeyValueTest) {
     std::pair<std::string, std::string> check_pair;
 
     check_pair = get_key_value(check_string);
-    CHECK(check_pair.first == "k");
-    CHECK(check_pair.second == "v");
+    CHECK_EQUAL(check_pair.first, "k");
+    CHECK_EQUAL(check_pair.second, "v");
 
     check_string="p1/p2";
     check_pair = get_key_value(check_string, '/');
-    CHECK(check_pair.first == "p1");
-    CHECK(check_pair.second == "p2");
+    CHECK_EQUAL(check_pair.first, "p1");
+    CHECK_EQUAL(check_pair.second, "p2");
 
     check_string="boat";
     check_pair = get_key_value(check_string);
-    CHECK(check_pair.first == "boat");
-    CHECK(check_pair.second == "");
+    CHECK_EQUAL(check_pair.first, "boat");
+    CHECK_EQUAL(check_pair.second, "");
 
     check_string="rifle=";
     check_pair = get_key_value(check_string);
-    CHECK(check_pair.first == "rifle");
-    CHECK(check_pair.second == "");
+    CHECK_EQUAL(check_pair.first, "rifle");
+    CHECK_EQUAL(check_pair.second, "");
 
     check_string="war = peace";
     check_pair = get_key_value(check_string);
-    CHECK(check_pair.first == "war");
-    CHECK(check_pair.second == "peace");
+    CHECK_EQUAL(check_pair.first, "war");
+    CHECK_EQUAL(check_pair.second, "peace");
 
     check_string="  freedom   = slavery     ";
     check_pair = get_key_value(check_string);
-    CHECK(check_pair.first == "freedom");
-    CHECK(check_pair.second == "slavery");
+    CHECK_EQUAL(check_pair.first, "freedom");
+    CHECK_EQUAL(check_pair.second, "slavery");
 }
 
 
