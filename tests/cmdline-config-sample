@@ -1,0 +1,13 @@
+# This is a CmdLineOptions sample configuration file used in
+# test_cmdline_configfile.cpp for unit testing purposes.
+
+# This is a comment
+
+# This line should be parsed as an integer option
+ option1 = 42
+
+# The following line should parsed as a string option
+   option2  =   orderly
+
+# The following line should be parsed as a flag
+flag1

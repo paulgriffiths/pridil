@@ -8,7 +8,7 @@ OBJS=cmdline.o creature.o dna.o game.o
 OBJS+=memory.o world.o pg_string_helpers.o
 TESTOBJS=test_cmdline_intopt.o test_cmdline_parse_order.o
 TESTOBJS+=test_cmdline_stropt.o test_cmdline_flag.o test_cmdline_posarg.o
-TESTOBJS+=test_pg_string.o
+TESTOBJS+=test_pg_string.o test_cmdline_configfile.o
 CXX=g++
 LDFLAGS=
 CXXFLAGS=-ansi -pedantic -Wall -Wextra -Weffc++
@@ -86,6 +86,9 @@ test_cmdline_posarg.o: tests/test_cmdline_posarg.cpp cmdline.h
 
 test_pg_string.o: tests/test_pg_string.cpp cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o test_pg_string.o tests/test_pg_string.cpp
+
+test_cmdline_configfile.o: tests/test_cmdline_configfile.cpp cmdline.h
+	$(CXX) $(CXXFLAGS) -c -o test_cmdline_configfile.o tests/test_cmdline_configfile.cpp
 
 
 .PHONY: clean
