@@ -9,6 +9,7 @@ OBJS+=memory.o world.o pg_string_helpers.o
 TESTOBJS=test_cmdline_intopt.o test_cmdline_parse_order.o
 TESTOBJS+=test_cmdline_stropt.o test_cmdline_flag.o test_cmdline_posarg.o
 TESTOBJS+=test_pg_string.o test_cmdline_configfile.o
+TESTOBJS+=test_cmdline_parsereturn.o
 CXX=g++
 LDFLAGS=
 CXXFLAGS=-ansi -pedantic -Wall -Wextra -Weffc++
@@ -89,6 +90,9 @@ test_pg_string.o: tests/test_pg_string.cpp cmdline.h
 
 test_cmdline_configfile.o: tests/test_cmdline_configfile.cpp cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o test_cmdline_configfile.o tests/test_cmdline_configfile.cpp
+
+test_cmdline_parsereturn.o: tests/test_cmdline_parsereturn.cpp cmdline.h
+	$(CXX) $(CXXFLAGS) -c -o test_cmdline_parsereturn.o tests/test_cmdline_parsereturn.cpp
 
 
 .PHONY: clean
