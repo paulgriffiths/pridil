@@ -18,7 +18,8 @@
 
 #include <string>
 
-#include "../cmdline.h"
+#include "../../cmdline.h"
+
 
 TEST_GROUP(StrOptGroup) {
 };

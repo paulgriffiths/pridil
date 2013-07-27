@@ -29,19 +29,47 @@ LD_TEST_FLAGS=-lCppUTest -lCppUTestExt
 
 # Object code files
 MAINOBJ=main.o
-TESTMAINOBJ=unittests.o
+TESTMAINOBJ=tests/unittests.o
 
 OBJS=cmdline.o creature.o dna.o game.o
 OBJS+=memory.o world.o pg_string_helpers.o
 
-TESTOBJS=test_cmdline_intopt.o test_cmdline_parse_order.o
-TESTOBJS+=test_cmdline_stropt.o test_cmdline_flag.o test_cmdline_posarg.o
-TESTOBJS+=test_pg_string.o test_cmdline_configfile.o
-TESTOBJS+=test_cmdline_parsereturn.o
+TESTOBJS=tests/test_cmdline/test_cmdline_intopt.o
+TESTOBJS+=tests/test_cmdline/test_cmdline_parse_order.o
+TESTOBJS+=tests/test_cmdline/test_cmdline_stropt.o
+TESTOBJS+=tests/test_cmdline/test_cmdline_flag.o
+TESTOBJS+=tests/test_cmdline/test_cmdline_posarg.o
+TESTOBJS+=tests/test_cmdline/test_cmdline_configfile.o
+TESTOBJS+=tests/test_cmdline/test_cmdline_parsereturn.o
+TESTOBJS+=tests/test_pg_string/test_pg_string.o
+TESTOBJS+=tests/test_genes/test_titfortatgene.o
+TESTOBJS+=tests/test_genes/test_susptitfortatgene.o
 
-# Unused
-# SRCS=$(wildcard *.cpp)
-# TESTSRCS=$(wildcard tests/*.cpp)
+# Source and clean files and globs
+SRCS=$(wildcard *.cpp *.h)
+SRCS+=$(wildcard tests/*.cpp tests/*.h)
+SRCS+=$(wildcard tests/test_cmdline/*.cpp tests/test_cmdline/*.h)
+SRCS+=$(wildcard tests/test_genes/*.cpp tests/test_genes/*.h)
+SRCS+=$(wildcard tests/test_pg_string/*.cpp tests/test_pg_string/*.h)
+
+SRCGLOB=*.cpp *.h
+SRCGLOB+=tests/*.cpp tests/*.h
+SRCGLOB+=tests/test_cmdline/*.cpp tests/test_cmdline/*.h
+SRCGLOB+=tests/test_genes/*.cpp tests/test_genes/*.h
+SRCGLOB+=tests/test_pg_string/*.cpp tests/test_pg_string/*.h
+
+CLNGLOB=pridil unittests
+CLNGLOB+=*~ *.o *.gcov *.out *.gcda *.gcno
+CLNGLOB+=tests/*~ tests/*.o tests/*.gcov tests/*.out tests/*.gcda tests/*.gcno
+CLNGLOB+=tests/test_cmdline/*~ tests/test_cmdline/*.o
+CLNGLOB+=tests/test_cmdline/*.gcov tests/test_cmdline/*.out
+CLNGLOB+=tests/test_cmdline/*.gcda tests/test_cmdline/*.gcno
+CLNGLOB+=tests/test_genes/*~ tests/test_genes/*.o
+CLNGLOB+=tests/test_genes/*.gcov tests/test_genes/*.out
+CLNGLOB+=tests/test_genes/*.gcda tests/test_genes/*.gcno
+CLNGLOB+=tests/test_pg_string/*~ tests/test_pg_string/*.o
+CLNGLOB+=tests/test_pg_string/*.gcov tests/test_pg_string/*.out
+CLNGLOB+=tests/test_pg_string/*.gcda tests/test_pg_string/*.gcno
 
 
 # Build targets section
@@ -73,20 +101,20 @@ tests: testmain
 # clean - removes ancilliary files from working directory
 .PHONY: clean
 clean:
-	-rm *~ *.o *.gcov *.out *.gcda *.gcno
+	-@rm $(CLNGLOB) 2>/dev/null
 
 # lint - runs cpplint with specified options
 .PHONY: lint
 lint:
-	cpplint --filter=-runtime/references,-build/header_guard,\
+	@cpplint --filter=-runtime/references,-build/header_guard,\
 -readability/streams,-build/include,-legal/copyright,\
 -runtime/threadsafe_fn,-whitespace/blank_line,-runtime/int \
-*.cpp *.h tests/*.cpp
+$(SRCGLOB)
 
 # check - runs cppcheck with specified options
 .PHONY: check
 check:
-	cppcheck --enable=all *.cpp *.h tests/*.cpp
+	@cppcheck --enable=all $(SRCGLOB)
 
 
 # Executable targets section
@@ -133,30 +161,46 @@ pg_string_helpers.o: pg_string_helpers.cpp pg_string_helpers.h
 
 # Unit tests
 
-unittests.o: tests/testmain.cpp
+tests/unittests.o: tests/testmain.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-test_cmdline_intopt.o: tests/test_cmdline_intopt.cpp cmdline.h
+tests/test_cmdline/test_cmdline_intopt.o: \
+	tests/test_cmdline/test_cmdline_intopt.cpp cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-test_cmdline_parse_order.o: tests/test_cmdline_parse_order.cpp cmdline.h
+tests/test_cmdline/test_cmdline_parse_order.o: \
+	tests/test_cmdline/test_cmdline_parse_order.cpp cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-test_cmdline_stropt.o: tests/test_cmdline_stropt.cpp cmdline.h
+tests/test_cmdline/test_cmdline_stropt.o: \
+	tests/test_cmdline/test_cmdline_stropt.cpp cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-test_cmdline_flag.o: tests/test_cmdline_flag.cpp cmdline.h
+tests/test_cmdline/test_cmdline_flag.o: \
+	tests/test_cmdline/test_cmdline_flag.cpp cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-test_cmdline_posarg.o: tests/test_cmdline_posarg.cpp cmdline.h
+tests/test_cmdline/test_cmdline_posarg.o: \
+	tests/test_cmdline/test_cmdline_posarg.cpp cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-test_pg_string.o: tests/test_pg_string.cpp cmdline.h
+tests/test_pg_string/test_pg_string.o: \
+	tests/test_pg_string/test_pg_string.cpp cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-test_cmdline_configfile.o: tests/test_cmdline_configfile.cpp cmdline.h
+tests/test_cmdline/test_cmdline_configfile.o: \
+	tests/test_cmdline/test_cmdline_configfile.cpp cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-test_cmdline_parsereturn.o: tests/test_cmdline_parsereturn.cpp cmdline.h
+tests/test_cmdline/test_cmdline_parsereturn.o: \
+	tests/test_cmdline/test_cmdline_parsereturn.cpp cmdline.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_genes/cmdline/test_titfortatgene.o: \
+	tests/test_genes/test_titfortatgene.cpp dna.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_genes/test_susptitfortatgene.o: \
+	tests/test_genes/test_susptitfortatgene.cpp dna.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 

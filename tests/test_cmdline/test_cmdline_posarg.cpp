@@ -15,9 +15,12 @@
 
 
 #include <CppUTest/CommandLineTestRunner.h>
+
 #include <string>
 #include <list>
-#include "../cmdline.h"
+
+#include "../../cmdline.h"
+
 
 TEST_GROUP(PosargGroup) {
 };

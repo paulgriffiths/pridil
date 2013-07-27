@@ -15,7 +15,7 @@
 
 
 #include <CppUTest/CommandLineTestRunner.h>
-#include "../cmdline.h"
+#include "../../cmdline.h"
 
 TEST_GROUP(CFileGroup) {
 };
@@ -29,7 +29,8 @@ TEST_GROUP(CFileGroup) {
 
 TEST(CFileGroup, ConfigFileBadNameTest) {
     int t_argc = 2;
-    const char * t_argv[] = {"pridil", "-c=tests/cmdline-config-bogus", NULL};
+    const char * t_argv[] = {"pridil",
+        "-c=tests/test_cmdline/cmdline-config-bogus", NULL};
 
     cmdline::CmdLineOptions clopt;
     clopt.set_stropt("cfile", "-c", "--cfile", "config file", "");
@@ -60,13 +61,14 @@ TEST(CFileGroup, ConfigFileBadNameTest) {
  *      flag1
  *
  *  This unit test assumes that the test configuration file will reside
- *  in a directory called 'tests' contained within the directory that
- *  the unit test executable is called from.
+ *  in a directory called 'tests/test_cmdline' contained within the
+ *  directory that the unit test executable is called from.
  */
 
 TEST(CFileGroup, ConfigFileValueTest) {
     int t_argc = 2;
-    const char * t_argv[] = {"pridil", "-c=tests/cmdline-config-sample", NULL};
+    const char * t_argv[] = {"pridil",
+        "-c=tests/test_cmdline/cmdline-config-sample", NULL};
 
     cmdline::CmdLineOptions clopt;
     clopt.set_stropt("cfile", "-c", "--cfile", "config file", "");

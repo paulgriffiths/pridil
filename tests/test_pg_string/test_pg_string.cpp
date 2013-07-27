@@ -16,7 +16,8 @@
 
 #include <CppUTest/CommandLineTestRunner.h>
 #include <string>
-#include "../pg_string_helpers.h"
+#include "../../pg_string_helpers.h"
+
 
 using pg_string::trim_left;
 using pg_string::trim_right;
