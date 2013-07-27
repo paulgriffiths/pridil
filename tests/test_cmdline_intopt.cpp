@@ -389,3 +389,29 @@ TEST(IntOptGroup, IntOptSetTest3) {
     CHECK(clopt.is_intopt_set("bogus_option") == false);
 }
 
+
+/*
+ *  Tests that a default integer option is correctly set when that
+ *  integer option is not provided.
+ */
+
+TEST(IntOptGroup, IntOptDefaultTest) {
+    int t_argc = 1;
+    const char * t_argv[] = {"pridil", NULL};
+
+    cmdline::CmdLineOptions clopt;
+    clopt.set_intopt("test", "-t", "--test", "test desc", true, 42);
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        int t_val = clopt.get_intopt_value("test");
+        CHECK_EQUAL(t_val, 42);
+    }
+    catch(cmdline::OptionNotProvided) {
+        FAIL("OptionNotProvided incorrectly thrown on default intopt");
+    }
+    catch(...) {
+        FAIL("Unknown exception incorrectly thrown on default intopt");
+    }
+}
+
