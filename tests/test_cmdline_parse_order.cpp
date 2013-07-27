@@ -185,6 +185,32 @@ TEST(ParseOrderGroup, GetPosargsBeforeParse) {
 
 /*
  *  Tests that cmdline::ParseAlreadyCalled is thrown when calling
+ *  parse() after having already called parse()
+ */
+
+TEST(ParseOrderGroup, ParseAfterParse) {
+    int t_argc = 1;
+    const char * t_argv[] = {"pridil", NULL};
+    cmdline::CmdLineOptions clopt;
+    clopt.parse(t_argc, t_argv);
+
+    try {
+        clopt.parse(t_argc, t_argv);
+        FAIL("Exception not thrown");
+    }
+    catch(cmdline::ParseAlreadyCalled) {
+
+        /*  Test succeeds if we get here  */
+
+    }
+    catch(...) {
+        FAIL("Wrong exception thrown");
+    }
+}
+
+
+/*
+ *  Tests that cmdline::ParseAlreadyCalled is thrown when calling
  *  set_program_name() after calling parse()
  */
 

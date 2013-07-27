@@ -244,6 +244,9 @@ void CmdLineOptions::set_flag(const string& name,
  */
 
 bool CmdLineOptions::parse(const int argc, char const* const* argv) {
+    if ( m_parse_called ) {
+        throw cmdline::ParseAlreadyCalled("parse()");
+    }
 
     //  Store program name
 
