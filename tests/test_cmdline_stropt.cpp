@@ -40,14 +40,14 @@ TEST(StrOptGroup, MissingStrOptTest) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on missing stropt value");
     }
-    catch ( cmdline::MissingOptionValue ) {
+    catch(cmdline::MissingOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on missing stropt value");
-    } 
+    }
 }
 
 
@@ -67,14 +67,14 @@ TEST(StrOptGroup, MissingStrOptTest2) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on missing stropt value");
     }
-    catch ( cmdline::MissingOptionValue ) {
+    catch(cmdline::MissingOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on missing stropt value");
-    } 
+    }
 }
 
 
@@ -94,14 +94,14 @@ TEST(StrOptGroup, MissingStrOptTest3) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on missing stropt value");
     }
-    catch ( cmdline::MissingOptionValue ) {
+    catch(cmdline::MissingOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on missing stropt value");
-    } 
+    }
 }
 
 
@@ -121,14 +121,14 @@ TEST(StrOptGroup, MissingStrOptTest4) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on missing stropt value");
     }
-    catch ( cmdline::MissingOptionValue ) {
+    catch(cmdline::MissingOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on missing stropt value");
-    } 
+    }
 }
 
 
@@ -149,12 +149,12 @@ TEST(StrOptGroup, StrOptValueTest) {
         std::string t_val = clopt.get_stropt_value("test");
         CHECK_EQUAL(t_val, std::string("foobar"));
     }
-    catch ( cmdline::OptionNotProvided ) {
+    catch(cmdline::OptionNotProvided) {
         FAIL("OptionNotProvided incorrectly thrown on good stropt");
     }
-    catch (...) {
+    catch(...) {
         FAIL("Unknown exception incorrectly thrown on good stropt");
-    } 
+    }
 }
 
 
@@ -175,12 +175,12 @@ TEST(StrOptGroup, StrOptValueTest2) {
         std::string t_val = clopt.get_stropt_value("test");
         CHECK_EQUAL(t_val, std::string("foobar"));
     }
-    catch ( cmdline::OptionNotProvided ) {
+    catch(cmdline::OptionNotProvided) {
         FAIL("OptionNotProvided incorrectly thrown on good stropt");
     }
-    catch (...) {
+    catch(...) {
         FAIL("Unknown exception incorrectly thrown on good stropt");
-    } 
+    }
 }
 
 
@@ -201,12 +201,12 @@ TEST(StrOptGroup, StrOptValueTest3) {
         std::string t_val = clopt.get_stropt_value("test");
         CHECK_EQUAL(t_val, std::string("foobar"));
     }
-    catch ( cmdline::OptionNotProvided ) {
+    catch(cmdline::OptionNotProvided) {
         FAIL("OptionNotProvided incorrectly thrown on good stropt");
     }
-    catch (...) {
+    catch(...) {
         FAIL("Unknown exception incorrectly thrown on good stropt");
-    } 
+    }
 }
 
 
@@ -227,12 +227,12 @@ TEST(StrOptGroup, StrOptValueTest4) {
         std::string t_val = clopt.get_stropt_value("test");
         CHECK_EQUAL(t_val, std::string("foobar"));
     }
-    catch ( cmdline::OptionNotProvided ) {
+    catch(cmdline::OptionNotProvided) {
         FAIL("OptionNotProvided incorrectly thrown on good stropt");
     }
-    catch (...) {
+    catch(...) {
         FAIL("Unknown exception incorrectly thrown on good stropt");
-    } 
+    }
 }
 
 

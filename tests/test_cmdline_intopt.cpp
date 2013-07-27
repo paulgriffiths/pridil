@@ -37,14 +37,14 @@ TEST(IntOptGroup, BadIntOptTest) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on bad intopt provided");
     }
-    catch ( cmdline::BadOptionValue ) {
+    catch(cmdline::BadOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on bad intopt provided");
-    } 
+    }
 }
 
 
@@ -64,14 +64,14 @@ TEST(IntOptGroup, BadIntOptTest2) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on bad intopt provided");
     }
-    catch ( cmdline::BadOptionValue ) {
+    catch(cmdline::BadOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on bad intopt provided");
-    } 
+    }
 }
 
 
@@ -91,14 +91,14 @@ TEST(IntOptGroup, BadIntOptTest3) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on bad intopt provided");
     }
-    catch ( cmdline::BadOptionValue ) {
+    catch(cmdline::BadOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on bad intopt provided");
-    } 
+    }
 }
 
 
@@ -118,14 +118,14 @@ TEST(IntOptGroup, BadIntOptTest4) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on bad intopt provided");
     }
-    catch ( cmdline::BadOptionValue ) {
+    catch(cmdline::BadOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on bad intopt provided");
-    } 
+    }
 }
 
 
@@ -145,14 +145,14 @@ TEST(IntOptGroup, MissingIntOptTest) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on missing intopt value");
     }
-    catch ( cmdline::MissingOptionValue ) {
+    catch(cmdline::MissingOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on missing intopt value");
-    } 
+    }
 }
 
 
@@ -172,14 +172,14 @@ TEST(IntOptGroup, MissingIntOptTest2) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on missing intopt value");
     }
-    catch ( cmdline::MissingOptionValue ) {
+    catch(cmdline::MissingOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on missing intopt value");
-    } 
+    }
 }
 
 
@@ -199,14 +199,14 @@ TEST(IntOptGroup, MissingIntOptTest3) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on missing intopt value");
     }
-    catch ( cmdline::MissingOptionValue ) {
+    catch(cmdline::MissingOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on missing intopt value");
-    } 
+    }
 }
 
 
@@ -226,14 +226,14 @@ TEST(IntOptGroup, MissingIntOptTest4) {
        clopt.parse(t_argc, t_argv);
        FAIL("Exception not thrown on missing intopt value");
     }
-    catch ( cmdline::MissingOptionValue ) {
+    catch(cmdline::MissingOptionValue) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown on missing intopt value");
-    } 
+    }
 }
 
 
@@ -254,12 +254,12 @@ TEST(IntOptGroup, IntOptValueTest) {
         int t_val = clopt.get_intopt_value("test");
         CHECK_EQUAL(t_val, 42);
     }
-    catch ( cmdline::OptionNotProvided ) {
+    catch(cmdline::OptionNotProvided) {
         FAIL("OptionNotProvided incorrectly thrown on good intopt");
     }
-    catch (...) {
+    catch(...) {
         FAIL("Unknown exception incorrectly thrown on good intopt");
-    } 
+    }
 }
 
 
@@ -280,12 +280,12 @@ TEST(IntOptGroup, IntOptValueTest2) {
         int t_val = clopt.get_intopt_value("test");
         CHECK_EQUAL(t_val, 42);
     }
-    catch ( cmdline::OptionNotProvided ) {
+    catch(cmdline::OptionNotProvided) {
         FAIL("OptionNotProvided incorrectly thrown on good intopt");
     }
-    catch (...) {
+    catch(...) {
         FAIL("Unknown exception incorrectly thrown on good intopt");
-    } 
+    }
 }
 
 
@@ -306,12 +306,12 @@ TEST(IntOptGroup, IntOptValueTest3) {
         int t_val = clopt.get_intopt_value("test");
         CHECK_EQUAL(t_val, 42);
     }
-    catch ( cmdline::OptionNotProvided ) {
+    catch(cmdline::OptionNotProvided) {
         FAIL("OptionNotProvided incorrectly thrown on good intopt");
     }
-    catch (...) {
+    catch(...) {
         FAIL("Unknown exception incorrectly thrown on good intopt");
-    } 
+    }
 }
 
 
@@ -332,12 +332,12 @@ TEST(IntOptGroup, IntOptValueTest4) {
         int t_val = clopt.get_intopt_value("test");
         CHECK_EQUAL(t_val, 42);
     }
-    catch ( cmdline::OptionNotProvided ) {
+    catch(cmdline::OptionNotProvided) {
         FAIL("OptionNotProvided incorrectly thrown on good intopt");
     }
-    catch (...) {
+    catch(...) {
         FAIL("Unknown exception incorrectly thrown on good intopt");
-    } 
+    }
 }
 
 

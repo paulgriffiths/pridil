@@ -34,14 +34,14 @@ TEST(ParseOrderGroup, IsFlagSetBeforeParse) {
        clopt.is_flag_set("-t");
        FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseNotCalled ) {
+    catch(cmdline::ParseNotCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -57,14 +57,14 @@ TEST(ParseOrderGroup, IsIntoptSetBeforeParse) {
        clopt.is_intopt_set("-t");
        FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseNotCalled ) {
+    catch(cmdline::ParseNotCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -80,14 +80,14 @@ TEST(ParseOrderGroup, IsStroptSetBeforeParse) {
        clopt.is_stropt_set("-t");
        FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseNotCalled ) {
+    catch(cmdline::ParseNotCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -103,14 +103,14 @@ TEST(ParseOrderGroup, IsPosargSetBeforeParse) {
        clopt.is_posarg_set("-t");
        FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseNotCalled ) {
+    catch(cmdline::ParseNotCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -126,14 +126,14 @@ TEST(ParseOrderGroup, GetIntoptValueBeforeParse) {
        clopt.get_intopt_value("-t");
        FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseNotCalled ) {
+    catch(cmdline::ParseNotCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -149,14 +149,14 @@ TEST(ParseOrderGroup, GetStroptValueBeforeParse) {
        clopt.get_stropt_value("-t");
        FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseNotCalled ) {
+    catch(cmdline::ParseNotCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -172,14 +172,14 @@ TEST(ParseOrderGroup, GetPosargsBeforeParse) {
        clopt.get_pos_args();
        FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseNotCalled ) {
+    catch(cmdline::ParseNotCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -198,14 +198,14 @@ TEST(ParseOrderGroup, SetProgramNameAfterParse) {
         clopt.set_program_name("test");
         FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseAlreadyCalled ) {
+    catch(cmdline::ParseAlreadyCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -224,14 +224,14 @@ TEST(ParseOrderGroup, SetVersionNumberAfterParse) {
         clopt.set_version_number("test");
         FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseAlreadyCalled ) {
+    catch(cmdline::ParseAlreadyCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -250,14 +250,14 @@ TEST(ParseOrderGroup, SetConfigFileOptionAfterParse) {
         clopt.set_config_file_option("test");
         FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseAlreadyCalled ) {
+    catch(cmdline::ParseAlreadyCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -276,14 +276,14 @@ TEST(ParseOrderGroup, SetIntOptAfterParse) {
         clopt.set_intopt("test", "-t", "-t", "test desc", false, 0);
         FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseAlreadyCalled ) {
+    catch(cmdline::ParseAlreadyCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -302,14 +302,14 @@ TEST(ParseOrderGroup, SetStrOptAfterParse) {
         clopt.set_stropt("test", "-t", "-t", "test desc", false, "");
         FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseAlreadyCalled ) {
+    catch(cmdline::ParseAlreadyCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
 
 
@@ -328,12 +328,12 @@ TEST(ParseOrderGroup, SetFlagAfterParse) {
         clopt.set_flag("test", "-t", "-t", "test desc", false);
         FAIL("Exception not thrown");
     }
-    catch ( cmdline::ParseAlreadyCalled ) {
+    catch(cmdline::ParseAlreadyCalled) {
 
         /*  Test succeeds if we get here  */
 
     }
-    catch (...) {
+    catch(...) {
         FAIL("Wrong exception thrown");
-    } 
+    }
 }
