@@ -18,7 +18,7 @@
 
 static int mutual_coop_result = 3;
 static int mutual_defect_result = -1;
-static int sucker_result = -1;
+static int sucker_result = -3;
 static int victor_result = 5;
 
 TEST_GROUP(GameResultGroup) {

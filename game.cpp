@@ -143,23 +143,24 @@ GameMove simplify_game_move(const GameMove move) {
  */
 
 void game_result(GameInfo& own_ginfo, GameInfo& opp_ginfo) {
-    static const int reward_coop = 4;
-    static const int reward_cheat = 6;
+    static const int reward_coop = 6;
     static const int cost_to_play = 1;
+    static const int cost_to_coop = 2;
 
     GameMove own_move = simplify_game_move(own_ginfo.own_move);
     GameMove opp_move = simplify_game_move(opp_ginfo.own_move);
 
     if ( own_move == coop && opp_move == coop ) {
-        own_ginfo.result = opp_ginfo.result = reward_coop - cost_to_play;
+        own_ginfo.result = opp_ginfo.result = reward_coop - cost_to_play -
+                                              cost_to_coop;
     } else if ( own_move == defect && opp_move == defect ) {
         own_ginfo.result = opp_ginfo.result = -cost_to_play;
     } else if ( own_move == defect && opp_move == coop ) {
-        own_ginfo.result = reward_cheat - cost_to_play;
-        opp_ginfo.result = -cost_to_play;
+        own_ginfo.result = reward_coop - cost_to_play;
+        opp_ginfo.result = -cost_to_play - cost_to_coop;
     } else if ( own_move == coop && opp_move == defect ) {
-        own_ginfo.result = -cost_to_play;
-        opp_ginfo.result = reward_cheat - cost_to_play;
+        own_ginfo.result = -cost_to_play - cost_to_coop;
+        opp_ginfo.result = reward_coop - cost_to_play;
     } else {
         throw BadGameMove();
     }
