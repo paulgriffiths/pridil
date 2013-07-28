@@ -98,7 +98,7 @@ CLNGLOB+=tests/test_creature/*.gcda tests/test_creature/*.gcno
 # Build targets section
 # =====================
 
-default: main
+default: debug
 
 # debug - builds objects with debugging info
 .PHONY: debug
@@ -117,7 +117,7 @@ profile: main
 
 # tests - builds unit tests
 .PHONY: tests
-tests: CXXFLAGS+=$(CXX_RELEASE_FLAGS)
+tests: CXXFLAGS+=$(CXX_DEBUG_FLAGS)
 tests: LDFLAGS+=$(LD_TEST_FLAGS)
 tests: testmain
 
