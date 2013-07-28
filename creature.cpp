@@ -80,6 +80,15 @@ int Creature::resources() const {
 
 
 /*
+ *  Returns true if the creature is dead, false otherwise.
+ */
+
+bool Creature::is_dead() const {
+    return (m_resources <= 0) || (m_age > m_life_expectancy);
+}
+
+
+/*
  *  Gets a game move against the specified creature.
  *
  *  The move chosen may or may not depend upon previous interactions
@@ -117,5 +126,5 @@ void Creature::detailed_memories(std::ostream& out) const {
  */
 
 void Creature::age_day() {
-    m_age++;
+    ++m_age;
 }

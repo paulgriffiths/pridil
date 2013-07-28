@@ -61,6 +61,7 @@ class Creature {
         int id() const;
         int age() const;
         int resources() const;
+        bool is_dead() const;
         const std::string strategy() const;
         void detailed_memories(std::ostream& out) const;
 
