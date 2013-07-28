@@ -34,7 +34,7 @@ TEST(TitForTatGeneGroup, CoopOnFirstTest) {
     GameMove test_response;
     GameMove expected_response = coop;
 
-    test_response = test_gene.get_game_move(test_memories);
+    test_response = test_gene.get_game_move(0, test_memories);
     CHECK_EQUAL(test_response, expected_response);
 }
 
@@ -54,7 +54,7 @@ TEST(TitForTatGeneGroup, CoopOnGoodMemoryTest) {
     test_memories.push_back(&gInfo);
 
     GameMove expected_response = coop_recip;
-    GameMove test_response = test_gene.get_game_move(test_memories);
+    GameMove test_response = test_gene.get_game_move(0, test_memories);
 
     CHECK_EQUAL(test_response, expected_response);
 }
@@ -75,7 +75,7 @@ TEST(TitForTatGeneGroup, CoopOnGoodMemory2Test) {
     test_memories.push_back(&gInfo);
 
     GameMove expected_response = coop_recip;
-    GameMove test_response = test_gene.get_game_move(test_memories);
+    GameMove test_response = test_gene.get_game_move(0, test_memories);
 
     CHECK_EQUAL(test_response, expected_response);
 }
@@ -96,7 +96,7 @@ TEST(TitForTatGeneGroup, DefectOnBadMemory1Test) {
     test_memories.push_back(&gInfo);
 
     GameMove expected_response = defect_retal;
-    GameMove test_response = test_gene.get_game_move(test_memories);
+    GameMove test_response = test_gene.get_game_move(0, test_memories);
 
     CHECK_EQUAL(test_response, expected_response);
 }
@@ -117,7 +117,7 @@ TEST(TitForTatGeneGroup, DefectOnBadMemory2Test) {
     test_memories.push_back(&gInfo);
 
     GameMove expected_response = defect_retal;
-    GameMove test_response = test_gene.get_game_move(test_memories);
+    GameMove test_response = test_gene.get_game_move(0, test_memories);
 
     CHECK_EQUAL(test_response, expected_response);
 }

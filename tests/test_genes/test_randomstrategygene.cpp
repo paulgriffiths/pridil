@@ -45,7 +45,7 @@ TEST(RandomStrategyGeneGroup, CoopOnFirstTest) {
     GameMove expected_response = coop;
 
     do {
-        test_response = test_gene.get_game_move(test_memories);
+        test_response = test_gene.get_game_move(0, test_memories);
     } while ( test_response != coop && --time_out > 0 );
 
     CHECK_EQUAL(test_response, expected_response);
@@ -64,7 +64,7 @@ TEST(RandomStrategyGeneGroup, DefectOnFirstTest) {
     GameMove expected_response = defect;
 
     do {
-        test_response = test_gene.get_game_move(test_memories);
+        test_response = test_gene.get_game_move(0, test_memories);
     } while ( test_response != defect && --time_out > 0 );
 
     CHECK_EQUAL(test_response, expected_response);
@@ -85,7 +85,7 @@ TEST(RandomStrategyGeneGroup, CoopOnCoopTest) {
     GameMove expected_response = coop;
 
     do {
-        test_response = test_gene.get_game_move(test_memories);
+        test_response = test_gene.get_game_move(1, test_memories);
     } while ( test_response != coop && --time_out > 0 );
 
     CHECK_EQUAL(test_response, expected_response);
@@ -105,7 +105,7 @@ TEST(RandomStrategyGeneGroup, DefectOnCoopTest) {
     GameMove expected_response = defect;
 
     do {
-        test_response = test_gene.get_game_move(test_memories);
+        test_response = test_gene.get_game_move(1, test_memories);
     } while ( test_response != defect && --time_out > 0 );
 
     CHECK_EQUAL(test_response, expected_response);
@@ -126,7 +126,7 @@ TEST(RandomStrategyGeneGroup, CoopOnDefectTest) {
     GameMove expected_response = coop;
 
     do {
-        test_response = test_gene.get_game_move(test_memories);
+        test_response = test_gene.get_game_move(1, test_memories);
     } while ( test_response != coop && --time_out > 0 );
 
     CHECK_EQUAL(test_response, expected_response);
@@ -146,7 +146,7 @@ TEST(RandomStrategyGeneGroup, DefectOnDefectTest) {
     GameMove expected_response = defect;
 
     do {
-        test_response = test_gene.get_game_move(test_memories);
+        test_response = test_gene.get_game_move(1, test_memories);
     } while ( test_response != defect && --time_out > 0 );
 
     CHECK_EQUAL(test_response, expected_response);

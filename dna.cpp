@@ -16,6 +16,7 @@
 
 #include "dna.h"
 #include "game.h"
+#include "brain.h"
 
 
 /*
@@ -26,7 +27,9 @@
  *  class.
  */
 
-DNA::DNA(Strategy strategy) : m_strategy_gene(0) {
+DNA::DNA(const Brain& brain, Strategy strategy) :
+        m_brain(brain),
+        m_strategy_gene(0) {
     switch ( strategy ) {
         case tit_for_tat:
             m_strategy_gene = new TitForTatGene();
@@ -88,8 +91,9 @@ const std::string DNA::strategy() const {
  *    A GameMove object representing the move played.
  */
 
-GameMove DNA::get_game_move(GameInfoList& opponent_memory) {
-    return m_strategy_gene->get_game_move(opponent_memory);
+GameMove DNA::get_game_move(const CreatureID opponent,
+                            GameInfoList& opponent_memory) {
+    return m_strategy_gene->get_game_move(opponent, opponent_memory);
 }
 
 
@@ -149,7 +153,8 @@ std::string AlwaysDefectGene::name() const {
  *  if that opponent defected during the preceding game.
  */
 
-GameMove TitForTatGene::get_game_move(GameInfoList& opponent_memory) {
+GameMove TitForTatGene::get_game_move(const CreatureID opponent,
+                                      GameInfoList& opponent_memory) {
     GameMove my_move;
 
     if ( opponent_memory.empty() ) {
@@ -174,7 +179,8 @@ GameMove TitForTatGene::get_game_move(GameInfoList& opponent_memory) {
  *  SuspTitForTatGene).
  */
 
-GameMove TitForTwoTatsGene::get_game_move(GameInfoList& opponent_memory) {
+GameMove TitForTwoTatsGene::get_game_move(const CreatureID opponent,
+                                          GameInfoList& opponent_memory) {
     GameMove my_move;
 
     if ( opponent_memory.empty() ) {
@@ -213,7 +219,8 @@ GameMove TitForTwoTatsGene::get_game_move(GameInfoList& opponent_memory) {
  *  TitForTatGene.
  */
 
-GameMove SuspTitForTatGene::get_game_move(GameInfoList& opponent_memory) {
+GameMove SuspTitForTatGene::get_game_move(const CreatureID opponent,
+                                          GameInfoList& opponent_memory) {
     GameMove my_move;
 
     if ( opponent_memory.empty() ) {
@@ -237,7 +244,8 @@ GameMove SuspTitForTatGene::get_game_move(GameInfoList& opponent_memory) {
  *  It is therefore nastier than TitForTatGene.
  */
 
-GameMove NaiveProberGene::get_game_move(GameInfoList& opponent_memory) {
+GameMove NaiveProberGene::get_game_move(const CreatureID opponent,
+                                        GameInfoList& opponent_memory) {
     GameMove my_move;
 
     if ( opponent_memory.empty() ) {
@@ -273,7 +281,8 @@ GameMove NaiveProberGene::get_game_move(GameInfoList& opponent_memory) {
  *  with a particular opponent.
  */
 
-GameMove RandomStrategyGene::get_game_move(GameInfoList& opponent_memory) {
+GameMove RandomStrategyGene::get_game_move(const CreatureID opponent,
+                                           GameInfoList& opponent_memory) {
     return static_cast<GameMove> (rand() % 2);
 }
 
@@ -283,7 +292,8 @@ GameMove RandomStrategyGene::get_game_move(GameInfoList& opponent_memory) {
  *  Naturally, it is the nicest gene of all.
  */
 
-GameMove AlwaysCooperateGene::get_game_move(GameInfoList& opponent_memory) {
+GameMove AlwaysCooperateGene::get_game_move(const CreatureID opponent,
+                                            GameInfoList& opponent_memory) {
     return coop;
 }
 
@@ -294,7 +304,8 @@ GameMove AlwaysCooperateGene::get_game_move(GameInfoList& opponent_memory) {
  *  it is the nastiest gene of all.
  */
 
-GameMove AlwaysDefectGene::get_game_move(GameInfoList& opponent_memory) {
+GameMove AlwaysDefectGene::get_game_move(const CreatureID opponent,
+                                         GameInfoList& opponent_memory) {
     return defect;
 }
 

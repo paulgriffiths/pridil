@@ -25,7 +25,7 @@
  *  No initialization needed.
  */
 
-Brain::Brain(Strategy strategy) : m_dna(strategy),
+Brain::Brain(Strategy strategy) : m_dna(*this, strategy),
                                   m_memory() {}
 
 
@@ -76,5 +76,15 @@ const std::string Brain::strategy() const {
 
 GameMove Brain::get_game_move(const CreatureID opponent) {
     GameInfoList& opponent_memory = m_memory.get_memories(opponent);
-    return m_dna.get_game_move(opponent_memory);
+    return m_dna.get_game_move(opponent, opponent_memory);
+}
+
+
+/*
+ *  Returns true if there are memories of previous interactions with
+ *  the specified creature, false if not.
+ */
+
+bool Brain::recognize(const CreatureID opponent) const {
+    return m_memory.recognize(opponent);
 }

@@ -17,8 +17,8 @@
 #include <ostream>
 
 #include "pridil_types.h"
-#include "memory.h"
 #include "dna.h"
+#include "memory.h"
 #include "game.h"
 
 
@@ -32,6 +32,7 @@ class Brain {
 
         void store_memory(const GameInfo& g_info);
         GameMove get_game_move(const CreatureID opponent);
+        bool recognize(const CreatureID opponent) const;
 
     private:
         DNA m_dna;

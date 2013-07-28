@@ -110,6 +110,11 @@ GameInfoList& Memory::get_memories(CreatureID opponent_id) {
 }
 
 
+/*
+ *  Returns true if there are memories of previous interactions with
+ *  the specified creature, false if not.
+ */
+
 bool Memory::recognize(const CreatureID opponent) const {
     if ( m_memories.find(opponent) == m_memories.end() ) {
         return false;
