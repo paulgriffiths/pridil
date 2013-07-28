@@ -4,8 +4,9 @@ pridil
 What is it?
 -----------
 
-**Pridil** is a prisoner's dilemma evolution simulator inspired by Robert
-Axelrod's "The Evolution of Cooperation" (1984) and the interest it kindled.
+**Pridil** is an iterated prisoner's dilemma evolution simulator inspired by
+Robert Axelrod's "The Evolution of Cooperation" (1984) and the interest it
+kindled.
 
 The problem underlying the prisoner's dilemma was originally framed by Merrill
 Flood and Melvin Dreshner in 1950, and refers to a situation where two parties,
@@ -23,6 +24,9 @@ responsible for such a strategy, such an examination may shed light on how
 a tendency to cooperate can be evolutionarily stable and successful despite
 the fact that such a strategy may not be rational from an individual
 perspective.
+
+Refer to the [Wikipedia article on the subject]
+(https://en.wikipedia.org/wiki/Prisoner's_dilemma) for more on the subject.
 
 Who maintains it?
 -----------------
