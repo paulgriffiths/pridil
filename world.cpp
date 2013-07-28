@@ -21,6 +21,7 @@
 #include <limits>
 #include <cstdlib>
 #include <ctime>
+#include <cassert>
 
 #include "world.h"
 #include "creature.h"
@@ -61,30 +62,37 @@ World::World(const WorldInfo& wInfo) : m_wInfo(wInfo),
     for ( int i = 0; i < wInfo.m_random_strategy; ++i ) {
         c_init.strategy = random_strategy;
         m_creatures.push_back(new Creature(c_init));
+        m_wInfo.m_starting_creatures++;
     }
     for ( int i = 0; i < wInfo.m_tit_for_tat; ++i ) {
         c_init.strategy = tit_for_tat;
         m_creatures.push_back(new Creature(c_init));
+        m_wInfo.m_starting_creatures++;
     }
     for ( int i = 0; i < wInfo.m_tit_for_two_tats; ++i ) {
         c_init.strategy = tit_for_two_tats;
         m_creatures.push_back(new Creature(c_init));
+        m_wInfo.m_starting_creatures++;
     }
     for ( int i = 0; i < wInfo.m_susp_tit_for_tat; ++i ) {
         c_init.strategy = susp_tit_for_tat;
         m_creatures.push_back(new Creature(c_init));
+        m_wInfo.m_starting_creatures++;
     }
     for ( int i = 0; i < wInfo.m_naive_prober; ++i ) {
         c_init.strategy = naive_prober;
         m_creatures.push_back(new Creature(c_init));
+        m_wInfo.m_starting_creatures++;
     }
     for ( int i = 0; i < wInfo.m_always_cooperate; ++i ) {
         c_init.strategy = always_cooperate;
         m_creatures.push_back(new Creature(c_init));
+        m_wInfo.m_starting_creatures++;
     }
     for ( int i = 0; i < wInfo.m_always_defect; ++i ) {
         c_init.strategy = always_defect;
         m_creatures.push_back(new Creature(c_init));
+        m_wInfo.m_starting_creatures++;
     }
 }
 
@@ -94,12 +102,25 @@ World::World(const WorldInfo& wInfo) : m_wInfo(wInfo),
  */
 
 World::~World() {
+
+    //  Assert that creature counts are consistent
+
+    assert((m_creatures.size() + m_dead_creatures.size()) == 
+           (m_wInfo.m_starting_creatures + m_wInfo.m_born_creatures));
+    assert(m_dead_creatures.size() == m_wInfo.m_dead_creatures);
+    assert(m_creatures.size() == (m_wInfo.m_starting_creatures +
+           m_wInfo.m_born_creatures - m_wInfo.m_dead_creatures));
+
+
+    //  Delete dynamically allocated creatures.
+
     CreatureList::iterator i;
     for ( i = m_creatures.begin(); i != m_creatures.end(); ++i ) {
         if ( *i != 0 ) {
             delete *i;
         }
     }
+
     for ( i = m_dead_creatures.begin(); i != m_dead_creatures.end(); ++i ) {
         if ( *i != 0 ) {
             delete *i;
@@ -128,13 +149,8 @@ Day World::day() const {
  *  of creatures, and pairing up 0 with 1, 2 with 3, and so on.
  */
 
-bool out_of_res(const Creature * pcreature) {
-    return pcreature->resources() <= 0;
-}
-
 void World::advance_day() {
     random_shuffle(m_creatures.begin(), m_creatures.end());
-
 
     //  Play paired games
 
@@ -147,31 +163,28 @@ void World::advance_day() {
         m_games_played += 1;
     }
 
-
     //  Age each creature a day
 
     CreatureList::iterator i;
-    for ( i = m_creatures.begin(); i != m_creatures.end(); ++i ) {
+    for ( i = m_creatures.begin(); i != m_creatures.end(); ) {
         (*i)->age_day();
-    }
 
+        //  Check for deaths
 
-    //  Move dead creatures to dead creatures list
-
-    if ( m_wInfo.m_disable_deaths != true ) {
-        for ( i = find_if(m_creatures.begin(), m_creatures.end(), out_of_res);
-                i != m_creatures.end();
-                i = find_if(i, m_creatures.end(), out_of_res)) {
-            CreatureList::iterator temp = i++;
-            m_dead_creatures.push_back(*temp);
-            m_creatures.erase(temp);
+        if ( (m_wInfo.m_disable_deaths != true) && (*i)->is_dead() ) {
+            m_dead_creatures.push_back(*i);
+            CreatureList::iterator temp = m_creatures.erase(i);
+            i = temp;
+            ++m_wInfo.m_dead_creatures;
+        }
+        else {
+            ++i;
         }
     }
 
-
     //  Increment world days
 
-    m_day++;
+    ++m_day;
 }
 
 
