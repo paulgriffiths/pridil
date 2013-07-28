@@ -51,6 +51,7 @@ TESTOBJS+=tests/test_genes/test_naiveprobergene.o
 TESTOBJS+=tests/test_game/test_simplify_game_move.o
 TESTOBJS+=tests/test_game/test_game_result.o
 TESTOBJS+=tests/test_memory/test_store_memory.o
+TESTOBJS+=tests/test_memory/test_recognize.o
 TESTOBJS+=tests/test_creature/test_creature_battle.o
 
 # Source and clean files and globs
@@ -256,6 +257,10 @@ tests/test_game/test_game_result.o: \
 
 tests/test_memory/test_store_memory.o: \
 	tests/test_memory/test_store_memory.cpp game.h memory.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_memory/test_recognize.o: \
+	tests/test_memory/test_recognize.cpp game.h memory.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_creature/test_creature_battle.o: \

@@ -108,3 +108,13 @@ void Memory::show_detailed_memories(std::ostream& out) const {
 GameInfoList& Memory::get_memories(CreatureID opponent_id) {
     return m_memories[opponent_id];
 }
+
+
+bool Memory::recognize(const CreatureID opponent) const {
+    if ( m_memories.find(opponent) == m_memories.end() ) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}

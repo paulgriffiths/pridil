@@ -28,6 +28,7 @@ class Memory {
         void store_memory(const GameInfo& g_info);
         GameInfoList& get_memories(CreatureID opponent_id);
 
+        bool recognize(const CreatureID opponent) const;
         void show_detailed_memories(std::ostream& out) const;
 
     private:
