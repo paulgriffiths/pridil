@@ -46,6 +46,8 @@ TESTOBJS+=tests/test_genes/test_titfortatgene.o
 TESTOBJS+=tests/test_genes/test_susptitfortatgene.o
 TESTOBJS+=tests/test_genes/test_alwayscooperategene.o
 TESTOBJS+=tests/test_genes/test_alwaysdefectgene.o
+TESTOBJS+=tests/test_genes/test_randomstrategygene.o
+TESTOBJS+=tests/test_genes/test_naiveprobergene.o
 TESTOBJS+=tests/test_game/test_simplify_game_move.o
 TESTOBJS+=tests/test_game/test_game_result.o
 TESTOBJS+=tests/test_memory/test_store_memory.o
@@ -231,6 +233,14 @@ tests/test_genes/test_alwayscooperategene.o: \
 
 tests/test_genes/test_alwaysdefectgene.o: \
 	tests/test_genes/test_alwaysdefectgene.cpp dna.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_genes/test_randomstrategygene.o: \
+	tests/test_genes/test_randomstrategygene.cpp dna.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_genes/test_naiveprobergene.o: \
+	tests/test_genes/test_naiveprobergene.cpp dna.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_game/test_simplify_game_move.o: \
