@@ -41,9 +41,11 @@ using std::pair;
  *  Constructor.
  */
 
-World::World(const WorldInfo& wInfo) : m_day(1),
+World::World(const WorldInfo& wInfo) : m_wInfo(wInfo),
+                        m_day(1),
                         m_games_played(0),
-                        m_creatures() {
+                        m_creatures(),
+                        m_dead_creatures() {
 
     //  Seed the pseudo-random number generator
 
@@ -98,6 +100,11 @@ World::~World() {
             delete *i;
         }
     }
+    for ( i = m_dead_creatures.begin(); i != m_dead_creatures.end(); ++i ) {
+        if ( *i != 0 ) {
+            delete *i;
+        }
+    }
 }
 
 
@@ -121,6 +128,10 @@ Day World::day() const {
  *  of creatures, and pairing up 0 with 1, 2 with 3, and so on.
  */
 
+bool out_of_res(const Creature * pcreature) {
+    return pcreature->resources() <= 0;
+}
+
 void World::advance_day() {
     random_shuffle(m_creatures.begin(), m_creatures.end());
 
@@ -142,6 +153,19 @@ void World::advance_day() {
     CreatureList::iterator i;
     for ( i = m_creatures.begin(); i != m_creatures.end(); ++i ) {
         (*i)->age_day();
+    }
+
+
+    //  Move dead creatures to dead creatures list
+
+    if ( m_wInfo.m_disable_deaths != true ) {
+        for ( i = find_if(m_creatures.begin(), m_creatures.end(), out_of_res);
+                i != m_creatures.end();
+                i = find_if(i, m_creatures.end(), out_of_res)) {
+            CreatureList::iterator temp = i++;
+            m_dead_creatures.push_back(*temp);
+            m_creatures.erase(temp);
+        }
     }
 
 
@@ -270,7 +294,7 @@ namespace {
         int min_res;
         double avg_res;
 
-        ResStat() : num_creatures(0), max_res(0),
+        ResStat() : num_creatures(0), max_res(std::numeric_limits<int>().min()),
                     min_res(std::numeric_limits<int>().max()),
                     avg_res(0) {}
     };
@@ -331,6 +355,44 @@ void World::output_summary_resources_by_strategy(ostream& out) const {
             << ", min " << tmp.min_res
             << ", sprd " << tmp.max_res - tmp.min_res
             << ", avg " << tmp.avg_res
+            << endl;
+    }
+    out << endl;
+}
+
+
+/*
+ *  Member function outputs summary statistics for the number of
+ *  creatures by strategy that have died.
+ *
+ *  Arguments: reference to a ostream object to which to output.
+ */
+
+void World::output_summary_dead_by_strategy(ostream& out) const {
+    if ( m_wInfo.m_disable_deaths ) {
+        return;
+    }
+
+    typedef map<string, int> MSI;
+
+    MSI strategy_map;
+
+    //  Summarize number of deaths by strategy into strategy_map
+
+    for ( CreatureList::const_iterator i = m_dead_creatures.begin();
+          i != m_dead_creatures.end(); ++i ) {
+        strategy_map[(*i)->strategy()]++;
+    }
+
+
+    //  Output summary death statistics
+
+    out << "Summary deaths by strategy:" << endl;
+    for ( MSI::const_iterator id = strategy_map.begin();
+            id != strategy_map.end(); ++id ) {
+        out << id->second << " "
+            << id->first << " creature"
+            << (id->second > 1 ? "s" : "") << " died."
             << endl;
     }
     out << endl;

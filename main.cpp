@@ -87,6 +87,7 @@ int main(int argc, char ** argv) {
     }
     if ( dOptions.m_summary_resources ) {
         world.output_summary_resources_by_strategy(std::cout);
+        world.output_summary_dead_by_strategy(std::cout);
     }
     return 0;
 }
@@ -152,6 +153,8 @@ bool ParseCmdLine(const int argc, char const* const* argv,
                   "show summary resources by strategy", false);
     opts.set_flag("summary creatures", "-s", "--summarycreatures",
                   "show summary creature statistics", false);
+    opts.set_flag("disable deaths", "-D", "--disabledeaths",
+                  "disable death of creatures when resources expire", false);
     opts.set_intopt("days_to_run", "-y", "--daystorun",
                     "specify number of days to run", true, 100);
     opts.set_stropt("configfile", "-c", "--configfile",
@@ -216,6 +219,11 @@ bool ParseCmdLine(const int argc, char const* const* argv,
         }
         *((*d).location) = day_val;
     }
+
+
+    //  Populate WorldInfo struct based on flags provided
+
+    wInfo.m_disable_deaths = opts.is_flag_set("disable deaths");
 
 
     //  Populate DisplayOptions struct based on flags provided

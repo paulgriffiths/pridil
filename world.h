@@ -37,6 +37,7 @@ struct WorldInfo {
     Day m_default_life_expectancy_range;
     Day m_days_to_run;
     int m_default_starting_resources;
+    bool m_disable_deaths;
 
     WorldInfo() :
         m_random_strategy(1), m_tit_for_tat(1),
@@ -44,7 +45,8 @@ struct WorldInfo {
         m_naive_prober(1),
         m_always_cooperate(1), m_always_defect(1),
         m_default_life_expectancy(100), m_default_life_expectancy_range(0),
-        m_days_to_run(10), m_default_starting_resources(100) {}
+        m_days_to_run(10), m_default_starting_resources(100),
+        m_disable_deaths(false) {}
 };
 
 
@@ -71,14 +73,17 @@ class World {
         void output_summary_creature_stats(std::ostream& out) const;
         void output_full_creature_stats(std::ostream& out) const;
         void output_summary_resources_by_strategy(std::ostream& out) const;
+        void output_summary_dead_by_strategy(std::ostream& out) const;
 
     private:
 
         //  Regular member variables
 
+        WorldInfo m_wInfo;
         Day m_day;
         unsigned long m_games_played;
         CreatureList m_creatures;
+        CreatureList m_dead_creatures;
 
 
         //  Method to play a game between two creatures
