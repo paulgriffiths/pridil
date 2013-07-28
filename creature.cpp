@@ -16,7 +16,7 @@
 #include <cstdlib>
 
 #include "creature.h"
-#include "dna.h"
+
 
 int Creature::c_next_id = 0;        // Initialize static class variable
 
@@ -29,7 +29,7 @@ Creature::Creature(const CreatureInit& c_init)
       : m_id(0), m_age(0), m_life_expectancy(c_init.life_expectancy),
         m_life_expectancy_range(c_init.life_expectancy_range),
         m_resources(c_init.starting_resources),
-        m_dna(c_init.strategy), m_memory() {
+        m_brain(c_init.strategy) {
     m_id = c_next_id++;
 }
 
@@ -48,7 +48,7 @@ Creature::~Creature() {
  */
 
 const std::string Creature::strategy() const {
-    return m_dna.strategy();
+    return m_brain.strategy();
 }
 
 
@@ -97,8 +97,8 @@ bool Creature::is_dead() const {
  */
 
 GameMove Creature::get_game_move(const CreatureID opponent) {
-    GameInfoList& opponent_memory = m_memory.get_memories(opponent);
-    return m_dna.get_game_move(opponent_memory);
+    GameInfoList& opponent_memory = m_brain.get_memories(opponent);
+    return m_brain.get_game_move(opponent_memory);
 }
 
 
@@ -108,7 +108,7 @@ GameMove Creature::get_game_move(const CreatureID opponent) {
 
 void Creature::give_game_result(const GameInfo& g_info) {
     m_resources += g_info.result;
-    m_memory.store_memory(g_info);
+    m_brain.store_memory(g_info);
 }
 
 
@@ -117,7 +117,7 @@ void Creature::give_game_result(const GameInfo& g_info) {
  */
 
 void Creature::detailed_memories(std::ostream& out) const {
-    m_memory.show_detailed_memories(out);
+    m_brain.show_detailed_memories(out);
 }
 
 

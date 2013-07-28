@@ -31,7 +31,7 @@ LD_TEST_FLAGS=-lCppUTest -lCppUTestExt
 MAINOBJ=main.o
 TESTMAINOBJ=tests/unittests.o
 
-OBJS=cmdline.o creature.o dna.o game.o
+OBJS=cmdline.o creature.o dna.o game.o brain.o
 OBJS+=memory.o world.o pg_string_helpers.o
 
 TESTOBJS=tests/test_cmdline/test_cmdline_intopt.o
@@ -163,7 +163,10 @@ main.o: main.cpp world.h cmdline.h
 cmdline.o: cmdline.cpp cmdline.h pg_string_helpers.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-creature.o: creature.cpp creature.h dna.h
+creature.o: creature.cpp creature.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+brain.o: brain.cpp brain.h game.h memory.h dna.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 dna.o: dna.cpp dna.h game.h

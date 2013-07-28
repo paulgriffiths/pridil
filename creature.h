@@ -17,8 +17,7 @@
 #include <ostream>
 #include <string>
 
-#include "dna.h"
-#include "memory.h"
+#include "brain.h"
 #include "pridil_types.h"
 
 
@@ -81,8 +80,7 @@ class Creature {
         Day m_life_expectancy;
         Day m_life_expectancy_range;
         int m_resources;
-        DNA m_dna;
-        Memory m_memory;
+        Brain m_brain;
 
 
     //  Make comparison function objects friends to access data
