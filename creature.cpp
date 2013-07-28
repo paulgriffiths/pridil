@@ -97,8 +97,7 @@ bool Creature::is_dead() const {
  */
 
 GameMove Creature::get_game_move(const CreatureID opponent) {
-    GameInfoList& opponent_memory = m_brain.get_memories(opponent);
-    return m_brain.get_game_move(opponent_memory);
+    return m_brain.get_game_move(opponent);
 }
 
 

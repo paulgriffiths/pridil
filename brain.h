@@ -31,8 +31,7 @@ class Brain {
         const std::string strategy() const;
 
         void store_memory(const GameInfo& g_info);
-        GameInfoList& get_memories(CreatureID opponent_id);
-        GameMove get_game_move(GameInfoList& opponent_memory);
+        GameMove get_game_move(const CreatureID opponent);
 
     private:
         DNA m_dna;

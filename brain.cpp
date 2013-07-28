@@ -67,30 +67,14 @@ const std::string Brain::strategy() const {
 
 
 /*
- *  Gets a game move against a particular opponent.
+ *  Gets a game move against the specified creature.
  *
- *  The DNA object consults its strategy gene to determine the move.
- *
- *  Arguments:
- *    opponent_memory -- a list of the results of previous games with
- *                       a particular opponent. The DNA may, or may not,
- *                       use these memories to decide on its move,
- *                       depending on its particular strategy.
- *
- *  Returns:
- *    A GameMove object representing the move played.
+ *  The move chosen may or may not depend upon previous interactions
+ *  with that creature, depending on the strategy stored in the
+ *  creature's DNA.
  */
 
-GameMove Brain::get_game_move(GameInfoList& opponent_memory) {
+GameMove Brain::get_game_move(const CreatureID opponent) {
+    GameInfoList& opponent_memory = m_memory.get_memories(opponent);
     return m_dna.get_game_move(opponent_memory);
-}
-
-
-/*
- *  Returns the memories list for games against the specified
- *  creature.
- */
-
-GameInfoList& Brain::get_memories(CreatureID opponent_id) {
-    return m_memory.get_memories(opponent_id);
 }
