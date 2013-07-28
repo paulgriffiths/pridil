@@ -33,6 +33,19 @@ The latest version
 Details of the latest version can be found on the GitHub project page at
 <https://github.com/paulgriffiths/pridil>.
 
+**Pridil** is still a work-in-progress. Currently, a number of strategies
+are implemented and creatures and play against each other with an
+observable effect on individual resources as a measure of success. Creatures
+can die when they run out of resources or reach the end of their life
+expectancy.
+
+Planned future features include:
+* Reproduction, with a specified reproductive cost (making reproduction
+contingent on success in interactions) and frequency.
+* Different geographical areas with an algorithm for movement, to allow
+for initial populations of similar-strategy creatures, and the observation
+of effects when individual creatures migrate to other areas.
+
 Documentation
 -------------
 Up-to-date documentation can be found at
