@@ -19,23 +19,32 @@
 #include "pridil_types.h"
 #include "dna.h"
 #include "memory.h"
-#include "game.h"
 
 
 class Brain {
     public:
-        explicit Brain(Strategy strategy);
+
+        //  Constructor and destructor
+
+        explicit Brain(const Strategy strategy);
         ~Brain();
 
-        void show_detailed_memories(std::ostream& out) const;
-        const std::string strategy() const;
+        //  Member functions for accessing memories
 
-        void store_memory(const GameInfo& g_info);
-        GameMove get_game_move(const CreatureID opponent) const;
         bool recognize(const CreatureID opponent) const;
         unsigned int num_memories(const CreatureID opponent) const;
         GameMove remember_move(const CreatureID opponent,
                                const unsigned int past = 1) const;
+        void show_detailed_memories(std::ostream& out) const;
+
+        //  Member function for storing memories
+
+        void store_memory(const GameInfo& g_info);
+
+        //  Member functions for accessing DNA
+
+        const std::string strategy() const;
+        GameMove get_game_move(const CreatureID opponent) const;
 
     private:
         DNA m_dna;

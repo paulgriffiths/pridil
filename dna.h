@@ -112,7 +112,7 @@ class DNA {
 
         //  Constructor and destructor
 
-        explicit DNA(const Brain& brain, Strategy strategy);
+        explicit DNA(const Brain& brain, const Strategy strategy);
         ~DNA();
 
         //  Getter method

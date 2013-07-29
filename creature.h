@@ -54,7 +54,6 @@ class Creature {
         explicit Creature(const CreatureInit& cInit);
         ~Creature();
 
-
         //  Getter methods
 
         int id() const;
@@ -63,7 +62,6 @@ class Creature {
         bool is_dead() const;
         const std::string strategy() const;
         void detailed_memories(std::ostream& out) const;
-
 
         //  Gaming and aging methods
 

@@ -27,7 +27,7 @@
  *  class.
  */
 
-DNA::DNA(const Brain& brain, Strategy strategy) :
+DNA::DNA(const Brain& brain, const Strategy strategy) :
         m_brain(brain),
         m_strategy_gene(0) {
     switch ( strategy ) {
@@ -82,10 +82,7 @@ const std::string DNA::strategy() const {
  *  The DNA object consults its strategy gene to determine the move.
  *
  *  Arguments:
- *    opponent_memory -- a list of the results of previous games with
- *                       a particular opponent. The DNA may, or may not,
- *                       use these memories to decide on its move,
- *                       depending on its particular strategy.
+ *    opponent -- the ID of the opponent.
  *
  *  Returns:
  *    A GameMove object representing the move played.
@@ -133,12 +130,11 @@ std::string AlwaysDefectGene::name() const {
  *  Gets a game move against a particular opponent.
  *
  *  Arguments:
- *    opponent_memory -- a list of the results of previous games with
- *                       a particular opponent. The gene may, or may not,
- *                       use these memories to decide on its move,
- *                       depending on its particular strategy. Each
- *                       individual subclass of StrategyGene has its
- *                       own particular strategy.
+ *    opponent -- the ID of the opponent. The gene may, or may not,
+ *                use its parent brain's memories of this opponent
+ *                to decide on its move, depending on its particular
+ *                strategy. Each individual subclass of StrategyGene
+ *                has its own particular strategy.
  *
  *  Returns:
  *    A GameMove object representing the move played.
@@ -192,10 +188,10 @@ GameMove TitForTwoTatsGene::get_game_move(const CreatureID opponent) const {
             }
         } else {
             if ( m_brain.remember_move(opponent) == defect &&
-                 m_brain.remember_move(opponent,2) == defect ) {
+                 m_brain.remember_move(opponent, 2) == defect ) {
                 my_move = defect_retal;
             } else if ( m_brain.remember_move(opponent) == defect &&
-                        m_brain.remember_move(opponent,2) == coop ) {
+                        m_brain.remember_move(opponent, 2) == coop ) {
                 my_move = coop;
             } else {
                 my_move = coop_recip;
@@ -245,7 +241,7 @@ GameMove NaiveProberGene::get_game_move(const CreatureID opponent) const {
         if ( m_brain.remember_move(opponent) == defect ) {
             my_move = defect_retal;
         } else {
-            if ( (static_cast<double> (rand()) / RAND_MAX) <
+            if ( ((static_cast<double> (rand())) / RAND_MAX) <
                   m_prob_random_defect ) {
                 my_move = defect_random;
             } else {

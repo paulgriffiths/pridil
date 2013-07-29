@@ -17,7 +17,6 @@
 #include <ostream>
 
 #include "pridil_types.h"
-#include "game.h"
 
 
 class Memory {
@@ -25,14 +24,17 @@ class Memory {
         Memory();
         ~Memory();
 
-        void store_memory(const GameInfo& g_info);
+        //  Member functions for accessing memories
 
         bool recognize(const CreatureID opponent) const;
         GameMove remember_move(const CreatureID opponent,
                                const unsigned int past = 1) const;
         unsigned int num_memories(const CreatureID opponent) const;
-
         void show_detailed_memories(std::ostream& out) const;
+
+        //  Member function for storing memories
+
+        void store_memory(const GameInfo& g_info);
 
     private:
         GameInfoMap m_memories;
