@@ -26,9 +26,12 @@ class Memory {
         ~Memory();
 
         void store_memory(const GameInfo& g_info);
-        GameInfoList& get_memories(CreatureID opponent_id);
 
         bool recognize(const CreatureID opponent) const;
+        GameMove remember_move(const CreatureID opponent,
+                               const unsigned int past = 1) const;
+        unsigned int num_memories(const CreatureID opponent) const;
+
         void show_detailed_memories(std::ostream& out) const;
 
     private:

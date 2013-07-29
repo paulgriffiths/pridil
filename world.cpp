@@ -176,8 +176,7 @@ void World::advance_day() {
             CreatureList::iterator temp = m_creatures.erase(i);
             i = temp;
             ++m_wInfo.m_dead_creatures;
-        }
-        else {
+        } else {
             ++i;
         }
     }

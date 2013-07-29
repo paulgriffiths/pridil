@@ -24,15 +24,18 @@
 
 class Brain {
     public:
-        Brain(Strategy strategy);
+        explicit Brain(Strategy strategy);
         ~Brain();
 
         void show_detailed_memories(std::ostream& out) const;
         const std::string strategy() const;
 
         void store_memory(const GameInfo& g_info);
-        GameMove get_game_move(const CreatureID opponent);
+        GameMove get_game_move(const CreatureID opponent) const;
         bool recognize(const CreatureID opponent) const;
+        unsigned int num_memories(const CreatureID opponent) const;
+        GameMove remember_move(const CreatureID opponent,
+                               const unsigned int past = 1) const;
 
     private:
         DNA m_dna;

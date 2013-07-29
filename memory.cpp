@@ -101,25 +101,56 @@ void Memory::show_detailed_memories(std::ostream& out) const {
 
 
 /*
- *  Returns the memories list for games against the specified
- *  creature.
- */
-
-GameInfoList& Memory::get_memories(CreatureID opponent_id) {
-    return m_memories[opponent_id];
-}
-
-
-/*
  *  Returns true if there are memories of previous interactions with
  *  the specified creature, false if not.
  */
 
 bool Memory::recognize(const CreatureID opponent) const {
-    if ( m_memories.find(opponent) == m_memories.end() ) {
+    GameInfoMap::const_iterator i = m_memories.find(opponent);
+    if ( i == m_memories.end() ) {
         return false;
-    }
-    else {
+    } else {
         return true;
     }
 }
+
+
+/*
+ *  Returns the number of memories of the specified creature.
+ */
+
+unsigned int Memory::num_memories(const CreatureID opponent) const {
+    GameInfoMap::const_iterator i = m_memories.find(opponent);
+    if ( i == m_memories.end() ) {
+        return 0;
+    }
+    return (*i).second.size();
+}
+
+
+/*
+ *  Remembers the specified opponent's last move.
+ *  
+ *  Arguments:
+ *    opponent -- ID of opponent
+ *    past -- number of memories to look back, default is 1, the most
+ *            recent memory.
+ */
+
+GameMove Memory::remember_move(const CreatureID opponent,
+                               const unsigned int past) const {
+    if ( num_memories(opponent) < past ) {
+        throw InvalidOpponentMemory();
+    }
+
+    GameInfoMap::const_iterator i = m_memories.find(opponent);
+    const GameInfoList& memories = (*i).second;
+    GameInfoList::const_iterator il = memories.end();
+    unsigned int n = past;
+    while ( n-- > 0 ) {
+        --il;
+    }
+
+    return simplify_game_move((*il)->opponent_move);
+}
+

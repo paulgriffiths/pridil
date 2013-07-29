@@ -32,5 +32,6 @@ enum Strategy { random_strategy, tit_for_tat, susp_tit_for_tat,
 
 class BadGameMove {};
 class UnknownStrategy {};
+class InvalidOpponentMemory {};
 
 #endif      // PG_PRIDIL_TYPES_H

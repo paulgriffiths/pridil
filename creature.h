@@ -67,7 +67,7 @@ class Creature {
 
         //  Gaming and aging methods
 
-        GameMove get_game_move(const CreatureID opponent);
+        GameMove get_game_move(const CreatureID opponent) const;
         void give_game_result(const GameInfo& g_info);
         void age_day();
 

@@ -96,7 +96,7 @@ bool Creature::is_dead() const {
  *  creature's DNA.
  */
 
-GameMove Creature::get_game_move(const CreatureID opponent) {
+GameMove Creature::get_game_move(const CreatureID opponent) const {
     return m_brain.get_game_move(opponent);
 }
 

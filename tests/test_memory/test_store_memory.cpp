@@ -14,6 +14,7 @@
 
 
 #include <CppUTest/CommandLineTestRunner.h>
+#include <cassert>
 #include "../../game.h"
 #include "../../memory.h"
 
@@ -34,7 +35,6 @@ TEST(StoreMemoryGroup, StoreMemoriesTest) {
     Memory test_memories;
     GameInfoList test_list;
     GameInfo gInfo[8];
-    int test_count = 0;
 
     gInfo[0] = GameInfo(1, coop, coop, 0);
     gInfo[1] = GameInfo(1, coop_recip, defect_random, 0);
@@ -54,24 +54,19 @@ TEST(StoreMemoryGroup, StoreMemoriesTest) {
 
     //  Check memories list is correct size
 
-    test_list = test_memories.get_memories(1);
-    int test_size = test_list.size();
+    int test_size = test_memories.num_memories(1);
     CHECK_EQUAL(test_size, 5);
 
 
     //  Check memories list members are as expected
 
-    GameInfoList::iterator test_itr = test_list.begin();
-    for ( int i = 0; test_itr != test_list.end(); ++test_itr, ++i ) {
-        while ( gInfo[i].id != 1 ) {
-            ++i;
+    int n = 5;
+    for ( int i = 0; i < 8; ++i ) {
+        if ( gInfo[i].id == 2 ) {
+            continue;
         }
-
-        CHECK((*test_itr)->id == gInfo[i].id);
-        CHECK((*test_itr)->own_move == gInfo[i].own_move);
-        CHECK((*test_itr)->opponent_move == gInfo[i].opponent_move);
-        CHECK((*test_itr)->result == gInfo[i].result);
-        ++test_count;
+        CHECK_EQUAL(simplify_game_move(gInfo[i].opponent_move),
+                    test_memories.remember_move(1, n--));
     }
 
 
@@ -79,28 +74,19 @@ TEST(StoreMemoryGroup, StoreMemoriesTest) {
 
     //  Check memories list is correct size
 
-    test_list = test_memories.get_memories(2);
-    test_size = test_list.size();
+    test_size = test_memories.num_memories(2);
     CHECK_EQUAL(test_size, 3);
 
 
     //  Check memories list members are as expected
 
-    GameInfoList::iterator test_itr2 = test_list.begin();
-    for ( int i = 0; test_itr2 != test_list.end(); ++test_itr2, ++i ) {
-        while ( gInfo[i].id != 2 ) {
-            ++i;
+    n = 3;
+    for ( int i = 0; i < 8; ++i ) {
+        if ( gInfo[i].id == 1 ) {
+            continue;
         }
-
-        CHECK((*test_itr2)->id == gInfo[i].id);
-        CHECK((*test_itr2)->own_move == gInfo[i].own_move);
-        CHECK((*test_itr2)->opponent_move == gInfo[i].opponent_move);
-        CHECK((*test_itr2)->result == gInfo[i].result);
-        ++test_count;
+        CHECK_EQUAL(simplify_game_move(gInfo[i].opponent_move),
+                    test_memories.remember_move(2, n--));
     }
 
-
-    //  Check that we compared 8 memories, as expected
-
-    CHECK_EQUAL(test_count, 8);
 }
