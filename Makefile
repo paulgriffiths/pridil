@@ -159,7 +159,7 @@ testmain: $(TESTMAINOBJ) $(TESTOBJS) $(OBJS)
 
 # Main program
 
-main.o: main.cpp world.h cmdline.h
+main.o: main.cpp pridil.h cmdline.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 cmdline.o: cmdline.cpp cmdline.h pg_string_helpers.h

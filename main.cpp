@@ -17,7 +17,7 @@
 #include <string>
 #include <cctype>
 
-#include "world.h"
+#include "pridil.h"
 #include "cmdline.h"
 
 
