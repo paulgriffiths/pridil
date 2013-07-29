@@ -14,6 +14,7 @@
 #include <ostream>
 #include <string>
 #include <cstdlib>
+#include <cassert>
 
 #include "creature.h"
 
@@ -29,6 +30,8 @@ Creature::Creature(const CreatureInit& c_init)
       : m_id(0), m_age(0), m_life_expectancy(c_init.life_expectancy),
         m_life_expectancy_range(c_init.life_expectancy_range),
         m_resources(c_init.starting_resources),
+        m_repro_cost(c_init.repro_cost),
+        m_repro_min_resources(c_init.repro_min_resources),
         m_brain(c_init.strategy) {
     m_id = c_next_id++;
 }
@@ -84,7 +87,7 @@ int Creature::resources() const {
  */
 
 bool Creature::is_dead() const {
-    return (m_resources <= 0) || (m_age > m_life_expectancy);
+    return ((m_resources <= 0) || (m_age > m_life_expectancy));
 }
 
 
@@ -137,7 +140,21 @@ void Creature::age_day() {
  *    0 (NULL) if reproduction did not take place.
  */
 
-Creature * Creature::reproduce() const {
-    return 0;
-}
+Creature * Creature::reproduce() {
+    Creature * new_creature = 0;
 
+    if ( m_resources >= m_repro_min_resources ) {
+        CreatureInit c_init;
+        c_init.life_expectancy = m_life_expectancy;
+        c_init.life_expectancy_range = m_life_expectancy_range;
+        c_init.strategy = m_brain.strategy_value();
+        c_init.starting_resources = m_repro_cost;
+        c_init.repro_cost = m_repro_cost;
+        c_init.repro_min_resources = m_repro_min_resources;
+
+        new_creature = new Creature(c_init);
+        m_resources -= m_repro_cost;
+    }
+
+    return new_creature;
+}

@@ -44,6 +44,7 @@ class Brain {
         //  Member functions for accessing DNA
 
         const std::string strategy() const;
+        Strategy strategy_value() const;
         GameMove get_game_move(const CreatureID opponent) const;
 
     private:

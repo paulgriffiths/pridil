@@ -77,6 +77,14 @@ const std::string DNA::strategy() const {
 
 
 /*
+ *  Returns the strategy enumeration value of the strategy gene.
+ */
+
+Strategy DNA::strategy_value() const {
+    return m_strategy_gene->strategy();
+}
+
+/*
  *  Gets a game move against a particular opponent.
  *
  *  The DNA object consults its strategy gene to determine the move.
@@ -90,6 +98,15 @@ const std::string DNA::strategy() const {
 
 GameMove DNA::get_game_move(const CreatureID opponent) const {
     return m_strategy_gene->get_game_move(opponent);
+}
+ 
+
+/*
+ *  Returns a strategy gene's strategy.
+ */
+
+Strategy StrategyGene::strategy() const {
+    return m_strategy;
 }
 
 

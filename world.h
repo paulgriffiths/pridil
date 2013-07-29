@@ -44,6 +44,7 @@ struct WorldInfo {
     int m_repro_min_resources;
     Day m_repro_cycle_days;
     bool m_disable_deaths;
+    bool m_disable_repro;
 
     WorldInfo() :
         m_random_strategy(1), m_tit_for_tat(1),
@@ -56,7 +57,7 @@ struct WorldInfo {
         m_days_to_run(10), m_default_starting_resources(100),
         m_repro_cost(50), m_repro_min_resources(100),
         m_repro_cycle_days(10),
-        m_disable_deaths(false) {}
+        m_disable_deaths(false), m_disable_repro(false) {}
 };
 
 

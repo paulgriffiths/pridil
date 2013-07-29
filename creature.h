@@ -30,15 +30,20 @@ struct CreatureInit {
     Day life_expectancy_range;
     Strategy strategy;
     int starting_resources;
+    int repro_cost;
+    int repro_min_resources;
 
     CreatureInit() :
         life_expectancy(0), life_expectancy_range(0),
-        strategy(random_strategy), starting_resources(0) {}
+        strategy(random_strategy), starting_resources(0),
+        repro_cost(0), repro_min_resources(0) {}
 
     CreatureInit(const Day& le, const Day& ler,
-                 const Strategy& stgy, const int res) :
+                 const Strategy& stgy, const int res,
+                 const int rc, const int rmr) :
         life_expectancy(le), life_expectancy_range(ler),
-        strategy(stgy), starting_resources(res) {}
+        strategy(stgy), starting_resources(res),
+        repro_cost(rc), repro_min_resources(rmr) {}
 };
 
 
@@ -71,7 +76,7 @@ class Creature {
 
         //  Reproduction member function
 
-        Creature * reproduce() const;
+        Creature * reproduce();
 
     private:
         static int c_next_id;
@@ -81,6 +86,8 @@ class Creature {
         Day m_life_expectancy;
         Day m_life_expectancy_range;
         int m_resources;
+        int m_repro_cost;
+        int m_repro_min_resources;
         Brain m_brain;
 
 

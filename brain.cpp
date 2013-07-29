@@ -112,3 +112,12 @@ unsigned int Brain::num_memories(const CreatureID opponent) const {
     return m_memory.num_memories(opponent);
 }
 
+
+/*
+ *  Returns the strategy enum value of the DNA.
+ */
+
+Strategy Brain::strategy_value() const {
+    return m_dna.strategy_value();
+}
+
