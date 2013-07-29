@@ -25,7 +25,7 @@
  *  No initialization needed.
  */
 
-Brain::Brain(Strategy strategy) : m_dna(this, strategy),
+Brain::Brain(Strategy strategy) : m_dna(*this, strategy),
                                   m_memory() {}
 
 

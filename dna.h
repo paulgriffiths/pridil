@@ -28,12 +28,12 @@ class Brain;
 
 class Gene {
     public:
-        explicit Gene(const Brain * brain) : m_brain(brain) {}
+        explicit Gene(const Brain& brain) : m_brain(brain) {}
         virtual ~Gene() {}
         virtual std::string name() const = 0;
 
     protected:
-        const Brain * m_brain;
+        const Brain& m_brain;
 
     private:
         Gene(const Gene&);
@@ -42,27 +42,27 @@ class Gene {
 
 class StrategyGene : public Gene {
     public:
-        explicit StrategyGene(const Brain * brain) : Gene(brain) {}
+        explicit StrategyGene(const Brain& brain) : Gene(brain) {}
         virtual GameMove get_game_move(const CreatureID opponent) const = 0;
 };
 
 class TitForTatGene : public StrategyGene {
     public:
-        explicit TitForTatGene(const Brain * brain) : StrategyGene(brain) {}
+        explicit TitForTatGene(const Brain& brain) : StrategyGene(brain) {}
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
 };
 
 class TitForTwoTatsGene : public StrategyGene {
     public:
-        explicit TitForTwoTatsGene(const Brain * brain) : StrategyGene(brain) {}
+        explicit TitForTwoTatsGene(const Brain& brain) : StrategyGene(brain) {}
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
 };
 
 class SuspTitForTatGene : public StrategyGene {
     public:
-        explicit SuspTitForTatGene(const Brain * brain) : StrategyGene(brain) {}
+        explicit SuspTitForTatGene(const Brain& brain) : StrategyGene(brain) {}
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
 };
@@ -72,7 +72,7 @@ class NaiveProberGene : public StrategyGene {
         const double m_prob_random_defect;
 
     public:
-        explicit NaiveProberGene(const Brain * brain) : StrategyGene(brain),
+        explicit NaiveProberGene(const Brain& brain) : StrategyGene(brain),
             m_prob_random_defect(0.2) {}
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
@@ -80,7 +80,7 @@ class NaiveProberGene : public StrategyGene {
 
 class RandomStrategyGene : public StrategyGene {
     public:
-        explicit RandomStrategyGene(const Brain * brain) :
+        explicit RandomStrategyGene(const Brain& brain) :
             StrategyGene(brain) {}
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
@@ -88,7 +88,7 @@ class RandomStrategyGene : public StrategyGene {
 
 class AlwaysCooperateGene : public StrategyGene {
     public:
-        explicit AlwaysCooperateGene(const Brain * brain) :
+        explicit AlwaysCooperateGene(const Brain& brain) :
             StrategyGene(brain) {}
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
@@ -96,7 +96,7 @@ class AlwaysCooperateGene : public StrategyGene {
 
 class AlwaysDefectGene : public StrategyGene {
     public:
-        explicit AlwaysDefectGene(const Brain * brain) : StrategyGene(brain) {}
+        explicit AlwaysDefectGene(const Brain& brain) : StrategyGene(brain) {}
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
 };
@@ -112,7 +112,7 @@ class DNA {
 
         //  Constructor and destructor
 
-        explicit DNA(const Brain * brain, Strategy strategy);
+        explicit DNA(const Brain& brain, Strategy strategy);
         ~DNA();
 
         //  Getter method
@@ -125,7 +125,7 @@ class DNA {
 
 
     private:
-        const Brain * m_brain;
+        const Brain& m_brain;
         StrategyGene * m_strategy_gene;
 
         DNA(const DNA&);                // Prevent copying

@@ -27,7 +27,7 @@
  *  class.
  */
 
-DNA::DNA(const Brain * brain, Strategy strategy) :
+DNA::DNA(const Brain& brain, Strategy strategy) :
         m_brain(brain),
         m_strategy_gene(0) {
     switch ( strategy ) {
@@ -155,10 +155,10 @@ std::string AlwaysDefectGene::name() const {
 GameMove TitForTatGene::get_game_move(const CreatureID opponent) const {
     GameMove my_move;
 
-    if ( m_brain->recognize(opponent) == false ) {
+    if ( m_brain.recognize(opponent) == false ) {
         my_move = coop;
     } else {
-        if ( m_brain->remember_move(opponent) == defect ) {
+        if ( m_brain.remember_move(opponent) == defect ) {
             my_move = defect_retal;
         } else {
             my_move = coop_recip;
@@ -179,23 +179,23 @@ GameMove TitForTatGene::get_game_move(const CreatureID opponent) const {
 GameMove TitForTwoTatsGene::get_game_move(const CreatureID opponent) const {
     GameMove my_move;
 
-    if ( m_brain->recognize(opponent) == false ) {
+    if ( m_brain.recognize(opponent) == false ) {
         my_move = coop;
     } else {
-        unsigned int n_moves = m_brain->num_memories(opponent);
+        unsigned int n_moves = m_brain.num_memories(opponent);
 
         if ( n_moves < 2 ) {
-            if ( m_brain->remember_move(opponent) == coop ) {
+            if ( m_brain.remember_move(opponent) == coop ) {
                 my_move = coop_recip;
             } else {
                 my_move = coop;
             }
         } else {
-            if ( m_brain->remember_move(opponent) == defect &&
-                 m_brain->remember_move(opponent,2) == defect ) {
+            if ( m_brain.remember_move(opponent) == defect &&
+                 m_brain.remember_move(opponent,2) == defect ) {
                 my_move = defect_retal;
-            } else if ( m_brain->remember_move(opponent) == defect &&
-                        m_brain->remember_move(opponent,2) == coop ) {
+            } else if ( m_brain.remember_move(opponent) == defect &&
+                        m_brain.remember_move(opponent,2) == coop ) {
                 my_move = coop;
             } else {
                 my_move = coop_recip;
@@ -216,10 +216,10 @@ GameMove TitForTwoTatsGene::get_game_move(const CreatureID opponent) const {
 GameMove SuspTitForTatGene::get_game_move(const CreatureID opponent) const {
     GameMove my_move;
 
-    if ( m_brain->recognize(opponent) == false ) {
+    if ( m_brain.recognize(opponent) == false ) {
         my_move = defect;
     } else {
-        if ( m_brain->remember_move(opponent) == defect ) {
+        if ( m_brain.remember_move(opponent) == defect ) {
             my_move = defect_retal;
         } else {
             my_move = coop_recip;
@@ -239,10 +239,10 @@ GameMove SuspTitForTatGene::get_game_move(const CreatureID opponent) const {
 GameMove NaiveProberGene::get_game_move(const CreatureID opponent) const {
     GameMove my_move;
 
-    if ( m_brain->recognize(opponent) == false ) {
+    if ( m_brain.recognize(opponent) == false ) {
         my_move = coop;
     } else {
-        if ( m_brain->remember_move(opponent) == defect ) {
+        if ( m_brain.remember_move(opponent) == defect ) {
             my_move = defect_retal;
         } else {
             if ( (static_cast<double> (rand()) / RAND_MAX) <
