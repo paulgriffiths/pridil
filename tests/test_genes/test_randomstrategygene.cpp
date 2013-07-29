@@ -19,6 +19,7 @@
 #include <cstdlib>
 
 #include "../../dna.h"
+#include "../../brain.h"
 
 
 static int time_out;
@@ -39,16 +40,17 @@ TEST_GROUP(RandomStrategyGeneGroup) {
  */
 
 TEST(RandomStrategyGeneGroup, CoopOnFirstTest) {
-    RandomStrategyGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(random_strategy);
+    RandomStrategyGene test_gene(brain);
+
     GameMove test_response;
     GameMove expected_response = coop;
 
     do {
-        test_response = test_gene.get_game_move(0, test_memories);
+        test_response = test_gene.get_game_move(0);
     } while ( test_response != coop && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -58,16 +60,17 @@ TEST(RandomStrategyGeneGroup, CoopOnFirstTest) {
  */
 
 TEST(RandomStrategyGeneGroup, DefectOnFirstTest) {
-    RandomStrategyGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(random_strategy);
+    RandomStrategyGene test_gene(brain);
+
     GameMove test_response;
     GameMove expected_response = defect;
 
     do {
-        test_response = test_gene.get_game_move(0, test_memories);
+        test_response = test_gene.get_game_move(0);
     } while ( test_response != defect && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -77,18 +80,20 @@ TEST(RandomStrategyGeneGroup, DefectOnFirstTest) {
  */
 
 TEST(RandomStrategyGeneGroup, CoopOnCoopTest) {
-    RandomStrategyGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(random_strategy);
+    RandomStrategyGene test_gene(brain);
+
     GameInfo gInfo(1, coop, coop, 0);
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
+
     GameMove test_response;
     GameMove expected_response = coop;
 
     do {
-        test_response = test_gene.get_game_move(1, test_memories);
+        test_response = test_gene.get_game_move(1);
     } while ( test_response != coop && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 /*
@@ -97,18 +102,20 @@ TEST(RandomStrategyGeneGroup, CoopOnCoopTest) {
  */
 
 TEST(RandomStrategyGeneGroup, DefectOnCoopTest) {
-    RandomStrategyGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(random_strategy);
+    RandomStrategyGene test_gene(brain);
+
     GameInfo gInfo(1, coop, coop, 0);
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
+
     GameMove test_response;
     GameMove expected_response = defect;
 
     do {
-        test_response = test_gene.get_game_move(1, test_memories);
+        test_response = test_gene.get_game_move(1);
     } while ( test_response != defect && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -118,18 +125,20 @@ TEST(RandomStrategyGeneGroup, DefectOnCoopTest) {
  */
 
 TEST(RandomStrategyGeneGroup, CoopOnDefectTest) {
-    RandomStrategyGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(random_strategy);
+    RandomStrategyGene test_gene(brain);
+
     GameInfo gInfo(1, defect, defect, 0);
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
+
     GameMove test_response;
     GameMove expected_response = coop;
 
     do {
-        test_response = test_gene.get_game_move(1, test_memories);
+        test_response = test_gene.get_game_move(1);
     } while ( test_response != coop && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 /*
@@ -138,17 +147,19 @@ TEST(RandomStrategyGeneGroup, CoopOnDefectTest) {
  */
 
 TEST(RandomStrategyGeneGroup, DefectOnDefectTest) {
-    RandomStrategyGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(random_strategy);
+    RandomStrategyGene test_gene(brain);
+
     GameInfo gInfo(1, defect, defect, 0);
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
+
     GameMove test_response;
     GameMove expected_response = defect;
 
     do {
-        test_response = test_gene.get_game_move(1, test_memories);
+        test_response = test_gene.get_game_move(1);
     } while ( test_response != defect && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 

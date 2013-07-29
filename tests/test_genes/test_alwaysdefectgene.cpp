@@ -16,6 +16,7 @@
 
 #include <CppUTest/CommandLineTestRunner.h>
 #include "../../dna.h"
+#include "../../brain.h"
 
 
 TEST_GROUP(AlwaysDefectGeneGroup) {
@@ -29,13 +30,14 @@ TEST_GROUP(AlwaysDefectGeneGroup) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnFirstTest) {
-    AlwaysDefectGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(always_defect);
+    AlwaysDefectGene test_gene(brain);
+
     GameMove test_response;
     GameMove expected_response = defect;
 
-    test_response = test_gene.get_game_move(0, test_memories);
-    CHECK_EQUAL(test_response, expected_response);
+    test_response = test_gene.get_game_move(0);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -49,17 +51,16 @@ TEST(AlwaysDefectGeneGroup, DefectOnFirstTest) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnGoodMemoryTest) {
-    AlwaysDefectGene test_gene;
+    Brain brain(always_defect);
+    AlwaysDefectGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -70,17 +71,16 @@ TEST(AlwaysDefectGeneGroup, DefectOnGoodMemoryTest) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnGoodMemory2Test) {
-    AlwaysDefectGene test_gene;
+    Brain brain(always_defect);
+    AlwaysDefectGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -94,17 +94,16 @@ TEST(AlwaysDefectGeneGroup, DefectOnGoodMemory2Test) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnBadMemory1Test) {
-    AlwaysDefectGene test_gene;
+    Brain brain(always_defect);
+    AlwaysDefectGene test_gene(brain);
 
     GameInfo gInfo(0, coop, defect, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -115,16 +114,15 @@ TEST(AlwaysDefectGeneGroup, DefectOnBadMemory1Test) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnBadMemory2Test) {
-    AlwaysDefectGene test_gene;
+    Brain brain(always_defect);
+    AlwaysDefectGene test_gene(brain);
 
     GameInfo gInfo(0, defect, defect, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 

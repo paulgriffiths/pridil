@@ -16,6 +16,7 @@
 
 #include <CppUTest/CommandLineTestRunner.h>
 #include "../../dna.h"
+#include "../../brain.h"
 
 
 TEST_GROUP(SuspTitForTatGeneGroup) {
@@ -29,13 +30,14 @@ TEST_GROUP(SuspTitForTatGeneGroup) {
  */
 
 TEST(SuspTitForTatGeneGroup, DefectOnFirstTest) {
-    SuspTitForTatGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(susp_tit_for_tat);
+    SuspTitForTatGene test_gene(brain);
+
     GameMove test_response;
     GameMove expected_response = defect;
 
-    test_response = test_gene.get_game_move(0, test_memories);
-    CHECK_EQUAL(test_response, expected_response);
+    test_response = test_gene.get_game_move(0);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -46,17 +48,16 @@ TEST(SuspTitForTatGeneGroup, DefectOnFirstTest) {
  */
 
 TEST(SuspTitForTatGeneGroup, CoopOnGoodMemoryTest) {
-    SuspTitForTatGene test_gene;
+    Brain brain(susp_tit_for_tat);
+    SuspTitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = coop_recip;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -67,17 +68,16 @@ TEST(SuspTitForTatGeneGroup, CoopOnGoodMemoryTest) {
  */
 
 TEST(SuspTitForTatGeneGroup, CoopOnGoodMemory2Test) {
-    SuspTitForTatGene test_gene;
+    Brain brain(susp_tit_for_tat);
+    SuspTitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = coop_recip;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -88,17 +88,16 @@ TEST(SuspTitForTatGeneGroup, CoopOnGoodMemory2Test) {
  */
 
 TEST(SuspTitForTatGeneGroup, DefectOnBadMemory1Test) {
-    SuspTitForTatGene test_gene;
+    Brain brain(susp_tit_for_tat);
+    SuspTitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, coop, defect, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect_retal;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -109,16 +108,15 @@ TEST(SuspTitForTatGeneGroup, DefectOnBadMemory1Test) {
  */
 
 TEST(SuspTitForTatGeneGroup, DefectOnBadMemory2Test) {
-    SuspTitForTatGene test_gene;
+    Brain brain(susp_tit_for_tat);
+    SuspTitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, defect, defect, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect_retal;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 

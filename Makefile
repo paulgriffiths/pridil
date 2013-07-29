@@ -42,18 +42,18 @@ TESTOBJS+=tests/test_cmdline/test_cmdline_posarg.o
 TESTOBJS+=tests/test_cmdline/test_cmdline_configfile.o
 TESTOBJS+=tests/test_cmdline/test_cmdline_parsereturn.o
 TESTOBJS+=tests/test_pg_string/test_pg_string.o
-#TESTOBJS+=tests/test_genes/test_titfortatgene.o
-#TESTOBJS+=tests/test_genes/test_susptitfortatgene.o
-#TESTOBJS+=tests/test_genes/test_alwayscooperategene.o
-#TESTOBJS+=tests/test_genes/test_alwaysdefectgene.o
-#TESTOBJS+=tests/test_genes/test_randomstrategygene.o
-#TESTOBJS+=tests/test_genes/test_naiveprobergene.o
+TESTOBJS+=tests/test_genes/test_titfortatgene.o
+TESTOBJS+=tests/test_genes/test_susptitfortatgene.o
+TESTOBJS+=tests/test_genes/test_alwayscooperategene.o
+TESTOBJS+=tests/test_genes/test_alwaysdefectgene.o
+TESTOBJS+=tests/test_genes/test_randomstrategygene.o
+TESTOBJS+=tests/test_genes/test_naiveprobergene.o
 TESTOBJS+=tests/test_game/test_simplify_game_move.o
 TESTOBJS+=tests/test_game/test_game_result.o
 TESTOBJS+=tests/test_memory/test_store_memory.o
 TESTOBJS+=tests/test_memory/test_recognize.o
 TESTOBJS+=tests/test_memory/test_num_memories.o
-#TESTOBJS+=tests/test_creature/test_creature_battle.o
+TESTOBJS+=tests/test_creature/test_creature_battle.o
 
 # Source and clean files and globs
 SRCS=$(wildcard *.cpp *.h)

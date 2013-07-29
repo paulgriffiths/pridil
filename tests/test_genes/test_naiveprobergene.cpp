@@ -19,6 +19,7 @@
 #include <cstdlib>
 
 #include "../../dna.h"
+#include "../../brain.h"
 
 
 static int time_out;
@@ -38,13 +39,14 @@ TEST_GROUP(NaiveProberGeneGroup) {
  */
 
 TEST(NaiveProberGeneGroup, CoopOnFirstTest) {
-    NaiveProberGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(naive_prober);
+    NaiveProberGene test_gene(brain);
+
     GameMove test_response;
     GameMove expected_response = coop;
 
-    test_response = test_gene.get_game_move(0, test_memories);
-    CHECK_EQUAL(test_response, expected_response);
+    test_response = test_gene.get_game_move(0);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -55,20 +57,19 @@ TEST(NaiveProberGeneGroup, CoopOnFirstTest) {
  */
 
 TEST(NaiveProberGeneGroup, CoopOnGoodMemoryTest) {
-    NaiveProberGene test_gene;
+    Brain brain(naive_prober);
+    NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = coop_recip;
     GameMove test_response;
     do {
-        test_response = test_gene.get_game_move(0, test_memories);
+        test_response = test_gene.get_game_move(0);
     } while ( test_response == defect_random && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -79,20 +80,19 @@ TEST(NaiveProberGeneGroup, CoopOnGoodMemoryTest) {
  */
 
 TEST(NaiveProberGeneGroup, DefectOnGoodMemoryTest) {
-    NaiveProberGene test_gene;
+    Brain brain(naive_prober);
+    NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect_random;
     GameMove test_response;
     do {
-        test_response = test_gene.get_game_move(0, test_memories);
+        test_response = test_gene.get_game_move(0);
     } while ( test_response == coop_recip && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -103,20 +103,19 @@ TEST(NaiveProberGeneGroup, DefectOnGoodMemoryTest) {
  */
 
 TEST(NaiveProberGeneGroup, CoopOnGoodMemory2Test) {
-    NaiveProberGene test_gene;
+    Brain brain(naive_prober);
+    NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = coop_recip;
     GameMove test_response;
     do {
-        test_response = test_gene.get_game_move(0, test_memories);
+        test_response = test_gene.get_game_move(0);
     } while ( test_response == defect_random && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -127,20 +126,19 @@ TEST(NaiveProberGeneGroup, CoopOnGoodMemory2Test) {
  */
 
 TEST(NaiveProberGeneGroup, DefectOnGoodMemory2Test) {
-    NaiveProberGene test_gene;
+    Brain brain(naive_prober);
+    NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect_random;
     GameMove test_response;
     do {
-        test_response = test_gene.get_game_move(0, test_memories);
+        test_response = test_gene.get_game_move(0);
     } while ( test_response == coop_recip && --time_out > 0 );
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -151,17 +149,16 @@ TEST(NaiveProberGeneGroup, DefectOnGoodMemory2Test) {
  */
 
 TEST(NaiveProberGeneGroup, DefectOnBadMemory1Test) {
-    NaiveProberGene test_gene;
+    Brain brain(naive_prober);
+    NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, coop, defect, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect_retal;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -172,16 +169,15 @@ TEST(NaiveProberGeneGroup, DefectOnBadMemory1Test) {
  */
 
 TEST(NaiveProberGeneGroup, DefectOnBadMemory2Test) {
-    NaiveProberGene test_gene;
+    Brain brain(naive_prober);
+    NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, defect, defect, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = defect_retal;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 

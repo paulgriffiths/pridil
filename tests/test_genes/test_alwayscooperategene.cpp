@@ -16,6 +16,7 @@
 
 #include <CppUTest/CommandLineTestRunner.h>
 #include "../../dna.h"
+#include "../../brain.h"
 
 
 TEST_GROUP(AlwaysCooperateGeneGroup) {
@@ -29,13 +30,13 @@ TEST_GROUP(AlwaysCooperateGeneGroup) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnFirstTest) {
-    AlwaysCooperateGene test_gene;
-    GameInfoList test_memories;
+    Brain brain(always_cooperate);
+    AlwaysCooperateGene test_gene(brain);
     GameMove test_response;
     GameMove expected_response = coop;
 
-    test_response = test_gene.get_game_move(0, test_memories);
-    CHECK_EQUAL(test_response, expected_response);
+    test_response = test_gene.get_game_move(0);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -46,17 +47,17 @@ TEST(AlwaysCooperateGeneGroup, CoopOnFirstTest) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnGoodMemoryTest) {
-    AlwaysCooperateGene test_gene;
+    Brain brain(always_cooperate);
+    AlwaysCooperateGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
 
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = coop;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -70,17 +71,17 @@ TEST(AlwaysCooperateGeneGroup, CoopOnGoodMemoryTest) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnGoodMemory2Test) {
-    AlwaysCooperateGene test_gene;
+    Brain brain(always_cooperate);
+    AlwaysCooperateGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
 
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = coop;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -91,17 +92,16 @@ TEST(AlwaysCooperateGeneGroup, CoopOnGoodMemory2Test) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnBadMemory1Test) {
-    AlwaysCooperateGene test_gene;
+    Brain brain(always_cooperate);
+    AlwaysCooperateGene test_gene(brain);
 
     GameInfo gInfo(0, coop, defect, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = coop;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
 
@@ -115,16 +115,15 @@ TEST(AlwaysCooperateGeneGroup, CoopOnBadMemory1Test) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnBadMemory2Test) {
-    AlwaysCooperateGene test_gene;
+    Brain brain(always_cooperate);
+    AlwaysCooperateGene test_gene(brain);
 
     GameInfo gInfo(0, defect, defect, 0);
-
-    GameInfoList test_memories;
-    test_memories.push_back(&gInfo);
+    brain.store_memory(gInfo);
 
     GameMove expected_response = coop;
-    GameMove test_response = test_gene.get_game_move(0, test_memories);
+    GameMove test_response = test_gene.get_game_move(0);
 
-    CHECK_EQUAL(test_response, expected_response);
+    CHECK_EQUAL(expected_response, test_response);
 }
 
