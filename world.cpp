@@ -192,7 +192,7 @@ void World::advance_day() {
             ++i;
         }
     }
-    if ( newborns.size() > 0 ) {
+    if ( newborns.empty() != true ) {
         m_creatures.insert(m_creatures.end(),
                            newborns.begin(), newborns.end());
     }
