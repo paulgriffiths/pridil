@@ -69,6 +69,9 @@ class Creature {
         void give_game_result(const GameInfo& g_info);
         void age_day();
 
+        //  Reproduction member function
+
+        Creature * reproduce() const;
 
     private:
         static int c_next_id;

@@ -127,3 +127,17 @@ void Creature::detailed_memories(std::ostream& out) const {
 void Creature::age_day() {
     ++m_age;
 }
+
+
+/*
+ *  Member function reproduces, if desired.
+ *
+ *  Returns:
+ *    A pointer to the newly created creature, if successful, or to
+ *    0 (NULL) if reproduction did not take place.
+ */
+
+Creature * Creature::reproduce() const {
+    return 0;
+}
+
