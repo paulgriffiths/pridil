@@ -87,6 +87,49 @@ struct GameInfo {
     GameInfo() : id(0), own_move(coop), opponent_move(coop), result(3) {}
 };
 
+
+/*
+ *  WorldInfo structure for holding attributes about the
+ *  simulated world, including number of different types
+ *  of creature, starting resources, and so on.
+ */
+
+struct WorldInfo {
+    int m_random_strategy;
+    int m_tit_for_tat;
+    int m_tit_for_two_tats;
+    int m_susp_tit_for_tat;
+    int m_naive_prober;
+    int m_always_cooperate;
+    int m_always_defect;
+    unsigned int m_starting_creatures;
+    unsigned int m_dead_creatures;
+    unsigned int m_born_creatures;
+    Day m_default_life_expectancy;
+    Day m_default_life_expectancy_range;
+    Day m_days_to_run;
+    int m_default_starting_resources;
+    int m_repro_cost;
+    int m_repro_min_resources;
+    Day m_repro_cycle_days;
+    bool m_disable_deaths;
+    bool m_disable_repro;
+
+    WorldInfo() :
+        m_random_strategy(1), m_tit_for_tat(1),
+        m_tit_for_two_tats(1), m_susp_tit_for_tat(1),
+        m_naive_prober(1),
+        m_always_cooperate(1), m_always_defect(1),
+        m_starting_creatures(0), m_dead_creatures(0),
+        m_born_creatures(0),
+        m_default_life_expectancy(100), m_default_life_expectancy_range(0),
+        m_days_to_run(10), m_default_starting_resources(100),
+        m_repro_cost(50), m_repro_min_resources(100),
+        m_repro_cycle_days(10),
+        m_disable_deaths(false), m_disable_repro(false) {}
+};
+
+
 //  Class and struct typedefs
 
 typedef std::list<GameInfo *> GameInfoList;
