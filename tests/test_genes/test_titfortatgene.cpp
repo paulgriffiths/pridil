@@ -18,6 +18,8 @@
 #include "../../genes.h"
 #include "../../brain_complex.h"
 
+using namespace pridil;
+
 
 TEST_GROUP(TitForTatGeneGroup) {
 };

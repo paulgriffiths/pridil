@@ -15,9 +15,12 @@
 #define PG_PRIDIL_TIT_FOR_TWO_TATS_GENE_H
 
 #include <string>
-
 #include "../../pridil_common.h"
 #include "../strategy_gene.h"
+
+
+namespace pridil {
+
 
 class TitForTwoTatsGene : public StrategyGene {
     public:
@@ -26,5 +29,8 @@ class TitForTwoTatsGene : public StrategyGene {
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
 };
+
+
+}       //  namespace pridil
 
 #endif      // PG_PRIDIL_TIT_FOR_TWO_TATS_GENE_H

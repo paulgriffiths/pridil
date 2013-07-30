@@ -17,6 +17,8 @@
 #include "../../creature.h"
 #include "../../game.h"
 
+using namespace pridil;
+
 
 static void play_game(Creature * creature1, Creature * creature2);
 

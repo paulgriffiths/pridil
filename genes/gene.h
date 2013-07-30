@@ -19,6 +19,10 @@
 #include "../pridil_common.h"
 #include "../brain_complex.h"
 
+
+namespace pridil {
+
+
 class Gene {
     public:
         explicit Gene(const Brain& brain) : m_brain(brain) {}
@@ -32,5 +36,8 @@ class Gene {
         Gene(const Gene&);
         const Gene& operator=(const Gene&);
 };
+
+
+}       //  namespace pridil
 
 #endif      //  PG_PRIDIL_GENE_H

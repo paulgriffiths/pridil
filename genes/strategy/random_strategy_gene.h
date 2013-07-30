@@ -15,9 +15,12 @@
 #define PG_PRIDIL_RANDOM_STRATEGY_GENE_H
 
 #include <string>
-
 #include "../../pridil_common.h"
 #include "../strategy_gene.h"
+
+
+namespace pridil {
+
 
 class RandomStrategyGene : public StrategyGene {
     public:
@@ -26,5 +29,8 @@ class RandomStrategyGene : public StrategyGene {
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
 };
+
+
+}       //  namespace pridil
 
 #endif      // PG_PRIDIL_RANDOM_STRATEGY_GENE_H

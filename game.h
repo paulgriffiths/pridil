@@ -15,16 +15,21 @@
 #define PG_PRIDIL_GAME_H
 
 #include <string>
-
 #include "pridil_common.h"
+
+
+namespace pridil {
 
 
 /*
  *  Standalone game function definitions
  */
 
-std::string game_move_name(const GameMove move);
-GameMove simplify_game_move(const GameMove move);
+std::string game_move_name(const GameMove& move);
+GameMove simplify_game_move(const GameMove& move);
 void game_result(GameInfo& own_ginfo, GameInfo& opp_ginfo);
+
+
+}       //  namespace pridil
 
 #endif      // PG_PRIDIL_GAME_H

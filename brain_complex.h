@@ -21,6 +21,8 @@
 #include <ostream>
 #include "pridil_common.h"
 
+namespace pridil {
+
 
 class Memory {
     public:
@@ -112,5 +114,8 @@ class Brain {
         DNA m_dna;
         Memory m_memory;
 };
+
+
+}       //  namespace pridil
 
 #endif      // PG_PRIDIL_BRAIN_COMPLEX_H

@@ -21,6 +21,9 @@
 #include "creature.h"
 
 
+namespace pridil {
+
+
 //  World class
 
 class World {
@@ -61,5 +64,8 @@ class World {
 
         void play_game(Creature * player1, Creature * player2);
 };
+
+
+}       //  namespace pridil
 
 #endif      // PG_PRIDIL_WORLD_H

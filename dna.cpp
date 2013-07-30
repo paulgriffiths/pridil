@@ -17,6 +17,8 @@
 #include "brain_complex.h"
 #include "genes.h"
 
+using namespace pridil;
+
 
 /*
  *  DNA class constructor

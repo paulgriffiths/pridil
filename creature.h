@@ -21,6 +21,9 @@
 #include "brain_complex.h"
 
 
+namespace pridil {
+
+
 /*
  *  Creature class
  */
@@ -89,5 +92,8 @@ class CompareCreatureByID {
             return c1->m_id < c2->m_id;
         }
 };
+
+
+}       //  namespace pridil
 
 #endif      // PG_PRIDIL_CREATURE_H

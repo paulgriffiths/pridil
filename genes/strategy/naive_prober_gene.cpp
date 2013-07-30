@@ -13,9 +13,10 @@
 
 #include <string>
 #include <cstdlib>
-
 #include "../../pridil_common.h"
 #include "naive_prober_gene.h"
+
+using namespace pridil;
 
 
 /*

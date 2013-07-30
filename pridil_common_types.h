@@ -18,6 +18,10 @@
 #include <map>
 #include <list>
 
+
+namespace pridil {
+
+
 //  Simple typedefs
 
 typedef int CreatureID;
@@ -134,5 +138,8 @@ struct WorldInfo {
 
 typedef std::list<GameInfo *> GameInfoList;
 typedef std::map<CreatureID, GameInfoList > GameInfoMap;
+
+
+}       //  namespace pridil
 
 #endif      // PG_PRIDIL_COMMON_TYPES_H

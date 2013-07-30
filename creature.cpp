@@ -15,8 +15,9 @@
 #include <string>
 #include <cstdlib>
 #include <cassert>
-
 #include "creature.h"
+
+using namespace pridil;
 
 
 int Creature::c_next_id = 0;        // Initialize static class variable

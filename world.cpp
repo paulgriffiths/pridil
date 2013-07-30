@@ -39,6 +39,8 @@ using std::max;
 using std::min;
 using std::pair;
 
+using namespace pridil;
+
 
 /*
  *  Constructor.

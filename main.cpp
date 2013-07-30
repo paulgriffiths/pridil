@@ -46,7 +46,7 @@ namespace {
  */
 
 bool ParseCmdLine(const int argc, char const* const* argv,
-                  WorldInfo& wInfo,
+                  pridil::WorldInfo& wInfo,
                   DisplayOptions& dOptions);
 
 
@@ -55,7 +55,7 @@ bool ParseCmdLine(const int argc, char const* const* argv,
  */
 
 int main(int argc, char ** argv) {
-    WorldInfo wInfo;
+    pridil::WorldInfo wInfo;
     DisplayOptions dOptions;
 
     //  Get command line and config file options
@@ -70,7 +70,7 @@ int main(int argc, char ** argv) {
 
     //  Initialize and run world.
 
-    World world(wInfo);
+    pridil::World world(wInfo);
     for ( int i = 0; i < wInfo.m_days_to_run; ++i ) {
         world.advance_day();
     }
@@ -139,7 +139,7 @@ namespace {
  */
 
 bool ParseCmdLine(const int argc, char const* const* argv,
-                  WorldInfo& wInfo,
+                  pridil::WorldInfo& wInfo,
                   DisplayOptions& dOptions) {
 
     //  Create CmdLineOptions object and set flags & options
@@ -208,17 +208,18 @@ bool ParseCmdLine(const int argc, char const* const* argv,
     }
 
 
-    std::list<Option<Day> > dol;
-    dol.push_back(Option<Day>("default_life_expectancy",
+    std::list<Option<pridil::Day> > dol;
+    dol.push_back(Option<pridil::Day>("default_life_expectancy",
                               &wInfo.m_default_life_expectancy, 10000));
-    dol.push_back(Option<Day>("default_life_expectancy_range",
+    dol.push_back(Option<pridil::Day>("default_life_expectancy_range",
                               &wInfo.m_default_life_expectancy_range, 0));
-    dol.push_back(Option<Day>("days_to_run", &wInfo.m_days_to_run, 100));
-    dol.push_back(Option<Day>("repro_cycle_days",
+    dol.push_back(Option<pridil::Day>("days_to_run",
+                              &wInfo.m_days_to_run, 100));
+    dol.push_back(Option<pridil::Day>("repro_cycle_days",
                               &wInfo.m_repro_cycle_days, 10));
 
-    std::list<Option<Day> >::iterator d;
-    Day day_val;
+    std::list<Option<pridil::Day> >::iterator d;
+    pridil::Day day_val;
     for ( d = dol.begin(); d != dol.end(); ++d ) {
         try {
             day_val = opts.get_intopt_value((*d).name);

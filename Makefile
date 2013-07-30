@@ -145,7 +145,8 @@ clean:
 lint:
 	@cpplint --verbose=5 --filter=-runtime/references,-build/header_guard,\
 -readability/streams,-build/include,-legal/copyright,\
--runtime/threadsafe_fn,-whitespace/blank_line,-runtime/int \
+-runtime/threadsafe_fn,-whitespace/blank_line,-runtime/int,\
+-build/namespaces \
 $(SRCGLOB)
 
 # check - runs cppcheck with specified options

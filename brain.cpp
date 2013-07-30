@@ -14,6 +14,8 @@
 #include <iostream>
 #include "brain_complex.h"
 
+using namespace pridil;
+
 
 /*
  *  Constructor.

@@ -15,9 +15,12 @@
 #define PG_PRIDIL_NAIVE_PROBER_GENE_H
 
 #include <string>
-
 #include "../../pridil_common.h"
 #include "../strategy_gene.h"
+
+
+namespace pridil {
+
 
 class NaiveProberGene : public StrategyGene {
     private:
@@ -30,5 +33,8 @@ class NaiveProberGene : public StrategyGene {
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
 };
+
+
+}       //  namespace pridil
 
 #endif      // PG_PRIDIL_NAIVE_PROBER_GENE_H

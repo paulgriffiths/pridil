@@ -20,6 +20,9 @@
 #include "gene.h"
 
 
+namespace pridil {
+
+
 class StrategyGene : public Gene {
     public:
         explicit StrategyGene(const Brain& brain,
@@ -31,5 +34,8 @@ class StrategyGene : public Gene {
     private:
         Strategy m_strategy;
 };
+
+
+}       //  namespace pridil
 
 #endif      //  PG_PRIDIL_STRATEGY_GENE_H

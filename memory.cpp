@@ -12,9 +12,10 @@
 
 
 #include <iostream>
-
 #include "brain_complex.h"
 #include "game.h"
+
+using namespace pridil;
 
 
 /*

@@ -17,6 +17,8 @@
 #include "../../brain_complex.h"
 #include "../../game.h"
 
+using namespace pridil;
+
 
 TEST_GROUP(NumMemoriesGroup) {
 };

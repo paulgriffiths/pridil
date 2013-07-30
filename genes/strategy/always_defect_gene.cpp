@@ -12,9 +12,10 @@
 
 
 #include <string>
-
 #include "../../pridil_common.h"
 #include "always_defect_gene.h"
+
+using namespace pridil;
 
 
 /*

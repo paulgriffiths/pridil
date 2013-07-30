@@ -12,9 +12,10 @@
 
 
 #include <string>
-
 #include "../../pridil_common.h"
 #include "susp_tit_for_tat_gene.h"
+
+using namespace pridil;
 
 
 /*

@@ -14,6 +14,8 @@
 #include "../pridil_common.h"
 #include "strategy_gene.h"
 
+using namespace pridil;
+
 
 /*
  *  Returns a strategy gene's strategy.

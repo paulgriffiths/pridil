@@ -15,11 +15,12 @@
 #define PG_PRIDIL_ALWAYS_COOPERATE_GENE_H
 
 #include <string>
-
 #include "../../pridil_common.h"
 #include "../strategy_gene.h"
 
-class Brain;
+
+namespace pridil {
+
 
 class AlwaysCooperateGene : public StrategyGene {
     public:
@@ -28,5 +29,8 @@ class AlwaysCooperateGene : public StrategyGene {
         virtual std::string name() const;
         virtual GameMove get_game_move(const CreatureID opponent) const;
 };
+
+
+}       //  namespace pridil
 
 #endif      // PG_ALWAYS_COOPERATE_GENE_H
