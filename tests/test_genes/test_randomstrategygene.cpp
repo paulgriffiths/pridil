@@ -40,7 +40,7 @@ TEST_GROUP(RandomStrategyGeneGroup) {
  */
 
 TEST(RandomStrategyGeneGroup, CoopOnFirstTest) {
-    Brain brain(random_strategy);
+    Brain brain(CreatureInit(0, 0, random_strategy, 0, 0, 0));
     RandomStrategyGene test_gene(brain);
 
     GameMove test_response;
@@ -60,7 +60,7 @@ TEST(RandomStrategyGeneGroup, CoopOnFirstTest) {
  */
 
 TEST(RandomStrategyGeneGroup, DefectOnFirstTest) {
-    Brain brain(random_strategy);
+    Brain brain(CreatureInit(0, 0, random_strategy, 0, 0, 0));
     RandomStrategyGene test_gene(brain);
 
     GameMove test_response;
@@ -80,7 +80,7 @@ TEST(RandomStrategyGeneGroup, DefectOnFirstTest) {
  */
 
 TEST(RandomStrategyGeneGroup, CoopOnCoopTest) {
-    Brain brain(random_strategy);
+    Brain brain(CreatureInit(0, 0, random_strategy, 0, 0, 0));
     RandomStrategyGene test_gene(brain);
 
     GameInfo gInfo(1, coop, coop, 0);
@@ -102,7 +102,7 @@ TEST(RandomStrategyGeneGroup, CoopOnCoopTest) {
  */
 
 TEST(RandomStrategyGeneGroup, DefectOnCoopTest) {
-    Brain brain(random_strategy);
+    Brain brain(CreatureInit(0, 0, random_strategy, 0, 0, 0));
     RandomStrategyGene test_gene(brain);
 
     GameInfo gInfo(1, coop, coop, 0);
@@ -125,7 +125,7 @@ TEST(RandomStrategyGeneGroup, DefectOnCoopTest) {
  */
 
 TEST(RandomStrategyGeneGroup, CoopOnDefectTest) {
-    Brain brain(random_strategy);
+    Brain brain(CreatureInit(0, 0, random_strategy, 0, 0, 0));
     RandomStrategyGene test_gene(brain);
 
     GameInfo gInfo(1, defect, defect, 0);
@@ -147,7 +147,7 @@ TEST(RandomStrategyGeneGroup, CoopOnDefectTest) {
  */
 
 TEST(RandomStrategyGeneGroup, DefectOnDefectTest) {
-    Brain brain(random_strategy);
+    Brain brain(CreatureInit(0, 0, random_strategy, 0, 0, 0));
     RandomStrategyGene test_gene(brain);
 
     GameInfo gInfo(1, defect, defect, 0);

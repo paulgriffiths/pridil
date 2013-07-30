@@ -32,7 +32,7 @@ TEST_GROUP(TitForTatGeneGroup) {
  */
 
 TEST(TitForTatGeneGroup, CoopOnFirstTest) {
-    Brain brain(tit_for_tat);
+    Brain brain(CreatureInit(0, 0, tit_for_tat, 0, 0, 0));
     TitForTatGene test_gene(brain);
 
     GameMove test_response;
@@ -50,7 +50,7 @@ TEST(TitForTatGeneGroup, CoopOnFirstTest) {
  */
 
 TEST(TitForTatGeneGroup, CoopOnGoodMemoryTest) {
-    Brain brain(tit_for_tat);
+    Brain brain(CreatureInit(0, 0, tit_for_tat, 0, 0, 0));
     TitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
@@ -70,7 +70,7 @@ TEST(TitForTatGeneGroup, CoopOnGoodMemoryTest) {
  */
 
 TEST(TitForTatGeneGroup, CoopOnGoodMemory2Test) {
-    Brain brain(tit_for_tat);
+    Brain brain(CreatureInit(0, 0, tit_for_tat, 0, 0, 0));
     TitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
@@ -90,7 +90,7 @@ TEST(TitForTatGeneGroup, CoopOnGoodMemory2Test) {
  */
 
 TEST(TitForTatGeneGroup, DefectOnBadMemory1Test) {
-    Brain brain(tit_for_tat);
+    Brain brain(CreatureInit(0, 0, tit_for_tat, 0, 0, 0));
     TitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, coop, defect, 0);
@@ -110,7 +110,7 @@ TEST(TitForTatGeneGroup, DefectOnBadMemory1Test) {
  */
 
 TEST(TitForTatGeneGroup, DefectOnBadMemory2Test) {
-    Brain brain(tit_for_tat);
+    Brain brain(CreatureInit(0, 0, tit_for_tat, 0, 0, 0));
     TitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, defect, defect, 0);

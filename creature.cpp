@@ -28,12 +28,8 @@ int Creature::c_next_id = 0;        // Initialize static class variable
  */
 
 Creature::Creature(const CreatureInit& c_init)
-      : m_id(0), m_age(0), m_life_expectancy(c_init.life_expectancy),
-        m_life_expectancy_range(c_init.life_expectancy_range),
-        m_resources(c_init.starting_resources),
-        m_repro_cost(c_init.repro_cost),
-        m_repro_min_resources(c_init.repro_min_resources),
-        m_brain(c_init.strategy) {
+      : m_id(0), m_brain(c_init), m_age(0),
+        m_resources(c_init.starting_resources) {
     m_id = c_next_id++;
 }
 
@@ -88,7 +84,7 @@ int Creature::resources() const {
  */
 
 bool Creature::is_dead() const {
-    return ((m_resources <= 0) || (m_age > m_life_expectancy));
+    return ((m_brain.is_dead(m_age) || m_resources <= 0) ? true : false);
 }
 
 
@@ -142,7 +138,7 @@ void Creature::age_day() {
  */
 
 Creature * Creature::reproduce() {
-    Creature * new_creature = 0;
+/*    Creature * new_creature = 0;
 
     if ( m_resources >= m_repro_min_resources ) {
         CreatureInit c_init;
@@ -157,5 +153,7 @@ Creature * Creature::reproduce() {
         m_resources -= m_repro_cost;
     }
 
-    return new_creature;
+    return new_creature;*/
+
+    return m_brain.reproduce(m_resources);
 }

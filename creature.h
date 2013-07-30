@@ -71,13 +71,9 @@ class Creature {
         static int c_next_id;
 
         CreatureID m_id;
-        Day m_age;
-        Day m_life_expectancy;
-        Day m_life_expectancy_range;
-        int m_resources;
-        int m_repro_cost;
-        int m_repro_min_resources;
         Brain m_brain;
+        Day m_age;
+        int m_resources;
 
 
     //  Make comparison function objects friends to access data

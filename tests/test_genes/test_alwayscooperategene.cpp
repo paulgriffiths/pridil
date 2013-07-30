@@ -32,7 +32,7 @@ TEST_GROUP(AlwaysCooperateGeneGroup) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnFirstTest) {
-    Brain brain(always_cooperate);
+    Brain brain(CreatureInit(0, 0, always_cooperate, 0, 0, 0));
     AlwaysCooperateGene test_gene(brain);
     GameMove test_response;
     GameMove expected_response = coop;
@@ -49,7 +49,7 @@ TEST(AlwaysCooperateGeneGroup, CoopOnFirstTest) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnGoodMemoryTest) {
-    Brain brain(always_cooperate);
+    Brain brain(CreatureInit(0, 0, always_cooperate, 0, 0, 0));
     AlwaysCooperateGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
@@ -73,7 +73,7 @@ TEST(AlwaysCooperateGeneGroup, CoopOnGoodMemoryTest) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnGoodMemory2Test) {
-    Brain brain(always_cooperate);
+    Brain brain(CreatureInit(0, 0, always_cooperate, 0, 0, 0));
     AlwaysCooperateGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
@@ -94,7 +94,7 @@ TEST(AlwaysCooperateGeneGroup, CoopOnGoodMemory2Test) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnBadMemory1Test) {
-    Brain brain(always_cooperate);
+    Brain brain(CreatureInit(0, 0, always_cooperate, 0, 0, 0));
     AlwaysCooperateGene test_gene(brain);
 
     GameInfo gInfo(0, coop, defect, 0);
@@ -117,7 +117,7 @@ TEST(AlwaysCooperateGeneGroup, CoopOnBadMemory1Test) {
  */
 
 TEST(AlwaysCooperateGeneGroup, CoopOnBadMemory2Test) {
-    Brain brain(always_cooperate);
+    Brain brain(CreatureInit(0, 0, always_cooperate, 0, 0, 0));
     AlwaysCooperateGene test_gene(brain);
 
     GameInfo gInfo(0, defect, defect, 0);

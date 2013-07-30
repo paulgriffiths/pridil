@@ -32,7 +32,7 @@ TEST_GROUP(SuspTitForTatGeneGroup) {
  */
 
 TEST(SuspTitForTatGeneGroup, DefectOnFirstTest) {
-    Brain brain(susp_tit_for_tat);
+    Brain brain(CreatureInit(0, 0, susp_tit_for_tat, 0, 0, 0));
     SuspTitForTatGene test_gene(brain);
 
     GameMove test_response;
@@ -50,7 +50,7 @@ TEST(SuspTitForTatGeneGroup, DefectOnFirstTest) {
  */
 
 TEST(SuspTitForTatGeneGroup, CoopOnGoodMemoryTest) {
-    Brain brain(susp_tit_for_tat);
+    Brain brain(CreatureInit(0, 0, susp_tit_for_tat, 0, 0, 0));
     SuspTitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
@@ -70,7 +70,7 @@ TEST(SuspTitForTatGeneGroup, CoopOnGoodMemoryTest) {
  */
 
 TEST(SuspTitForTatGeneGroup, CoopOnGoodMemory2Test) {
-    Brain brain(susp_tit_for_tat);
+    Brain brain(CreatureInit(0, 0, susp_tit_for_tat, 0, 0, 0));
     SuspTitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
@@ -90,7 +90,7 @@ TEST(SuspTitForTatGeneGroup, CoopOnGoodMemory2Test) {
  */
 
 TEST(SuspTitForTatGeneGroup, DefectOnBadMemory1Test) {
-    Brain brain(susp_tit_for_tat);
+    Brain brain(CreatureInit(0, 0, susp_tit_for_tat, 0, 0, 0));
     SuspTitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, coop, defect, 0);
@@ -110,7 +110,7 @@ TEST(SuspTitForTatGeneGroup, DefectOnBadMemory1Test) {
  */
 
 TEST(SuspTitForTatGeneGroup, DefectOnBadMemory2Test) {
-    Brain brain(susp_tit_for_tat);
+    Brain brain(CreatureInit(0, 0, susp_tit_for_tat, 0, 0, 0));
     SuspTitForTatGene test_gene(brain);
 
     GameInfo gInfo(0, defect, defect, 0);

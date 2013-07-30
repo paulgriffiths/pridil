@@ -16,6 +16,8 @@
 
 #include "pridil_common.h"
 #include "genes/gene.h"
+#include "genes/death_gene.h"
+#include "genes/repro_gene.h"
 #include "genes/strategy_gene.h"
 #include "genes/strategy/always_cooperate_gene.h"
 #include "genes/strategy/always_defect_gene.h"

@@ -23,8 +23,8 @@ using namespace pridil;
  *  No initialization needed.
  */
 
-Brain::Brain(const Strategy strategy) : m_dna(*this, strategy),
-                                        m_memory() {}
+Brain::Brain(const CreatureInit& b_init) : m_dna(*this, b_init),
+                                           m_memory() {}
 
 
 /*
@@ -63,6 +63,23 @@ const std::string Brain::strategy() const {
     return m_dna.strategy();
 }
 
+
+/*
+ *  Returns true if age exceeds life expectancy
+ */
+
+bool Brain::is_dead(Day age) const {
+    return m_dna.is_dead(age);
+}
+
+
+/*
+ *  Returns a reproduced creature.
+ */
+
+Creature * Brain::reproduce(int& resources) const {
+    return m_dna.reproduce(resources);
+}
 
 /*
  *  Gets a game move against the specified creature.

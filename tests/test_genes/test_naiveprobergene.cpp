@@ -39,7 +39,7 @@ TEST_GROUP(NaiveProberGeneGroup) {
  */
 
 TEST(NaiveProberGeneGroup, CoopOnFirstTest) {
-    Brain brain(naive_prober);
+    Brain brain(CreatureInit(0, 0, naive_prober, 0, 0, 0));
     NaiveProberGene test_gene(brain);
 
     GameMove test_response;
@@ -57,7 +57,7 @@ TEST(NaiveProberGeneGroup, CoopOnFirstTest) {
  */
 
 TEST(NaiveProberGeneGroup, CoopOnGoodMemoryTest) {
-    Brain brain(naive_prober);
+    Brain brain(CreatureInit(0, 0, naive_prober, 0, 0, 0));
     NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
@@ -80,7 +80,7 @@ TEST(NaiveProberGeneGroup, CoopOnGoodMemoryTest) {
  */
 
 TEST(NaiveProberGeneGroup, DefectOnGoodMemoryTest) {
-    Brain brain(naive_prober);
+    Brain brain(CreatureInit(0, 0, naive_prober, 0, 0, 0));
     NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
@@ -103,7 +103,7 @@ TEST(NaiveProberGeneGroup, DefectOnGoodMemoryTest) {
  */
 
 TEST(NaiveProberGeneGroup, CoopOnGoodMemory2Test) {
-    Brain brain(naive_prober);
+    Brain brain(CreatureInit(0, 0, naive_prober, 0, 0, 0));
     NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
@@ -126,7 +126,7 @@ TEST(NaiveProberGeneGroup, CoopOnGoodMemory2Test) {
  */
 
 TEST(NaiveProberGeneGroup, DefectOnGoodMemory2Test) {
-    Brain brain(naive_prober);
+    Brain brain(CreatureInit(0, 0, naive_prober, 0, 0, 0));
     NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
@@ -149,7 +149,7 @@ TEST(NaiveProberGeneGroup, DefectOnGoodMemory2Test) {
  */
 
 TEST(NaiveProberGeneGroup, DefectOnBadMemory1Test) {
-    Brain brain(naive_prober);
+    Brain brain(CreatureInit(0, 0, naive_prober, 0, 0, 0));
     NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, coop, defect, 0);
@@ -169,7 +169,7 @@ TEST(NaiveProberGeneGroup, DefectOnBadMemory1Test) {
  */
 
 TEST(NaiveProberGeneGroup, DefectOnBadMemory2Test) {
-    Brain brain(naive_prober);
+    Brain brain(CreatureInit(0, 0, naive_prober, 0, 0, 0));
     NaiveProberGene test_gene(brain);
 
     GameInfo gInfo(0, defect, defect, 0);

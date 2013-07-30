@@ -32,7 +32,7 @@ TEST_GROUP(AlwaysDefectGeneGroup) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnFirstTest) {
-    Brain brain(always_defect);
+    Brain brain(CreatureInit(0, 0, always_defect, 0, 0, 0));
     AlwaysDefectGene test_gene(brain);
 
     GameMove test_response;
@@ -53,7 +53,7 @@ TEST(AlwaysDefectGeneGroup, DefectOnFirstTest) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnGoodMemoryTest) {
-    Brain brain(always_defect);
+    Brain brain(CreatureInit(0, 0, always_defect, 0, 0, 0));
     AlwaysDefectGene test_gene(brain);
 
     GameInfo gInfo(0, coop, coop, 0);
@@ -73,7 +73,7 @@ TEST(AlwaysDefectGeneGroup, DefectOnGoodMemoryTest) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnGoodMemory2Test) {
-    Brain brain(always_defect);
+    Brain brain(CreatureInit(0, 0, always_defect, 0, 0, 0));
     AlwaysDefectGene test_gene(brain);
 
     GameInfo gInfo(0, defect, coop, 0);
@@ -96,7 +96,7 @@ TEST(AlwaysDefectGeneGroup, DefectOnGoodMemory2Test) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnBadMemory1Test) {
-    Brain brain(always_defect);
+    Brain brain(CreatureInit(0, 0, always_defect, 0, 0, 0));
     AlwaysDefectGene test_gene(brain);
 
     GameInfo gInfo(0, coop, defect, 0);
@@ -116,7 +116,7 @@ TEST(AlwaysDefectGeneGroup, DefectOnBadMemory1Test) {
  */
 
 TEST(AlwaysDefectGeneGroup, DefectOnBadMemory2Test) {
-    Brain brain(always_defect);
+    Brain brain(CreatureInit(0, 0, always_defect, 0, 0, 0));
     AlwaysDefectGene test_gene(brain);
 
     GameInfo gInfo(0, defect, defect, 0);

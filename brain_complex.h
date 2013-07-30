@@ -61,6 +61,9 @@ class Memory {
 
 /*  Forward declarations for DNA class  */
 
+class Creature;
+class DeathGene;
+class ReproGene;
 class StrategyGene;
 class Brain;
 
@@ -72,13 +75,15 @@ class DNA {
 
         //  Constructor and destructor
 
-        explicit DNA(const Brain& brain, const Strategy strategy);
+        explicit DNA(const Brain& brain, const CreatureInit& c_init);
         ~DNA();
 
         //  Getter methods
 
         const std::string strategy() const;
         Strategy strategy_value() const;
+        bool is_dead(Day age) const;
+        Creature * reproduce(int& resources) const;
 
         //  Genetic action methods
 
@@ -88,6 +93,8 @@ class DNA {
     private:
         const Brain& m_brain;
         StrategyGene * m_strategy_gene;
+        DeathGene * m_death_gene;
+        ReproGene * m_repro_gene;
 
         DNA(const DNA&);                // Prevent copying
         DNA& operator=(const DNA&);     // Prevent assignment
@@ -101,7 +108,7 @@ class Brain {
 
         //  Constructor and destructor
 
-        explicit Brain(const Strategy strategy);
+        explicit Brain(const CreatureInit& c_init);
         ~Brain();
 
         //  Member functions for accessing memories
@@ -120,6 +127,8 @@ class Brain {
 
         const std::string strategy() const;
         Strategy strategy_value() const;
+        bool is_dead(Day age) const;
+        Creature * reproduce(int& resources) const;
         GameMove get_game_move(const CreatureID opponent) const;
 
     private:

@@ -28,10 +28,12 @@ using namespace pridil;
  *  class.
  */
 
-DNA::DNA(const Brain& brain, const Strategy strategy) :
+DNA::DNA(const Brain& brain, const CreatureInit& c_init) :
         m_brain(brain),
-        m_strategy_gene(0) {
-    switch ( strategy ) {
+        m_strategy_gene(0),
+        m_death_gene(0),
+        m_repro_gene(0) {
+    switch ( c_init.strategy ) {
         case tit_for_tat:
             m_strategy_gene = new TitForTatGene(m_brain);
             break;
@@ -56,15 +58,20 @@ DNA::DNA(const Brain& brain, const Strategy strategy) :
         default:
             throw UnknownStrategy();
      }
+    
+    m_death_gene = new DeathGene(m_brain, c_init);
+    m_repro_gene = new ReproGene(m_brain, c_init);
 }
 
 
 /*
- *  DNA destructor, deletes strategy gene
+ *  DNA destructor, deletes genes
  */
 
 DNA::~DNA() {
     delete m_strategy_gene;
+    delete m_death_gene;
+    delete m_repro_gene;
 }
 
 
@@ -83,6 +90,22 @@ const std::string DNA::strategy() const {
 
 Strategy DNA::strategy_value() const {
     return m_strategy_gene->strategy();
+}
+
+/*
+ *  Returns true if age exceeds life expectancy.
+ */
+
+bool DNA::is_dead(Day age) const {
+    return m_death_gene->is_dead(age);
+}
+
+/*
+ *  Returns a reproduced creature.
+ */
+
+Creature * DNA::reproduce(int& resources) const {
+    return m_repro_gene->reproduce(resources);
 }
 
 /*

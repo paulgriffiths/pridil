@@ -73,6 +73,7 @@ struct CreatureInit {
         repro_cost(rc), repro_min_resources(rmr) {}
 };
 
+
 /*
  *  Structure to record the result of a game, used as the basis of
  *  Creature memories of previous interactions with a given

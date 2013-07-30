@@ -37,6 +37,7 @@ OBJS+=genes/strategy_gene.o genes/strategy/always_cooperate_gene.o
 OBJS+=genes/strategy/always_defect_gene.o genes/strategy/random_strategy_gene.o
 OBJS+=genes/strategy/tit_for_tat_gene.o genes/strategy/susp_tit_for_tat_gene.o
 OBJS+=genes/strategy/tit_for_two_tats_gene.o genes/strategy/naive_prober_gene.o
+OBJS+=genes/death_gene.o genes/repro_gene.o
 
 TESTOBJS=tests/test_cmdline/test_cmdline_intopt.o
 TESTOBJS+=tests/test_cmdline/test_cmdline_parse_order.o
@@ -199,8 +200,18 @@ world.o: world.cpp world.h creature.h
 pg_string_helpers.o: pg_string_helpers.cpp pg_string_helpers.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
+genes/death_gene.o: genes/death_gene.cpp \
+		genes/death_gene.h \
+		genes/gene.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+genes/repro_gene.o: genes/repro_gene.cpp \
+		genes/repro_gene.h \
+		genes/gene.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
 genes/strategy_gene.o: genes/strategy_gene.cpp \
-		genes/strategy_gene.h genes/strategy_gene.h \
+		genes/strategy_gene.h \
 		genes/gene.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
