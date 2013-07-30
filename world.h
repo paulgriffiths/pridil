@@ -4,7 +4,16 @@
  *  Copyright 2013 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *
- *  Interface to World class for Prisoners' Dilemma simulation.
+ *  Interface to World class for Prisoner's Dilemma simulation.
+ *
+ *  The World class is the controlling class in the simulation, and the
+ *  only class available to the user. Its functions are to:
+ *
+ *   - create a population of creatures with the specified
+ *     characteristics;
+ *   - cause those creatures to play iterations of the prisoner's
+ *     dilemma with each other; and to
+ *   - provide statistics about the population and the iterations played.
  *
  *  Distributed under the terms of the GNU General Public License.
  *  http://www.gnu.org/licenses/
@@ -16,15 +25,10 @@
 
 #include <ostream>
 #include <vector>
-
 #include "pridil_common.h"
 #include "creature.h"
 
-
 namespace pridil {
-
-
-//  World class
 
 class World {
     public:
@@ -34,12 +38,10 @@ class World {
         explicit World(const WorldInfo& wInfo);
         ~World();
 
-
-        //  Methods to advance and show the current world day
+        //  Methods to show and advance the current world day
 
         Day day() const;
         void advance_day();
-
 
         //  Methods to output simulation results statistics
 
@@ -59,12 +61,10 @@ class World {
         CreatureList m_creatures;
         CreatureList m_dead_creatures;
 
-
         //  Method to play a game between two creatures
 
         void play_game(Creature * player1, Creature * player2);
 };
-
 
 }       //  namespace pridil
 

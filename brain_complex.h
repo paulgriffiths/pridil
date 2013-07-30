@@ -4,11 +4,25 @@
  *  Copyright 2013 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *
- *  Interface to Brain complex. Attention to forward declarations is
- *  necessary since the Brain class has a DNA member variable, and DNA
- *  class contains a reference to its parent Brain. DNA class also has
- *  a StrategyGene member variable, which also receives that same
- *  reference to a Brain object. 
+ *  Interface to Brain complex.
+ *
+ *  The "brain complex" consists of:
+ *   - DNA, which controls certain actions, and to which certain
+ *     decisions are referred;
+ *   - Memory, which stores memories of previous experiences, which
+ *     may influence actions and decisions; and
+ *   - Brain, which owns and acts as the interface between DNA and Memory
+ *     (DNA may consult Memory when making certain decisions), and which
+ *     acts as an interface between the Creature owning the Brain, and its
+ *     DNA and Memory. A liberty has been taken with the name, since DNA
+ *     does not belong to the brain in real organisms.
+ *
+ *  Attention to forward declarations is necessary since the Brain class
+ *  has a DNA member variable, and DNA class contains a reference to its
+ *  parent Brain. DNA class also has a StrategyGene member variable, which
+ *  also receives that same reference to a Brain object. Defining the
+ *  Brain, DNA and Memory classes within this single header file ensures
+ *  the references are appropriately handled.
  *
  *  Distributed under the terms of the GNU General Public License.
  *  http://www.gnu.org/licenses/
@@ -22,7 +36,6 @@
 #include "pridil_common.h"
 
 namespace pridil {
-
 
 class Memory {
     public:
@@ -78,7 +91,6 @@ class DNA {
 
         DNA(const DNA&);                // Prevent copying
         DNA& operator=(const DNA&);     // Prevent assignment
-
 };
 
 
@@ -114,7 +126,6 @@ class Brain {
         DNA m_dna;
         Memory m_memory;
 };
-
 
 }       //  namespace pridil
 

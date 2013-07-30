@@ -6,6 +6,9 @@
  *
  *  Common includes for iterated prisoner's dilemma simulation.
  *
+ *  Main *.cpp files can include all common functionality by
+ *  #include-ing this file.
+ *
  *  Distributed under the terms of the GNU General Public License.
  *  http://www.gnu.org/licenses/
  */

@@ -6,6 +6,12 @@
  *
  *  Common types for iterated prisoner's dilemma simulation.
  *
+ *  The classes, structs, enumerations, exceptions and typedefs
+ *  defined herein are self-contained, and are widely used by a variety
+ *  of the main classes within the simulation, and are defined in a
+ *  single file for ease of access and to avoid the need for
+ *  forward declarations.
+ *
  *  Distributed under the terms of the GNU General Public License.
  *  http://www.gnu.org/licenses/
  */
@@ -18,9 +24,7 @@
 #include <map>
 #include <list>
 
-
 namespace pridil {
-
 
 //  Simple typedefs
 
@@ -36,13 +40,13 @@ enum Strategy { random_strategy, tit_for_tat, susp_tit_for_tat,
                 tit_for_two_tats, grudger, naive_prober, remorseful_prober,
                 always_cooperate, always_defect };
 
-// Exceptions
+//  Exceptions
 
 class BadGameMove {};
 class UnknownStrategy {};
 class InvalidOpponentMemory {};
 
-// Structures and classes
+//  Structures and classes
 
 /*
  *  Structure used to initialize a Creature instance
@@ -69,7 +73,6 @@ struct CreatureInit {
         repro_cost(rc), repro_min_resources(rmr) {}
 };
 
-
 /*
  *  Structure to record the result of a game, used as the basis of
  *  Creature memories of previous interactions with a given
@@ -90,7 +93,6 @@ struct GameInfo {
         id(i), own_move(ow), opponent_move(op), result(res) {}
     GameInfo() : id(0), own_move(coop), opponent_move(coop), result(3) {}
 };
-
 
 /*
  *  WorldInfo structure for holding attributes about the
@@ -133,12 +135,10 @@ struct WorldInfo {
         m_disable_deaths(false), m_disable_repro(false) {}
 };
 
-
 //  Class and struct typedefs
 
 typedef std::list<GameInfo *> GameInfoList;
 typedef std::map<CreatureID, GameInfoList > GameInfoMap;
-
 
 }       //  namespace pridil
 

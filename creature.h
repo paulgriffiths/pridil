@@ -4,7 +4,21 @@
  *  Copyright 2013 Paul Griffiths
  *  Email: mail@paulgriffiths.net
  *
- *  Interface to Creature class for Prisoners' Dilemma simulation.
+ *  Interface to Creature class for Prisoner's Dilemma simulation.
+ *
+ *  A Creature is the basic actor in the Pridil world. It can:
+ *   - play iterations of the prisoner's dilemma game with other Creatures;
+ *   - remember those interactions;
+ *   - acquire or lose resources as a result of those interactions;
+ *   - age;
+ *   - die when it runs out of resources or reaches its life expectancy;
+ *   - reproduce when it has sufficient resources;
+ *
+ *  The way in which a Creature plays iterations of the prisoner's
+ *  dilemma game with other creatures is determined by the strategy
+ *  contained within a specific gene in its DNA, which is turn may
+ *  consult the Creature's Memory in coming to its decision. A
+ *  Creature's DNA and Memory are contained within its Brain.
  *
  *  Distributed under the terms of the GNU General Public License.
  *  http://www.gnu.org/licenses/
@@ -20,9 +34,7 @@
 #include "pridil_common.h"
 #include "brain_complex.h"
 
-
 namespace pridil {
-
 
 /*
  *  Creature class
@@ -71,7 +83,6 @@ class Creature {
     //  Make comparison function objects friends to access data
 
     friend class CompareCreatureByID;
-
 };
 
 
@@ -92,7 +103,6 @@ class CompareCreatureByID {
             return c1->m_id < c2->m_id;
         }
 };
-
 
 }       //  namespace pridil
 
