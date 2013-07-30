@@ -18,13 +18,13 @@
 # Use these settings to initially populate the world with creatures having
 # the listed strategies. The default is zero for any not provided.
 
-random_strategy = 1    
-tit_for_tat = 1
-tit_for_two_tats = 1
-susp_tit_for_tat = 1
-naive_prober = 1
-always_cooperate = 1
-always_defect = 1
+random_strategy = 10
+tit_for_tat = 10
+tit_for_two_tats = 10
+susp_tit_for_tat = 10
+naive_prober = 10
+always_cooperate = 10
+always_defect = 10
 
 
 # World options
@@ -41,11 +41,29 @@ always_defect = 1
 #    may increase or decrease as a result of each game.
 # - 'days_to_run' is given in days. The simulation will run for this
 #    number of days.
+# - 'repro_cost' is given in nominal resource units, each creature will
+#    lose this quantity of resources when it reproduces, and its offspring
+#    will begin its life with this quantity of resources
+# - 'repro_min_resources' is given in nominal resource units, each creature
+#    must have this quantity of resources before it can reproduce, to
+#    ensure that it has a reasonable quantity of resources after it
+#    reproduces and "donates" some of its resources to its offspring.
+# - 'repro_cycle_days' is given in days, and represents the length
+#    of the reproduction cycle, e.g. if set to 10 then every 10 days
+#    a creature will reproduce it its resources exceed the minimum.
+# - 'disable deaths' is equivalent to the -D command line flag.
+# - 'disable reproduction' is equivalent to the -R command line flag.
 
 default_life_expectancy = 10000
 default_life_expectancy_range = 0
 default_starting_resources = 100
-days_to_run = 10000
+days_to_run = 150
+repro_cost = 50
+repro_min_resources = 75
+repro_cycle_days = 10
+
+# disable deaths
+# disable reproduction
 
 
 # Display options

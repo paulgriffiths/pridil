@@ -12,8 +12,9 @@
 
 
 #include <string>
-
 #include "game.h"
+
+using namespace pridil;
 
 
 /*
@@ -29,7 +30,7 @@
  *    BadGameMove() on an unrecognized game move.
  */
 
-std::string game_move_name(const GameMove move) {
+std::string pridil::game_move_name(const GameMove& move) {
     std::string move_name;
 
     switch ( move ) {
@@ -84,7 +85,7 @@ std::string game_move_name(const GameMove move) {
  *    BadGameMove() on an unrecognized game move.
  */
 
-GameMove simplify_game_move(const GameMove move) {
+GameMove pridil::simplify_game_move(const GameMove& move) {
     GameMove simplified_move;
 
     switch ( move ) {
@@ -142,7 +143,7 @@ GameMove simplify_game_move(const GameMove move) {
  *  interactions).
  */
 
-void game_result(GameInfo& own_ginfo, GameInfo& opp_ginfo) {
+void pridil::game_result(GameInfo& own_ginfo, GameInfo& opp_ginfo) {
     static const int reward_coop = 6;
     static const int cost_to_play = 1;
     static const int cost_to_coop = 2;

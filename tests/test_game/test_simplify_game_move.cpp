@@ -16,6 +16,8 @@
 #include <CppUTest/CommandLineTestRunner.h>
 #include "../../game.h"
 
+using namespace pridil;
+
 
 TEST_GROUP(SimplifyGameMoveGroup) {
 };

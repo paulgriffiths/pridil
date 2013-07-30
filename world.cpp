@@ -22,9 +22,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <cassert>
-
+#include "pridil_common.h"
 #include "world.h"
 #include "creature.h"
+#include "game.h"
+
 
 using std::endl;
 using std::ostream;
@@ -36,6 +38,8 @@ using std::string;
 using std::max;
 using std::min;
 using std::pair;
+
+using namespace pridil;
 
 
 /*
@@ -58,6 +62,8 @@ World::World(const WorldInfo& wInfo) : m_wInfo(wInfo),
     c_init.life_expectancy = wInfo.m_default_life_expectancy;
     c_init.life_expectancy_range = wInfo.m_default_life_expectancy_range;
     c_init.starting_resources = wInfo.m_default_starting_resources;
+    c_init.repro_cost = wInfo.m_repro_cost;
+    c_init.repro_min_resources = wInfo.m_repro_min_resources;
 
     for ( int i = 0; i < wInfo.m_random_strategy; ++i ) {
         c_init.strategy = random_strategy;
@@ -165,20 +171,34 @@ void World::advance_day() {
 
     //  Age each creature a day
 
+    Creature * new_creature;
+    CreatureList newborns;
     CreatureList::iterator i;
     for ( i = m_creatures.begin(); i != m_creatures.end(); ) {
         (*i)->age_day();
 
-        //  Check for deaths
+        //  Check for deaths and reproductions
 
         if ( (m_wInfo.m_disable_deaths != true) && (*i)->is_dead() ) {
             m_dead_creatures.push_back(*i);
             CreatureList::iterator temp = m_creatures.erase(i);
             i = temp;
             ++m_wInfo.m_dead_creatures;
+        } else if ( (m_wInfo.m_disable_repro != true) &&
+                    (m_day % m_wInfo.m_repro_cycle_days) == 0 ) {
+            new_creature = (*i)->reproduce();
+            if ( new_creature != 0 ) {
+                newborns.push_back(new_creature);
+                ++m_wInfo.m_born_creatures;
+            }
+            ++i;
         } else {
             ++i;
         }
+    }
+    if ( newborns.empty() != true ) {
+        m_creatures.insert(m_creatures.end(),
+                           newborns.begin(), newborns.end());
     }
 
     //  Increment world days

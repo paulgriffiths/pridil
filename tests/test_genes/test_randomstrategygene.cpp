@@ -15,11 +15,11 @@
 
 
 #include <CppUTest/CommandLineTestRunner.h>
-
 #include <cstdlib>
+#include "../../genes.h"
+#include "../../brain_complex.h"
 
-#include "../../dna.h"
-#include "../../brain.h"
+using namespace pridil;
 
 
 static int time_out;

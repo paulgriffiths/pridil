@@ -12,11 +12,9 @@
 
 
 #include <iostream>
+#include "brain_complex.h"
 
-#include "brain.h"
-#include "dna.h"
-#include "memory.h"
-#include "game.h"
+using namespace pridil;
 
 
 /*
@@ -110,5 +108,14 @@ GameMove Brain::remember_move(const CreatureID opponent,
 
 unsigned int Brain::num_memories(const CreatureID opponent) const {
     return m_memory.num_memories(opponent);
+}
+
+
+/*
+ *  Returns the strategy enum value of the DNA.
+ */
+
+Strategy Brain::strategy_value() const {
+    return m_dna.strategy_value();
 }
 

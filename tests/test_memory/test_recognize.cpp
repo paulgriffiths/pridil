@@ -14,8 +14,10 @@
 
 
 #include <CppUTest/CommandLineTestRunner.h>
+#include "../../brain_complex.h"
 #include "../../game.h"
-#include "../../memory.h"
+
+using namespace pridil;
 
 
 TEST_GROUP(RecognizeMemoryGroup) {

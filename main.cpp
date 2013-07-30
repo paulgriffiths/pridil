@@ -17,7 +17,7 @@
 #include <string>
 #include <cctype>
 
-#include "world.h"
+#include "pridil.h"
 #include "cmdline.h"
 
 
@@ -46,7 +46,7 @@ namespace {
  */
 
 bool ParseCmdLine(const int argc, char const* const* argv,
-                  WorldInfo& wInfo,
+                  pridil::WorldInfo& wInfo,
                   DisplayOptions& dOptions);
 
 
@@ -55,7 +55,7 @@ bool ParseCmdLine(const int argc, char const* const* argv,
  */
 
 int main(int argc, char ** argv) {
-    WorldInfo wInfo;
+    pridil::WorldInfo wInfo;
     DisplayOptions dOptions;
 
     //  Get command line and config file options
@@ -70,7 +70,7 @@ int main(int argc, char ** argv) {
 
     //  Initialize and run world.
 
-    World world(wInfo);
+    pridil::World world(wInfo);
     for ( int i = 0; i < wInfo.m_days_to_run; ++i ) {
         world.advance_day();
     }
@@ -139,7 +139,7 @@ namespace {
  */
 
 bool ParseCmdLine(const int argc, char const* const* argv,
-                  WorldInfo& wInfo,
+                  pridil::WorldInfo& wInfo,
                   DisplayOptions& dOptions) {
 
     //  Create CmdLineOptions object and set flags & options
@@ -155,6 +155,8 @@ bool ParseCmdLine(const int argc, char const* const* argv,
                   "show summary creature statistics", false);
     opts.set_flag("disable deaths", "-D", "--disabledeaths",
                   "disable death of creatures when resources expire", false);
+    opts.set_flag("disable reproduction", "-R", "--disablerepro",
+                  "disable reproduction of creatures", false);
     opts.set_intopt("days_to_run", "-y", "--daystorun",
                     "specify number of days to run", true, 100);
     opts.set_stropt("configfile", "-c", "--configfile",
@@ -189,6 +191,10 @@ bool ParseCmdLine(const int argc, char const* const* argv,
     iol.push_back(Option<int>("always_defect", &wInfo.m_always_defect, 0));
     iol.push_back(Option<int>("default_starting_resources",
                               &wInfo.m_default_starting_resources, 100));
+    iol.push_back(Option<int>("repro_cost",
+                              &wInfo.m_repro_cost, 50));
+    iol.push_back(Option<int>("repro_min_resources",
+                              &wInfo.m_repro_min_resources, 75));
 
     std::list<Option<int> >::iterator i;
     int opt_val;
@@ -202,15 +208,18 @@ bool ParseCmdLine(const int argc, char const* const* argv,
     }
 
 
-    std::list<Option<Day> > dol;
-    dol.push_back(Option<Day>("default_life_expectancy",
+    std::list<Option<pridil::Day> > dol;
+    dol.push_back(Option<pridil::Day>("default_life_expectancy",
                               &wInfo.m_default_life_expectancy, 10000));
-    dol.push_back(Option<Day>("default_life_expectancy_range",
+    dol.push_back(Option<pridil::Day>("default_life_expectancy_range",
                               &wInfo.m_default_life_expectancy_range, 0));
-    dol.push_back(Option<Day>("days_to_run", &wInfo.m_days_to_run, 100));
+    dol.push_back(Option<pridil::Day>("days_to_run",
+                              &wInfo.m_days_to_run, 100));
+    dol.push_back(Option<pridil::Day>("repro_cycle_days",
+                              &wInfo.m_repro_cycle_days, 10));
 
-    std::list<Option<Day> >::iterator d;
-    Day day_val;
+    std::list<Option<pridil::Day> >::iterator d;
+    pridil::Day day_val;
     for ( d = dol.begin(); d != dol.end(); ++d ) {
         try {
             day_val = opts.get_intopt_value((*d).name);
@@ -224,6 +233,7 @@ bool ParseCmdLine(const int argc, char const* const* argv,
     //  Populate WorldInfo struct based on flags provided
 
     wInfo.m_disable_deaths = opts.is_flag_set("disable deaths");
+    wInfo.m_disable_repro = opts.is_flag_set("disable reproduction");
 
 
     //  Populate DisplayOptions struct based on flags provided

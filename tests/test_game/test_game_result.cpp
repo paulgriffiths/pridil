@@ -16,6 +16,9 @@
 #include <CppUTest/CommandLineTestRunner.h>
 #include "../../game.h"
 
+using namespace pridil;
+
+
 static int mutual_coop_result = 3;
 static int mutual_defect_result = -1;
 static int sucker_result = -3;

@@ -15,8 +15,10 @@
 
 
 #include <CppUTest/CommandLineTestRunner.h>
-#include "../../dna.h"
-#include "../../brain.h"
+#include "../../genes.h"
+#include "../../brain_complex.h"
+
+using namespace pridil;
 
 
 TEST_GROUP(TitForTatGeneGroup) {

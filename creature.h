@@ -17,29 +17,11 @@
 #include <ostream>
 #include <string>
 
-#include "brain.h"
-#include "pridil_types.h"
+#include "pridil_common.h"
+#include "brain_complex.h"
 
 
-/*
- *  Structure used to initialize a Creature instance
- */
-
-struct CreatureInit {
-    Day life_expectancy;
-    Day life_expectancy_range;
-    Strategy strategy;
-    int starting_resources;
-
-    CreatureInit() :
-        life_expectancy(0), life_expectancy_range(0),
-        strategy(random_strategy), starting_resources(0) {}
-
-    CreatureInit(const Day& le, const Day& ler,
-                 const Strategy& stgy, const int res) :
-        life_expectancy(le), life_expectancy_range(ler),
-        strategy(stgy), starting_resources(res) {}
-};
+namespace pridil {
 
 
 /*
@@ -69,6 +51,9 @@ class Creature {
         void give_game_result(const GameInfo& g_info);
         void age_day();
 
+        //  Reproduction member function
+
+        Creature * reproduce();
 
     private:
         static int c_next_id;
@@ -78,6 +63,8 @@ class Creature {
         Day m_life_expectancy;
         Day m_life_expectancy_range;
         int m_resources;
+        int m_repro_cost;
+        int m_repro_min_resources;
         Brain m_brain;
 
 
@@ -86,6 +73,13 @@ class Creature {
     friend class CompareCreatureByID;
 
 };
+
+
+/*
+ *  Typedef for CreatureList
+ */
+
+typedef std::vector<Creature *> CreatureList;
 
 
 /*
@@ -98,5 +92,8 @@ class CompareCreatureByID {
             return c1->m_id < c2->m_id;
         }
 };
+
+
+}       //  namespace pridil
 
 #endif      // PG_PRIDIL_CREATURE_H

@@ -15,8 +15,9 @@
 
 #include <CppUTest/CommandLineTestRunner.h>
 #include "../../creature.h"
-#include "../../pridil_types.h"
 #include "../../game.h"
+
+using namespace pridil;
 
 
 static void play_game(Creature * creature1, Creature * creature2);
@@ -48,8 +49,8 @@ TEST_GROUP(CreatureBattleGroup) {
  */
 
 TEST(CreatureBattleGroup, TftVsTftTest) {
-    Creature creature1(CreatureInit(1000, 0, tit_for_tat, 100));
-    Creature creature2(CreatureInit(1000, 0, tit_for_tat, 100));
+    Creature creature1(CreatureInit(1000, 0, tit_for_tat, 100, 50, 75));
+    Creature creature2(CreatureInit(1000, 0, tit_for_tat, 100, 50, 75));
 
     for ( int i = 0; i < 5; ++i ) {
         play_game(&creature1, &creature2);
@@ -80,8 +81,8 @@ TEST(CreatureBattleGroup, TftVsTftTest) {
  */
 
 TEST(CreatureBattleGroup, TftVsStftTest) {
-    Creature creature1(CreatureInit(1000, 0, tit_for_tat, 100));
-    Creature creature2(CreatureInit(1000, 0, susp_tit_for_tat, 100));
+    Creature creature1(CreatureInit(1000, 0, tit_for_tat, 100, 50, 75));
+    Creature creature2(CreatureInit(1000, 0, susp_tit_for_tat, 100, 50, 75));
 
     for ( int i = 0; i < 5; ++i ) {
         play_game(&creature1, &creature2);
@@ -112,8 +113,8 @@ TEST(CreatureBattleGroup, TftVsStftTest) {
  */
 
 TEST(CreatureBattleGroup, AcVsAdTest) {
-    Creature creature1(CreatureInit(1000, 0, always_cooperate, 100));
-    Creature creature2(CreatureInit(1000, 0, always_defect, 100));
+    Creature creature1(CreatureInit(1000, 0, always_cooperate, 100, 50, 75));
+    Creature creature2(CreatureInit(1000, 0, always_defect, 100, 50, 75));
 
     for ( int i = 0; i < 5; ++i ) {
         play_game(&creature1, &creature2);
@@ -143,8 +144,8 @@ TEST(CreatureBattleGroup, AcVsAdTest) {
  */
 
 TEST(CreatureBattleGroup, StftVsAdTest) {
-    Creature creature1(CreatureInit(1000, 0, susp_tit_for_tat, 100));
-    Creature creature2(CreatureInit(1000, 0, always_defect, 100));
+    Creature creature1(CreatureInit(1000, 0, susp_tit_for_tat, 100, 50, 75));
+    Creature creature2(CreatureInit(1000, 0, always_defect, 100, 50, 75));
 
     for ( int i = 0; i < 5; ++i ) {
         play_game(&creature1, &creature2);
@@ -175,8 +176,8 @@ TEST(CreatureBattleGroup, StftVsAdTest) {
  */
 
 TEST(CreatureBattleGroup, TfttVsStftTest) {
-    Creature creature1(CreatureInit(1000, 0, tit_for_two_tats, 100));
-    Creature creature2(CreatureInit(1000, 0, susp_tit_for_tat, 100));
+    Creature creature1(CreatureInit(1000, 0, tit_for_two_tats, 100, 50, 75));
+    Creature creature2(CreatureInit(1000, 0, susp_tit_for_tat, 100, 50, 75));
 
     for ( int i = 0; i < 5; ++i ) {
         play_game(&creature1, &creature2);
