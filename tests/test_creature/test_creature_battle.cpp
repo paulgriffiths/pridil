@@ -15,7 +15,6 @@
 
 #include <CppUTest/CommandLineTestRunner.h>
 #include "../../creature.h"
-#include "../../pridil_types.h"
 #include "../../game.h"
 
 

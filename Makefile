@@ -291,27 +291,27 @@ tests/test_cmdline/test_cmdline_parsereturn.o: \
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_genes/cmdline/test_titfortatgene.o: \
-	tests/test_genes/test_titfortatgene.cpp dna.h
+	tests/test_genes/test_titfortatgene.cpp brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_genes/test_susptitfortatgene.o: \
-	tests/test_genes/test_susptitfortatgene.cpp dna.h
+	tests/test_genes/test_susptitfortatgene.cpp brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_genes/test_alwayscooperategene.o: \
-	tests/test_genes/test_alwayscooperategene.cpp dna.h
+	tests/test_genes/test_alwayscooperategene.cpp brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_genes/test_alwaysdefectgene.o: \
-	tests/test_genes/test_alwaysdefectgene.cpp dna.h
+	tests/test_genes/test_alwaysdefectgene.cpp brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_genes/test_randomstrategygene.o: \
-	tests/test_genes/test_randomstrategygene.cpp dna.h
+	tests/test_genes/test_randomstrategygene.cpp brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_genes/test_naiveprobergene.o: \
-	tests/test_genes/test_naiveprobergene.cpp dna.h
+	tests/test_genes/test_naiveprobergene.cpp brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_game/test_simplify_game_move.o: \
@@ -323,15 +323,15 @@ tests/test_game/test_game_result.o: \
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_memory/test_store_memory.o: \
-	tests/test_memory/test_store_memory.cpp game.h memory.h
+	tests/test_memory/test_store_memory.cpp game.h brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_memory/test_recognize.o: \
-	tests/test_memory/test_recognize.cpp game.h memory.h
+	tests/test_memory/test_recognize.cpp game.h brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_memory/test_num_memories.o: \
-	tests/test_memory/test_num_memories.cpp game.h memory.h
+	tests/test_memory/test_num_memories.cpp game.h brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_creature/test_creature_battle.o: \

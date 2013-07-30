@@ -18,8 +18,8 @@
 
 #include <cstdlib>
 
-#include "../../dna.h"
-#include "../../brain.h"
+#include "../../genes.h"
+#include "../../brain_complex.h"
 
 
 static int time_out;
