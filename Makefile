@@ -33,6 +33,10 @@ TESTMAINOBJ=tests/unittests.o
 
 OBJS=cmdline.o creature.o dna.o game.o brain.o
 OBJS+=memory.o world.o pg_string_helpers.o
+OBJS+=genes/strategy_gene.o genes/strategy/always_cooperate_gene.o
+OBJS+=genes/strategy/always_defect_gene.o genes/strategy/random_strategy_gene.o
+OBJS+=genes/strategy/tit_for_tat_gene.o genes/strategy/susp_tit_for_tat_gene.o
+OBJS+=genes/strategy/tit_for_two_tats_gene.o genes/strategy/naive_prober_gene.o
 
 TESTOBJS=tests/test_cmdline/test_cmdline_intopt.o
 TESTOBJS+=tests/test_cmdline/test_cmdline_parse_order.o
@@ -57,6 +61,8 @@ TESTOBJS+=tests/test_creature/test_creature_battle.o
 
 # Source and clean files and globs
 SRCS=$(wildcard *.cpp *.h)
+SRCS+=$(wildcard genes/*.cpp genes/*.h)
+SRCS+=$(wildcard genes/strategy/*.cpp genes/strategy/*.h)
 SRCS+=$(wildcard tests/*.cpp tests/*.h)
 SRCS+=$(wildcard tests/test_cmdline/*.cpp tests/test_cmdline/*.h)
 SRCS+=$(wildcard tests/test_genes/*.cpp tests/test_genes/*.h)
@@ -66,6 +72,8 @@ SRCS+=$(wildcard tests/test_creature/*.cpp tests/test_creature/*.h)
 SRCS+=$(wildcard tests/test_pg_string/*.cpp tests/test_pg_string/*.h)
 
 SRCGLOB=*.cpp *.h
+SRCGLOB+=genes/*.cpp genes/*.h
+SRCGLOB+=genes/strategy/*.cpp genes/strategy/*.h
 SRCGLOB+=tests/*.cpp tests/*.h
 SRCGLOB+=tests/test_cmdline/*.cpp tests/test_cmdline/*.h
 SRCGLOB+=tests/test_genes/*.cpp tests/test_genes/*.h
@@ -76,6 +84,10 @@ SRCGLOB+=tests/test_pg_string/*.cpp tests/test_pg_string/*.h
 
 CLNGLOB=pridil unittests
 CLNGLOB+=*~ *.o *.gcov *.out *.gcda *.gcno
+CLNGLOB+=genes/*~ genes/*.o genes/*.gcov genes/*.out genes/*.gcda genes/*.gcno
+CLNGLOB+=genes/strategy/*~ genes/strategy/*.o
+CLNGLOB+=genes/strategy/*.gcov genes/strategy/*.out
+CLNGLOB+=genes/strategy/*.gcda genes/strategy/*.gcno
 CLNGLOB+=tests/*~ tests/*.o tests/*.gcov tests/*.out tests/*.gcda tests/*.gcno
 CLNGLOB+=tests/test_cmdline/*~ tests/test_cmdline/*.o
 CLNGLOB+=tests/test_cmdline/*.gcov tests/test_cmdline/*.out
@@ -168,22 +180,76 @@ cmdline.o: cmdline.cpp cmdline.h pg_string_helpers.h
 creature.o: creature.cpp creature.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-brain.o: brain.cpp brain.h game.h memory.h dna.h
+brain.o: brain.cpp brain_complex.h game.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-dna.o: dna.cpp dna.h game.h
+dna.o: dna.cpp brain_complex.h game.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 game.o: game.cpp game.h 
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-memory.o: memory.cpp memory.h game.h
+memory.o: memory.cpp brain_complex.h game.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 world.o: world.cpp world.h creature.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 pg_string_helpers.o: pg_string_helpers.cpp pg_string_helpers.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+genes/strategy_gene.o: genes/strategy_gene.cpp \
+		genes/strategy_gene.h genes/strategy_gene.h \
+		genes/gene.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+genes/strategy/always_cooperate_gene.o: \
+		genes/strategy/always_cooperate_gene.cpp \
+		genes/strategy/always_cooperate_gene.h \
+		genes/strategy_gene.h \
+		genes/gene.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+genes/strategy/always_defect_gene.o: \
+		genes/strategy/always_defect_gene.cpp \
+		genes/strategy/always_defect_gene.h \
+		genes/strategy_gene.h \
+		genes/gene.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+genes/strategy/random_strategy_gene.o: \
+		genes/strategy/random_strategy_gene.cpp \
+		genes/strategy/random_strategy_gene.h \
+		genes/strategy_gene.h \
+		genes/gene.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+genes/strategy/tit_for_tat_gene.o: \
+		genes/strategy/tit_for_tat_gene.cpp \
+		genes/strategy/tit_for_tat_gene.h \
+		genes/strategy_gene.h \
+		genes/gene.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+genes/strategy/susp_tit_for_tat_gene.o: \
+		genes/strategy/susp_tit_for_tat_gene.cpp \
+		genes/strategy/susp_tit_for_tat_gene.h \
+		genes/strategy_gene.h \
+		genes/gene.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+genes/strategy/tit_for_two_tats_gene.o: \
+		genes/strategy/tit_for_two_tats_gene.cpp \
+		genes/strategy/tit_for_two_tats_gene.h \
+		genes/strategy_gene.h \
+		genes/gene.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+genes/strategy/naive_prober_gene.o: \
+		genes/strategy/naive_prober_gene.cpp \
+		genes/strategy/naive_prober_gene.h \
+		genes/strategy_gene.h \
+		genes/gene.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 

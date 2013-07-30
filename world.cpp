@@ -22,9 +22,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <cassert>
-
+#include "pridil_common.h"
 #include "world.h"
 #include "creature.h"
+#include "game.h"
+
 
 using std::endl;
 using std::ostream;

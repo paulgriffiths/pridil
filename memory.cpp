@@ -13,7 +13,7 @@
 
 #include <iostream>
 
-#include "memory.h"
+#include "brain_complex.h"
 #include "game.h"
 
 

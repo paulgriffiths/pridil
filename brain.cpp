@@ -12,11 +12,7 @@
 
 
 #include <iostream>
-
-#include "brain.h"
-#include "dna.h"
-#include "memory.h"
-#include "game.h"
+#include "brain_complex.h"
 
 
 /*

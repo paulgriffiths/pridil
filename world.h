@@ -17,8 +17,8 @@
 #include <ostream>
 #include <vector>
 
+#include "pridil_common.h"
 #include "creature.h"
-#include "pridil_types.h"
 
 
 //  WorldInfo structure for holding attributes about the
