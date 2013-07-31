@@ -120,23 +120,24 @@ World::~World() {
 
     //  Delete dynamically allocated creatures.
 
-    CreatureList::iterator i;
-    for ( i = m_creatures.begin(); i != m_creatures.end(); ++i ) {
-        if ( *i != 0 ) {
-            delete *i;
-        }
+    CreatureList::iterator itr_live_creature;
+    for ( itr_live_creature = m_creatures.begin();
+          itr_live_creature != m_creatures.end();
+          ++itr_live_creature ) {
+        delete *itr_live_creature;
     }
 
-    for ( i = m_dead_creatures.begin(); i != m_dead_creatures.end(); ++i ) {
-        if ( *i != 0 ) {
-            delete *i;
-        }
+    CreatureList::iterator itr_dead_creature;
+    for ( itr_dead_creature = m_dead_creatures.begin();
+          itr_dead_creature != m_dead_creatures.end();
+          ++itr_dead_creature ) {
+        delete *itr_dead_creature;
     }
 }
 
 
 /*
- *  Member function returns the current world day.
+ *  Returns the current world day.
  */
 
 Day World::day() const {
@@ -145,7 +146,7 @@ Day World::day() const {
 
 
 /*
- *  Member function completes a world day.
+ *  Completes a world day.
  *
  *  Each creature (unless there is an odd number of creatures, in which case
  *  one of them sits out) is paired with a random other creature and a
@@ -160,45 +161,51 @@ void World::advance_day() {
 
     //  Play paired games
 
-    CreatureList::iterator itm1;
-    CreatureList::iterator itm2;
-    for ( itm1 = m_creatures.begin(), itm2 = itm1 + 1;
-          itm1 != m_creatures.end() && itm1 != (m_creatures.end() - 1);
-          itm1 += 2, itm2 += 2 ) {
-        play_game(*itm1, *itm2);
-        m_games_played += 1;
+    CreatureList::iterator itr_c1;
+    CreatureList::iterator itr_c2;
+    for ( itr_c1 = m_creatures.begin(), itr_c2 = itr_c1 + 1;
+          itr_c1 != m_creatures.end() && itr_c1 != (m_creatures.end() - 1);
+          itr_c1 += 2, itr_c2 += 2 ) {
+        play_game(*itr_c1, *itr_c2);
+        ++m_games_played;
     }
 
-    //  Age each creature a day
+    //  Age each creature a day, checking for deaths and births
+    //  Note that we can't increment itr_creature within the
+    //  for loop, because we have to use std::vector.erase() to
+    //  get the next position when we remove a dead creature from
+    //  the list.
 
-    Creature * new_creature;
     CreatureList newborns;
-    CreatureList::iterator i;
-    for ( i = m_creatures.begin(); i != m_creatures.end(); ) {
-        (*i)->age_day();
+    for ( CreatureList::iterator itr_creature = m_creatures.begin();
+          itr_creature != m_creatures.end(); /* empty expression */ ) {
+
+        Creature* creature = *itr_creature;
+        creature->age_day();
 
         //  Check for deaths and reproductions
 
-        if ( (m_wInfo.m_disable_deaths != true) && (*i)->is_dead() ) {
-            m_dead_creatures.push_back(*i);
-            CreatureList::iterator temp = m_creatures.erase(i);
-            i = temp;
+        if ( (m_wInfo.m_disable_deaths != true) && creature->is_dead() ) {
+            m_dead_creatures.push_back(creature);
+            itr_creature = m_creatures.erase(itr_creature);
             ++m_wInfo.m_dead_creatures;
         } else if ( (m_wInfo.m_disable_repro != true) &&
                     (m_day % m_wInfo.m_repro_cycle_days) == 0 ) {
-            new_creature = (*i)->reproduce();
-            if ( new_creature != 0 ) {
+            Creature* new_creature = creature->reproduce();
+            if ( new_creature ) {
                 newborns.push_back(new_creature);
                 ++m_wInfo.m_born_creatures;
             }
-            ++i;
+            ++itr_creature;
         } else {
-            ++i;
+            ++itr_creature;
         }
     }
+
+    //  Add any newborns to live creatures list
+
     if ( newborns.empty() != true ) {
-        m_creatures.insert(m_creatures.end(),
-                           newborns.begin(), newborns.end());
+        m_creatures.insert(m_creatures.end(), newborns.begin(), newborns.end());
     }
 
     //  Increment world days
@@ -226,14 +233,12 @@ void World::play_game(Creature * creature1, Creature * creature2) {
     GameMove c1move = creature1->get_game_move(creature2->id());
     GameMove c2move = creature2->get_game_move(creature1->id());
 
-
     //  Populate GameInfo objects for each creature, and
     //  populate with the game result.
 
     GameInfo c1info(creature2->id(), c1move, c2move, 0);
     GameInfo c2info(creature1->id(), c2move, c1move, 0);
     game_result(c1info, c2info);
-
 
     //  Communicate results of the game to each creature
 
@@ -252,6 +257,10 @@ void World::output_world_stats(ostream& out) const {
     out << "Summary world statistics:" << endl
         << "Days passed: " << m_day - 1 << endl
         << "Games played: " << m_games_played << endl
+        << "Starting creatures: " << m_wInfo.m_starting_creatures << endl
+        << "Living creatures: " << m_creatures.size() << endl
+        << "Creatures born: " << m_wInfo.m_born_creatures << endl
+        << "Creatures died: " << m_wInfo.m_dead_creatures << endl
         << endl;
 }
 
@@ -264,27 +273,20 @@ void World::output_world_stats(ostream& out) const {
  */
 
 void World::output_full_creature_stats(ostream& out) const {
-    CreatureList::const_iterator i;
+    for ( CreatureList::const_iterator itr = m_creatures.begin();
+          itr != m_creatures.end(); ++itr ) {
 
-    for ( i = m_creatures.begin(); i != m_creatures.end(); ++i ) {
+        const Creature* creature = *itr;
 
-        //  Output individual creature header
-
-        out << "=============\nCreature " << (*i)->id()
+        out << "=============\nCreature " << creature->id()
             << "\n=============\n\n";
 
-
-        //  Output strategy, age and resources
-
-        out << "Strategy : " << (*i)->strategy() << "\n";
-        out << "Age      : " << (*i)->age() << "\n";
-        out << "Resources: " << (*i)->resources() << "\n";
+        out << "Strategy : " << creature->strategy() << "\n";
+        out << "Age      : " << creature->age() << "\n";
+        out << "Resources: " << creature->resources() << "\n";
         out << endl;
 
-
-        //  Output detailed memories
-
-        (*i)->detailed_memories(out);
+        creature->detailed_memories(out);
     }
 }
 
@@ -300,12 +302,14 @@ void World::output_summary_creature_stats(ostream& out) const {
     CreatureList templist = m_creatures;
     sort(templist.begin(), templist.end(), CompareCreatureByID());
 
-    CreatureList::iterator i;
     out << "Summary creature statistics:" << endl;
-    for ( i = templist.begin(); i != templist.end(); ++i ) {
-        out << "Creature " << (*i)->id()
-            << ", strategy '" << (*i)->strategy()
-            << "', resources " << (*i)->resources()
+    for ( CreatureList::const_iterator itr = templist.begin();
+          itr != templist.end(); ++itr ) {
+        const Creature* creature = *itr;
+
+        out << "Creature " << creature->id()
+            << ", strategy '" << creature->strategy()
+            << "', resources " << creature->resources()
             << endl;
     }
     out << endl;
@@ -326,7 +330,8 @@ namespace {
         int min_res;
         double avg_res;
 
-        ResStat() : num_creatures(0), max_res(std::numeric_limits<int>().min()),
+        ResStat() : num_creatures(0),
+                    max_res(std::numeric_limits<int>().min()),
                     min_res(std::numeric_limits<int>().max()),
                     avg_res(0) {}
     };
@@ -350,24 +355,26 @@ void World::output_summary_resources_by_strategy(ostream& out) const {
 
     //  Summarize statistics by strategy into resources_map
 
-    for ( CreatureList::const_iterator i = m_creatures.begin();
-          i != m_creatures.end(); ++i ) {
-        ResStat& tmp = resources_map[(*i)->strategy()];
-        int creat_res = (*i)->resources();
+    for ( CreatureList::const_iterator itr = m_creatures.begin();
+          itr != m_creatures.end(); ++itr ) {
+        const Creature* creature = *itr;
+        ResStat& stats = resources_map[creature->strategy()];
+        const int creat_res = creature->resources();
 
-        tmp.num_creatures += 1;
-        tmp.min_res = min(tmp.min_res, creat_res);
-        tmp.max_res = max(tmp.max_res, creat_res);
-        tmp.avg_res = (tmp.avg_res * (tmp.num_creatures - 1) + creat_res) /
-                       tmp.num_creatures;
+        stats.num_creatures += 1;
+        stats.min_res = min(stats.min_res, creat_res);
+        stats.max_res = max(stats.max_res, creat_res);
+        stats.avg_res = (stats.avg_res * (stats.num_creatures - 1) +
+                         creat_res) / stats.num_creatures;
     }
-
 
     //  Sort strategies by average resources, low to high
 
-    for ( MSR::iterator im = resources_map.begin();
-          im != resources_map.end(); ++im ) {
-        srtd_strgy.push_back(make_pair(im->second.avg_res, im->first));
+    for ( MSR::iterator itr = resources_map.begin();
+          itr != resources_map.end(); ++itr ) {
+        const string strategy = itr->first;
+        const ResStat& stats = itr->second;
+        srtd_strgy.push_back(make_pair(stats.avg_res, strategy));
     }
     sort(srtd_strgy.begin(), srtd_strgy.end());
 
@@ -375,18 +382,19 @@ void World::output_summary_resources_by_strategy(ostream& out) const {
     //  Output summary resource statistcs from high to low, using
     //  a reverse iterator
 
-    int n = 1;
+    int ranking = 1;
     out << "Summary resource statistics by strategy:" << endl;
-    for ( VPDS::reverse_iterator id = srtd_strgy.rbegin();
-            id != srtd_strgy.rend(); ++id ) {
-        ResStat& tmp = resources_map[id->second];
+    for ( VPDS::reverse_iterator itr = srtd_strgy.rbegin();
+            itr != srtd_strgy.rend(); ++itr ) {
+        const string strategy = itr->second;
+        const ResStat& stats = resources_map[strategy];
 
-        out << n++ << ", "
-            << id->second << " (" << tmp.num_creatures << "): "
-            << "max " << tmp.max_res
-            << ", min " << tmp.min_res
-            << ", sprd " << tmp.max_res - tmp.min_res
-            << ", avg " << tmp.avg_res
+        out << ranking++ << ", "
+            << strategy << " (" << stats.num_creatures << "): "
+            << "max " << stats.max_res
+            << ", min " << stats.min_res
+            << ", sprd " << stats.max_res - stats.min_res
+            << ", avg " << stats.avg_res
             << endl;
     }
     out << endl;
@@ -411,20 +419,23 @@ void World::output_summary_dead_by_strategy(ostream& out) const {
 
     //  Summarize number of deaths by strategy into strategy_map
 
-    for ( CreatureList::const_iterator i = m_dead_creatures.begin();
-          i != m_dead_creatures.end(); ++i ) {
-        strategy_map[(*i)->strategy()]++;
+    for ( CreatureList::const_iterator itr = m_dead_creatures.begin();
+          itr != m_dead_creatures.end(); ++itr ) {
+        const Creature* creature = *itr;
+        strategy_map[creature->strategy()]++;
     }
 
 
     //  Output summary death statistics
 
     out << "Summary deaths by strategy:" << endl;
-    for ( MSI::const_iterator id = strategy_map.begin();
-            id != strategy_map.end(); ++id ) {
-        out << id->second << " "
-            << id->first << " creature"
-            << (id->second > 1 ? "s" : "") << " died."
+    for ( MSI::const_iterator itr = strategy_map.begin();
+            itr != strategy_map.end(); ++itr ) {
+        const string strategy = itr->first;
+        const int number_dead = itr->second;
+        out << number_dead << " "
+            << strategy << " creature"
+            << (number_dead > 1 ? "s" : "") << " died."
             << endl;
     }
     out << endl;
