@@ -35,8 +35,8 @@ using namespace pridil;
 DNA::DNA(const Brain& brain, const CreatureInit& c_init) :
          m_brain(brain),
          m_strategy_gene(0),
-         m_death_gene(0),
-         m_repro_gene(0) {
+         m_death_gene(new DeathGene(m_brain, c_init)),
+         m_repro_gene(new ReproGene(m_brain, c_init)) {
     switch ( c_init.strategy ) {
         case tit_for_tat:
             m_strategy_gene = new TitForTatGene(m_brain);
@@ -62,9 +62,6 @@ DNA::DNA(const Brain& brain, const CreatureInit& c_init) :
         default:
             throw UnknownStrategy();
      }
-    
-    m_death_gene = new DeathGene(m_brain, c_init);
-    m_repro_gene = new ReproGene(m_brain, c_init);
 }
 
 
