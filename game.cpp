@@ -117,51 +117,33 @@ GameMove pridil::simplify_game_move(const GameMove& move) {
  *  each player. Only one such structure is necessarily to calculate
  *  the result, but the function stores the result for each player
  *  in their respective structure.
- *
- *  With the values specified, a cooperating Creature has a 50%
- *  chance of netting 3, and a 50% chance of losing 1, giving an
- *  expected reward of 1 and making it rational to play.
- *
- *  A defecting creature has a 50% chance of netting 5, and a 50%
- *  chance of losing 1, giving an expected reward of 2 and making
- *  it rational to play.
- *
- *  With values comparable to these, on a game-by-game basis, it is
- *  rational for each Creature to defect. On a game-by-game basis,
- *  there therefore appears to be no incentive to ever cooperate,
- *  even though the reward to each Creature if they both cooperate
- *  is 3, compared to the cost of 1 if each Creature defects. The
- *  impetus behind this simulation is to investigate whether there
- *  is a rational basis for cooperation when we move beyond a simple
- *  game-by-game analysis, and in particular when we allow each Creature
- *  to remember each other Creature it interacts with, allowing for
- *  the possibility that previous interactions with a 'nice' Creature
- *  may make it rational to cooperate if an expectation can thereby be
- *  developed that a particular Creature is likely to reciprocate
- *  (although the genetic strategies do not actually calculate
- *  probabilities, and merely react mechanically based on prior
- *  interactions).
  */
 
 void pridil::game_result(GameInfo& own_ginfo, GameInfo& opp_ginfo) {
-    static const int reward_coop = 6;
-    static const int cost_to_play = 1;
-    static const int cost_to_coop = 2;
+    static const int coop_benefit = 6;
+    static const int play_cost = 1;
+    static const int coop_cost = 2;
 
-    GameMove own_move = simplify_game_move(own_ginfo.own_move);
-    GameMove opp_move = simplify_game_move(opp_ginfo.own_move);
+    static const int reward_result = coop_benefit - coop_cost - play_cost;
+    static const int temptation_result = coop_benefit - play_cost;
+    static const int sucker_result = -coop_cost - play_cost;
+    static const int punishment_result = -play_cost;
+
+    const GameMove own_move = simplify_game_move(own_ginfo.own_move);
+    const GameMove opp_move = simplify_game_move(opp_ginfo.own_move);
 
     if ( own_move == coop && opp_move == coop ) {
-        own_ginfo.result = opp_ginfo.result = reward_coop - cost_to_play -
-                                              cost_to_coop;
+        own_ginfo.result = reward_result;
+        opp_ginfo.result = reward_result;
     } else if ( own_move == defect && opp_move == defect ) {
-        own_ginfo.result = opp_ginfo.result = -cost_to_play;
+        own_ginfo.result = punishment_result;
+        opp_ginfo.result = punishment_result;
     } else if ( own_move == defect && opp_move == coop ) {
-        own_ginfo.result = reward_coop - cost_to_play;
-        opp_ginfo.result = -cost_to_play - cost_to_coop;
+        own_ginfo.result = temptation_result;
+        opp_ginfo.result = sucker_result;
     } else if ( own_move == coop && opp_move == defect ) {
-        own_ginfo.result = -cost_to_play - cost_to_coop;
-        opp_ginfo.result = reward_coop - cost_to_play;
+        own_ginfo.result = sucker_result;
+        opp_ginfo.result = temptation_result;
     } else {
         throw BadGameMove();
     }

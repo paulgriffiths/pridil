@@ -23,7 +23,7 @@ using namespace pridil;
  *  No initialization needed.
  */
 
-Brain::Brain(const CreatureInit& b_init) : m_dna(*this, b_init),
+Brain::Brain(const CreatureInit& c_init) : m_dna(*this, c_init),
                                            m_memory() {}
 
 
@@ -135,4 +135,3 @@ unsigned int Brain::num_memories(const CreatureID opponent) const {
 Strategy Brain::strategy_value() const {
     return m_dna.strategy_value();
 }
-

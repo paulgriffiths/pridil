@@ -26,13 +26,17 @@ using namespace pridil;
  *  m_strategy_gene is a pointer, and the associated genes are created
  *  with the new operator, because we need polymorphism via a base
  *  class.
+ *
+ *  The other genes are created with pointers as each gene contains
+ *  a reference to a Brain, which contains a DNA member, which contains
+ *  Gene members ... so we need to forward declare.
  */
 
 DNA::DNA(const Brain& brain, const CreatureInit& c_init) :
-        m_brain(brain),
-        m_strategy_gene(0),
-        m_death_gene(0),
-        m_repro_gene(0) {
+         m_brain(brain),
+         m_strategy_gene(0),
+         m_death_gene(0),
+         m_repro_gene(0) {
     switch ( c_init.strategy ) {
         case tit_for_tat:
             m_strategy_gene = new TitForTatGene(m_brain);
@@ -112,12 +116,6 @@ Creature * DNA::reproduce(int& resources) const {
  *  Gets a game move against a particular opponent.
  *
  *  The DNA object consults its strategy gene to determine the move.
- *
- *  Arguments:
- *    opponent -- the ID of the opponent.
- *
- *  Returns:
- *    A GameMove object representing the move played.
  */
 
 GameMove DNA::get_game_move(const CreatureID opponent) const {

@@ -140,17 +140,21 @@ string& pg_string::uppercase(string& in_str) {
  *
  *  Returns:
  *    A std::pair<std::string, std::string> containing the parsed
- *    key and its value, in that order.
+ *    key and its value, in that order. Note that the value may
+ *    be an empty string, if the delimiter is the final character.
  */
 
 pair<string, string> pg_string::get_key_value(const string& kvpair,
                                               const char delim) {
-    string::const_iterator i = find(kvpair.begin(), kvpair.end(), delim);
     string key, value;
-    key = string(kvpair.begin(), i);
-    if ( i != kvpair.end() ) {
-        value = string(++i, kvpair.end());
+    string::const_iterator delim_itr = find(kvpair.begin(), kvpair.end(),
+                                            delim);
+
+    key = string(kvpair.begin(), delim_itr);
+    if ( delim_itr != kvpair.end() ) {
+        value = string(++delim_itr, kvpair.end());
     }
+
     trim(key);
     trim(value);
     return pair<string, string> (key, value);
@@ -179,11 +183,11 @@ int pg_string::stdstring_to_int(const string& in_str, const int base) {
 
     const char * csval = trimmed_string.c_str();
     char * endptr = 0;
-    int v = strtol(csval, &endptr, base);
+    const int value = strtol(csval, &endptr, base);
 
     if ( *endptr != '\0' ) {
         throw BadValue();
     }
 
-    return static_cast<int> (v);
+    return static_cast<int> (value);
 }
