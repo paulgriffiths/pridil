@@ -113,7 +113,7 @@ namespace cmdline {
                 : m_error_message(msg) {}
             virtual ~CmdLineException() {}
 
-            const string& error_message() const { return m_error_message; }
+            const string& what() const { return m_error_message; }
     };
 
 

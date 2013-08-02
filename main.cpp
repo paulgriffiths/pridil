@@ -170,7 +170,7 @@ bool ParseCmdLine(const int argc, char const* const* argv,
         }
     }
     catch(cmdline::CmdLineException& exc) {
-        std::cerr << exc.error_message() << std::endl;
+        std::cerr << exc.what() << std::endl;
         throw;
     }
 
