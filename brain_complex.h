@@ -38,6 +38,25 @@
 
 namespace pridil {
 
+/*
+ *  Memory class.
+ *
+ *  Stores and recalls memories of games with individual opponents.
+ *
+ *  Public member functions:
+ *    recognize() - returns true if the specified oppoent has been
+ *                  encountered before.
+ *
+ *    remember_move() - recalls a recent memory of the specified opponent.
+ *
+ *    num_memories() - returns how many times the specified opponent has
+ *                     been encountered before.
+ *
+ *    show_detailed_memories() - outputs details of all stored memories.
+ *
+ *    store_memory() - stores a memory of the specified game.
+ */
+
 class Memory {
     public:
         Memory();
@@ -46,9 +65,9 @@ class Memory {
         //  Member functions for accessing memories
 
         bool recognize(const CreatureID opponent) const;
+        unsigned int num_memories(const CreatureID opponent) const;
         GameMove remember_move(const CreatureID opponent,
                                const unsigned int past = 1) const;
-        unsigned int num_memories(const CreatureID opponent) const;
         void show_detailed_memories(std::ostream& out) const;
 
         //  Member function for storing memories
@@ -57,10 +76,13 @@ class Memory {
 
     private:
         GameInfoMap m_memories;
+
+        Memory(const Memory&);                  // Prevent copying
+        Memory& operator=(const Memory&);       // Prevent assignment
 };
 
 
-/*  Forward declarations for DNA class  */
+/*  Forward declarations necessary for for DNA class  */
 
 class Creature;
 class DeathGene;
@@ -69,7 +91,33 @@ class StrategyGene;
 class Brain;
 
 
-/*  DNA class  */
+/*
+ *  DNA class.
+ *
+ *  Stores the creatures 'genetic' characteristics, and make decisions
+ *  or performs actions based on them.
+ *
+ *  Public member functions:
+ *    strategy() - returns a std::string representation of the DNA's
+ *                 game-playing strategy.
+ *
+ *    strategy_value() - returns a Strategy enumeration representation of
+ *                       the DNA's game-playing strategy.
+ *
+ *    is_dead() - returns true if the specified age exceeds the life
+ *                expectancy contained within the DNA.
+ *
+ *    reproduce() - returns a pointer to a newly created offspring if
+ *                  the specified amount of resources exceeds the
+ *                  cost of reproduction contained within the DNA. The
+ *                  function modifies and deducts the cost of reproduction
+ *                  from the resources provided.
+ *
+ *    get_game_move() - returns a game move against the specified opponent.
+ *                      Depending on the strategy contained within the DNA,
+ *                      this move may or may not be influenced by memories
+ *                      of previous interactions with that opponent.
+ */
 
 class DNA {
     public:
@@ -102,7 +150,15 @@ class DNA {
 };
 
 
-/*  Brain class  */
+/*
+ *  Brain class.
+ *
+ *  Contains, and acts as an interface with and between, the Memory
+ *  and the DNA.
+ *
+ *  The public member functions merely call the Memory and DNA member
+ *  functions of the same name.
+ */
 
 class Brain {
     public:
@@ -112,19 +168,16 @@ class Brain {
         explicit Brain(const CreatureInit& c_init);
         ~Brain();
 
-        //  Member functions for accessing memories
+        //  Memory interface member functions
 
         bool recognize(const CreatureID opponent) const;
         unsigned int num_memories(const CreatureID opponent) const;
         GameMove remember_move(const CreatureID opponent,
                                const unsigned int past = 1) const;
         void show_detailed_memories(std::ostream& out) const;
-
-        //  Member function for storing memories
-
         void store_memory(const GameInfo& g_info);
 
-        //  Member functions for accessing DNA
+        //  DNA interface member functions
 
         const std::string strategy() const;
         Strategy strategy_value() const;
@@ -135,6 +188,9 @@ class Brain {
     private:
         DNA m_dna;
         Memory m_memory;
+
+        Brain(const Brain&);                // Prevent copying
+        Brain& operator=(const Brain&);     // Prevent assignment
 };
 
 }       //  namespace pridil
