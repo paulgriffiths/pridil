@@ -68,26 +68,34 @@ int main(int argc, char ** argv) {
         return 1;
     }
 
-    //  Initialize and run world.
+    try {
 
-    pridil::World world(wInfo);
-    for ( int i = 0; i < wInfo.m_days_to_run; ++i ) {
-        world.advance_day();
-    }
+        //  Initialize and run world.
+
+        pridil::World world(wInfo);
+        for ( int i = 0; i < wInfo.m_days_to_run; ++i ) {
+            world.advance_day();
+        }
 
 
-    //  Output statistics
+        //  Output statistics
 
-    world.output_world_stats(std::cout);
-    if ( dOptions.m_detailed_memories ) {
-        world.output_full_creature_stats(std::cout);
-    }
-    if ( dOptions.m_summary_creatures ) {
-        world.output_summary_creature_stats(std::cout);
-    }
-    if ( dOptions.m_summary_resources ) {
-        world.output_summary_resources_by_strategy(std::cout);
-        world.output_summary_dead_by_strategy(std::cout);
+        world.output_world_stats(std::cout);
+        if ( dOptions.m_detailed_memories ) {
+            world.output_full_creature_stats(std::cout);
+        }
+        if ( dOptions.m_summary_creatures ) {
+            world.output_summary_creature_stats(std::cout);
+        }
+        if ( dOptions.m_summary_resources ) {
+            world.output_summary_resources_by_strategy(std::cout);
+            world.output_summary_dead_by_strategy(std::cout);
+        }
+    } catch(pridil::PridilException& e) {
+        std::cerr << e.what() << std::endl;
+        return 1;
+    } catch(...) {
+        return 1;
     }
     return 0;
 }
