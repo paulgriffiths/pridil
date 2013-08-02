@@ -59,6 +59,8 @@ TESTOBJS+=tests/test_memory/test_store_memory.o
 TESTOBJS+=tests/test_memory/test_recognize.o
 TESTOBJS+=tests/test_memory/test_num_memories.o
 TESTOBJS+=tests/test_creature/test_creature_battle.o
+TESTOBJS+=tests/test_creature/test_reproduce.o
+TESTOBJS+=tests/test_creature/test_is_dead.o
 
 # Source and clean files and globs
 SRCS=$(wildcard *.cpp *.h)
@@ -348,6 +350,14 @@ tests/test_memory/test_num_memories.o: \
 
 tests/test_creature/test_creature_battle.o: \
 	tests/test_creature/test_creature_battle.cpp creature.h game.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_creature/test_reproduce.o: \
+	tests/test_creature/test_reproduce.cpp creature.h game.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_creature/test_is_dead.o: \
+	tests/test_creature/test_is_dead.cpp creature.h game.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 
