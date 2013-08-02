@@ -78,6 +78,15 @@ int Creature::resources() const {
 
 
 /*
+ *  Returns the strategy enumeration
+ */
+
+Strategy Creature::strategy_value() const {
+    return m_brain.strategy_value();
+}
+
+
+/*
  *  Returns true if the creature is dead, false otherwise.
  */
 

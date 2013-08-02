@@ -55,6 +55,7 @@ class Creature {
         int resources() const;
         bool is_dead() const;
         const std::string strategy() const;
+        Strategy strategy_value() const;
         void detailed_memories(std::ostream& out) const;
 
         //  Gaming and aging methods
