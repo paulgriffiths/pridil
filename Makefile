@@ -49,6 +49,7 @@ TESTOBJS+=tests/test_cmdline/test_cmdline_parsereturn.o
 TESTOBJS+=tests/test_pg_string/test_pg_string.o
 TESTOBJS+=tests/test_genes/test_titfortatgene.o
 TESTOBJS+=tests/test_genes/test_susptitfortatgene.o
+TESTOBJS+=tests/test_genes/test_titfortwotatsgene.o
 TESTOBJS+=tests/test_genes/test_alwayscooperategene.o
 TESTOBJS+=tests/test_genes/test_alwaysdefectgene.o
 TESTOBJS+=tests/test_genes/test_randomstrategygene.o
@@ -306,6 +307,10 @@ tests/test_cmdline/test_cmdline_parsereturn.o: \
 
 tests/test_genes/cmdline/test_titfortatgene.o: \
 	tests/test_genes/test_titfortatgene.cpp brain_complex.h
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+tests/test_genes/cmdline/test_titfortwotatsgene.o: \
+	tests/test_genes/test_titfortwotatsgene.cpp brain_complex.h
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 tests/test_genes/test_susptitfortatgene.o: \
