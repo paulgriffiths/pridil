@@ -91,13 +91,6 @@
 
 namespace cmdline {
 
-    //  Using declarations
-
-    using std::string;
-    using std::map;
-    using std::list;
-
-
     //  Exception classes
 
     //  Base exception, all custom exceptions thrown by this module
@@ -105,15 +98,15 @@ namespace cmdline {
 
     class CmdLineException {
         private:
-            string m_error_message;
+            std::string m_error_message;
 
         public:
-            explicit CmdLineException(const string& msg =
+            explicit CmdLineException(const std::string& msg =
                                       "No error message")
                 : m_error_message(msg) {}
             virtual ~CmdLineException() {}
 
-            const string& what() const { return m_error_message; }
+            const std::string& what() const { return m_error_message; }
     };
 
 
@@ -129,7 +122,7 @@ namespace cmdline {
 
     class MissingOptionValue : public CmdLineException {
         public:
-            explicit MissingOptionValue(const string& option)
+            explicit MissingOptionValue(const std::string& option)
                 : CmdLineException("Missing value for option " + option) {}
     };
 
@@ -140,7 +133,7 @@ namespace cmdline {
 
     class BadOptionValue : public CmdLineException {
         public:
-            explicit BadOptionValue(const string& option)
+            explicit BadOptionValue(const std::string& option)
                 : CmdLineException("Bad value for option " + option) {}
     };
 
@@ -150,7 +143,7 @@ namespace cmdline {
 
     class OptionNotProvided : public CmdLineException {
         public:
-            explicit OptionNotProvided(const string& option)
+            explicit OptionNotProvided(const std::string& option)
                 : CmdLineException("Option " + option + " not provided.") {}
     };
 
@@ -159,7 +152,7 @@ namespace cmdline {
 
     class ConfigFileOpenFailed : public CmdLineException {
         public:
-            explicit ConfigFileOpenFailed(const string& filename)
+            explicit ConfigFileOpenFailed(const std::string& filename)
                 : CmdLineException("Couldn't open config file " + filename) {}
     };
 
@@ -168,7 +161,7 @@ namespace cmdline {
 
     class ParseAlreadyCalled : public CmdLineException {
         public:
-            explicit ParseAlreadyCalled(const string& func)
+            explicit ParseAlreadyCalled(const std::string& func)
                 : CmdLineException(func + " can't be called after parse()") {}
     };
 
@@ -177,7 +170,7 @@ namespace cmdline {
 
     class ParseNotCalled : public CmdLineException {
         public:
-            explicit ParseNotCalled(const string& func)
+            explicit ParseNotCalled(const std::string& func)
                 : CmdLineException(func + " can't be called before parse()") {}
     };
 
@@ -186,16 +179,16 @@ namespace cmdline {
 
     template<class T>
     struct OptDef {
-        const string m_name;
-        const string m_short_opt;
-        const string m_long_opt;
-        const string m_description;
+        const std::string m_name;
+        const std::string m_short_opt;
+        const std::string m_long_opt;
+        const std::string m_description;
         const bool m_has_default;
         const T m_default_value;
 
-        OptDef<T>(const string& name, const string& short_option,
-                  const string& long_option,
-                  const string& description,
+        OptDef<T>(const std::string& name, const std::string& short_option,
+                  const std::string& long_option,
+                  const std::string& description,
                   const bool has_default,
                   const T& default_value)
             : m_name(name), m_short_opt(short_option),
@@ -207,15 +200,15 @@ namespace cmdline {
     //  Command line flag definition structure
 
     struct FlagDef {
-        const string m_name;
-        const string m_short_flag;
-        const string m_long_flag;
-        const string m_description;
+        const std::string m_name;
+        const std::string m_short_flag;
+        const std::string m_long_flag;
+        const std::string m_description;
         const bool m_default_on;
 
-        FlagDef(const string& name, const string& short_flag,
-                const string& long_flag,
-                const string& description,
+        FlagDef(const std::string& name, const std::string& short_flag,
+                const std::string& long_flag,
+                const std::string& description,
                 const bool default_on)
                 : m_name(name), m_short_flag(short_flag),
                   m_long_flag(long_flag), m_description(description),
@@ -226,17 +219,17 @@ namespace cmdline {
     //  Typedefs for options, flags and positional arguments
 
     typedef OptDef<int> IntOptDef;
-    typedef list<IntOptDef> IntOptDefList;
-    typedef map<string, int> IntOptMap;
+    typedef std::list<IntOptDef> IntOptDefList;
+    typedef std::map<std::string, int> IntOptMap;
 
-    typedef OptDef<string> StrOptDef;
-    typedef list<StrOptDef> StrOptDefList;
-    typedef map<string, string> StrOptMap;
+    typedef OptDef<std::string> StrOptDef;
+    typedef std::list<StrOptDef> StrOptDefList;
+    typedef std::map<std::string, std::string> StrOptMap;
 
-    typedef list<FlagDef> FlagDefList;
-    typedef map<string, bool> FlagMap;
+    typedef std::list<FlagDef> FlagDefList;
+    typedef std::map<std::string, bool> FlagMap;
 
-    typedef list<string> PosArgList;
+    typedef std::list<std::string> PosArgList;
 
 
     //  CmdLineOptions class
@@ -253,25 +246,25 @@ namespace cmdline {
             //  for flags and options. These should be called
             //  before parse(), if they are called at all.
 
-            void set_program_name(const string& program_name);
-            void set_version_number(const string& version_number);
-            void set_config_file_option(const string& option);
-            void set_intopt(const string& name,
-                            const string& short_option,
-                            const string& long_option,
-                            const string& description,
+            void set_program_name(const std::string& program_name);
+            void set_version_number(const std::string& version_number);
+            void set_config_file_option(const std::string& option);
+            void set_intopt(const std::string& name,
+                            const std::string& short_option,
+                            const std::string& long_option,
+                            const std::string& description,
                             const bool has_default = false,
                             const int default_value = 0);
-            void set_stropt(const string& name,
-                            const string& short_option,
-                            const string& long_option,
-                            const string& description,
+            void set_stropt(const std::string& name,
+                            const std::string& short_option,
+                            const std::string& long_option,
+                            const std::string& description,
                             const bool has_default = false,
-                            const string& default_value = "");
-            void set_flag(const string& name,
-                          const string& short_option,
-                          const string& long_option,
-                          const string& description,
+                            const std::string& default_value = "");
+            void set_flag(const std::string& name,
+                          const std::string& short_option,
+                          const std::string& long_option,
+                          const std::string& description,
                           const bool has_default = false);
 
 
@@ -286,28 +279,28 @@ namespace cmdline {
             //  or positional argumentsare set. These should be called
             //  after calling parse(), if they are called at all.
 
-            bool is_flag_set(const string& name) const;
-            bool is_intopt_set(const string& option) const;
-            bool is_stropt_set(const string& option) const;
-            bool is_posarg_set(const string& option) const;
+            bool is_flag_set(const std::string& name) const;
+            bool is_intopt_set(const std::string& option) const;
+            bool is_stropt_set(const std::string& option) const;
+            bool is_posarg_set(const std::string& option) const;
 
 
             //  Methods for obtaining the values of provided options
             //  and positional arguments. These should be called
             //  after calling parse(), if they are called at all.
 
-            int get_intopt_value(const string& name) const;
-            string get_stropt_value(const string& name) const;
-            const list<string>& get_pos_args() const;
+            int get_intopt_value(const std::string& name) const;
+            std::string get_stropt_value(const std::string& name) const;
+            const std::list<std::string>& get_pos_args() const;
 
         private:
 
             //  General member variables
 
-            string m_program_name;
-            string m_version_number;
-            string m_executable_name;
-            string m_config_file_option;
+            std::string m_program_name;
+            std::string m_version_number;
+            std::string m_executable_name;
+            std::string m_config_file_option;
 
 
             //  Data structures for storing options, flags and
@@ -331,9 +324,9 @@ namespace cmdline {
             //  Methods for processing flags, options, and a specified
             //  configuration file, called by parse()
 
-            bool check_arg_for_flag(const string& arg);
-            bool check_arg_for_intopt(const string& arg);
-            bool check_arg_for_stropt(const string& arg);
+            bool check_arg_for_flag(const std::string& arg);
+            bool check_arg_for_intopt(const std::string& arg);
+            bool check_arg_for_stropt(const std::string& arg);
             void process_config_file();
 
 
@@ -347,17 +340,17 @@ namespace cmdline {
             //  and options, called by show_help()
 
             void show_all_options() const;
-            map<string, string> intopt_def_map() const;
-            map<string, string> stropt_def_map() const;
-            map<string, string> flag_def_map() const;
+            std::map<std::string, std::string> intopt_def_map() const;
+            std::map<std::string, std::string> stropt_def_map() const;
+            std::map<std::string, std::string> flag_def_map() const;
     };
 
 
     //  Standalone helper function declarations
 
-    string parse_stropt(const string& arg,
-                        const string& option);
-    int parse_intopt(const string& arg, const string& option);
+    std::string parse_stropt(const std::string& arg,
+                             const std::string& option);
+    int parse_intopt(const std::string& arg, const std::string& option);
 
 }
 
