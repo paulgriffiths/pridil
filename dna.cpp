@@ -56,33 +56,37 @@ const std::string DNA::strategy() const {
 
 
 /*
- *  Returns the strategy enumeration value of the strategy gene.
+ *  Returns the Strategy enumeration value of the strategy gene.
  */
 
 Strategy DNA::strategy_value() const {
     return m_strategy_gene->strategy();
 }
 
+
 /*
- *  Returns true if age exceeds life expectancy.
+ *  Returns true if the specified age exceeds the genetic life expectancy.
  */
 
 bool DNA::is_dead(Day age) const {
     return m_death_gene->is_dead(age);
 }
 
+
 /*
- *  Returns a reproduced creature.
+ *  Returns a reproduced creature if the specified resources are adequate.
  */
 
 Creature * DNA::reproduce(int& resources) const {
     return m_repro_gene->reproduce(resources);
 }
 
+
 /*
  *  Gets a game move against a particular opponent.
  *
- *  The DNA object consults its strategy gene to determine the move.
+ *  The DNA object consults its strategy gene to determine the move,
+ *  which, depending on the strategy, may or may not consult memory.
  */
 
 GameMove DNA::get_game_move(const CreatureID opponent) const {
