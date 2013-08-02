@@ -301,6 +301,7 @@ bool CmdLineOptions::is_flag_set(const string& name) const {
     if ( !m_parse_called ) {
         throw cmdline::ParseNotCalled("is_flag_set()");
     }
+
     bool is_set = true;
     if ( m_flags.find(name) == m_flags.end() ) {
         is_set = false;
@@ -317,6 +318,7 @@ bool CmdLineOptions::is_intopt_set(const std::string& option) const {
     if ( !m_parse_called ) {
         throw cmdline::ParseNotCalled("is_intopt_set()");
     }
+
     bool is_set = true;
     if ( m_intopts.find(option) == m_intopts.end() ) {
         is_set = false;
@@ -333,6 +335,7 @@ bool CmdLineOptions::is_stropt_set(const std::string& option) const {
     if ( !m_parse_called ) {
         throw cmdline::ParseNotCalled("is_stropt_set()");
     }
+
     bool is_set = true;
     if ( m_stropts.find(option) == m_stropts.end() ) {
         is_set = false;
@@ -349,6 +352,7 @@ bool CmdLineOptions::is_posarg_set(const std::string& option) const {
     if ( !m_parse_called ) {
         throw cmdline::ParseNotCalled("is_posarg_set()");
     }
+
     bool is_set = true;
     if ( find(m_posargs.begin(), m_posargs.end(), option) == m_posargs.end() ) {
         is_set = false;
@@ -368,6 +372,7 @@ int CmdLineOptions::get_intopt_value(const string& name) const {
     if ( !m_parse_called ) {
         throw cmdline::ParseNotCalled("get_intopt_value()");
     }
+
     IntOptMap::const_iterator opt = m_intopts.find(name);
     if ( opt == m_intopts.end() ) {
         throw OptionNotProvided(name);
@@ -387,6 +392,7 @@ string CmdLineOptions::get_stropt_value(const string& name) const {
     if ( !m_parse_called ) {
         throw cmdline::ParseNotCalled("get_stropt_value()");
     }
+
     StrOptMap::const_iterator opt = m_stropts.find(name);
     if ( opt == m_stropts.end() ) {
         throw OptionNotProvided(name);
@@ -409,6 +415,7 @@ const list<string>& CmdLineOptions::get_pos_args() const {
     if ( !m_parse_called ) {
         throw cmdline::ParseNotCalled("get_posargs()");
     }
+
     return m_posargs;
 }
 
