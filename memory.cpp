@@ -101,7 +101,7 @@ GameMove Memory::remember_move(const CreatureID opponent,
     //  ...and return the opponent's move contained in that memory.
 
     const GameInfo& gInfo = *mem_itr;
-    return simplify_game_move(gInfo.opponent_move);
+    return gInfo.opponent_move;
 }
 
 

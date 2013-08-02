@@ -444,10 +444,19 @@ void World::play_game(Creature * creature1, Creature * creature2) {
     GameMove c2move = creature2->get_game_move(creature1->id());
 
     //  Populate GameInfo objects for each creature, and
-    //  populate with the game result.
+    //  populate with the game result. Simplify the opponent's move
+    //  each time, to avoid giving a creature an indication of its
+    //  opponent's internal state with regards to game-playing
+    //  strategy.
 
-    GameInfo c1info(creature2->id(), c1move, c2move, 0);
-    GameInfo c2info(creature1->id(), c2move, c1move, 0);
+    GameInfo c1info(creature2->id(),
+                    c1move,
+                    simplify_game_move(c2move),
+                    0);
+    GameInfo c2info(creature1->id(),
+                    c2move,
+                    simplify_game_move(c1move),
+                    0);
     game_result(c1info, c2info);
 
     //  Communicate results of the game to each creature

@@ -67,7 +67,7 @@ TEST(StoreMemoryGroup, StoreMemoriesTest) {
         if ( gInfo[i].id == 2 ) {
             continue;
         }
-        CHECK_EQUAL(simplify_game_move(gInfo[i].opponent_move),
+        CHECK_EQUAL(gInfo[i].opponent_move,
                     test_memories.remember_move(1, n--));
     }
 
@@ -87,7 +87,7 @@ TEST(StoreMemoryGroup, StoreMemoriesTest) {
         if ( gInfo[i].id == 1 ) {
             continue;
         }
-        CHECK_EQUAL(simplify_game_move(gInfo[i].opponent_move),
+        CHECK_EQUAL(gInfo[i].opponent_move,
                     test_memories.remember_move(2, n--));
     }
 

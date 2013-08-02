@@ -129,8 +129,14 @@ void pridil::game_result(GameInfo& own_ginfo, GameInfo& opp_ginfo) {
     static const int sucker_result = -coop_cost - play_cost;
     static const int punishment_result = -play_cost;
 
-    const GameMove own_move = simplify_game_move(own_ginfo.own_move);
-    const GameMove opp_move = simplify_game_move(opp_ginfo.own_move);
+    //  Note: getting 'own_move' from 'opp_ginfo', and vice versa, in
+    //  the following lines avoids two superfluous calls to
+    //  simplify_game_move(), since the opponent's move is already
+    //  simplified in a GameInfo struct, but the creature's own move
+    //  is not.
+
+    const GameMove own_move = opp_ginfo.opponent_move;
+    const GameMove opp_move = own_ginfo.opponent_move;
 
     if ( own_move == coop && opp_move == coop ) {
         own_ginfo.result = reward_result;
