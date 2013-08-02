@@ -1,5 +1,4 @@
 /*
- *
  *  test_randomstrategygene.cpp
  *  ===========================
  *  Copyright 2013 Paul Griffiths

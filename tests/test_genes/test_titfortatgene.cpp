@@ -1,5 +1,4 @@
 /*
- *
  *  test_titfortatgene.cpp
  *  ======================
  *  Copyright 2013 Paul Griffiths
@@ -121,4 +120,3 @@ TEST(TitForTatGeneGroup, DefectOnBadMemory2Test) {
 
     CHECK_EQUAL(expected_response, test_response);
 }
-

@@ -1,5 +1,4 @@
 /*
- *
  *  test_alwayscooperategene.cpp
  *  ============================
  *  Copyright 2013 Paul Griffiths

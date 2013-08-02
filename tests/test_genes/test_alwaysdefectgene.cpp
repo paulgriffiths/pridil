@@ -1,5 +1,4 @@
 /*
- *
  *  test_alwaysdefectgene.cpp
  *  =========================
  *  Copyright 2013 Paul Griffiths

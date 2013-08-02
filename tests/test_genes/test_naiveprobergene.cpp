@@ -1,5 +1,4 @@
 /*
- *
  *  test_naiveprobergene.cpp
  *  ========================
  *  Copyright 2013 Paul Griffiths

@@ -1,5 +1,4 @@
 /*
- *
  *  test_susptitfortatgene.cpp
  *  ==========================
  *  Copyright 2013 Paul Griffiths
