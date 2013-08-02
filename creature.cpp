@@ -20,7 +20,12 @@
 using namespace pridil;
 
 
-int Creature::c_next_id = 0;        // Initialize static class variable
+/*
+ *  Initialize static class variable used to calculate the
+ *  ID of a newly created creature.
+ */
+
+int Creature::c_next_id = 0;
 
 
 /*
@@ -28,7 +33,9 @@ int Creature::c_next_id = 0;        // Initialize static class variable
  */
 
 Creature::Creature(const CreatureInit& c_init)
-      : m_id(c_next_id++), m_brain(c_init), m_age(0),
+      : m_id(c_next_id++),
+        m_brain(c_init),
+        m_age(0),
         m_resources(c_init.starting_resources) {}
 
 
@@ -37,16 +44,6 @@ Creature::Creature(const CreatureInit& c_init)
  */
 
 Creature::~Creature() {
-}
-
-
-/*
- *  Returns a string describing the game-playing strategy
- *  in the creature's DNA.
- */
-
-const std::string Creature::strategy() const {
-    return m_brain.strategy();
 }
 
 
@@ -78,6 +75,25 @@ int Creature::resources() const {
 
 
 /*
+ *  Returns true if the creature is dead, false otherwise.
+ */
+
+bool Creature::is_dead() const {
+    return ((m_brain.is_dead(m_age) || m_resources <= 0) ? true : false);
+}
+
+
+/*
+ *  Returns a string describing the game-playing strategy
+ *  in the creature's DNA.
+ */
+
+const std::string Creature::strategy() const {
+    return m_brain.strategy();
+}
+
+
+/*
  *  Returns the strategy enumeration
  */
 
@@ -87,11 +103,11 @@ Strategy Creature::strategy_value() const {
 
 
 /*
- *  Returns true if the creature is dead, false otherwise.
+ *  Outputs the creature's detailed memories.
  */
 
-bool Creature::is_dead() const {
-    return ((m_brain.is_dead(m_age) || m_resources <= 0) ? true : false);
+void Creature::detailed_memories(std::ostream& out) const {
+    m_brain.show_detailed_memories(out);
 }
 
 
@@ -119,15 +135,6 @@ void Creature::give_game_result(const GameInfo& g_info) {
 
 
 /*
- *  Outputs the creature's detailed memories.
- */
-
-void Creature::detailed_memories(std::ostream& out) const {
-    m_brain.show_detailed_memories(out);
-}
-
-
-/*
  *  Member function ages the creature by one day.
  */
 
@@ -142,6 +149,9 @@ void Creature::age_day() {
  *  Returns:
  *    A pointer to the newly created creature, if successful, or to
  *    0 (NULL) if reproduction did not take place.
+ *
+ *  Note: the Brain member will modify m_resources if the creature
+ *  successfully reproduces.
  */
 
 Creature * Creature::reproduce() {

@@ -20,6 +20,38 @@
  *  consult the Creature's Memory in coming to its decision. A
  *  Creature's DNA and Memory are contained within its Brain.
  *
+ *  Public member functions:
+ *    id() - returns the creature's numeric identifier.
+ *
+ *    age() - returns the creature's current age.
+ *
+ *    resources() - returns the quantity of resources the creature
+ *                  currently has.
+ *
+ *    is_dead() - returns true if the creatre is dead due to age, or
+ *                due to exhausted resources.
+ *
+ *    strategy() - returns a std::string representation of the creature's
+ *                 game-playing strategy.
+ *
+ *    strategy_value() - returns a Strategy enumeration representation of
+ *                       the creature's game-playing strategy.
+ *
+ *    detailed_memories() - outputs all of the creature's memories.
+ *
+ *    get_game_move() - returns a game move against a specified opponent.
+ *                      The move will be calculated based on the creature's
+ *                      game-playing strategy which, depending on the
+ *                      individual strategy, may or may not consult memories
+ *                      of previous interactions with the specified opponent.
+ *
+ *    give_game_result() - stores the provided game result in memory.
+ *
+ *    age_day() - ages the creature by one day.
+ *
+ *    reproduce() - returns a pointer to a newly created creature if the
+ *                  creature's resources are sufficient to reproduce.
+ *
  *  Distributed under the terms of the GNU General Public License.
  *  http://www.gnu.org/licenses/
  */
@@ -30,14 +62,14 @@
 
 #include <ostream>
 #include <string>
-
 #include "pridil_common.h"
 #include "brain_complex.h"
+
 
 namespace pridil {
 
 /*
- *  Creature class
+ *  Creature class.
  */
 
 class Creature {
