@@ -22,7 +22,6 @@
 
 namespace pridil {
 
-
 class StrategyGene : public Gene {
     public:
         explicit StrategyGene(const Brain& brain,
@@ -35,6 +34,8 @@ class StrategyGene : public Gene {
         Strategy m_strategy;
 };
 
+StrategyGene* StrategyGeneFactory(const Brain& brain,
+                                  const CreatureInit& c_init);
 
 }       //  namespace pridil
 

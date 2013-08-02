@@ -34,35 +34,9 @@ using namespace pridil;
 
 DNA::DNA(const Brain& brain, const CreatureInit& c_init) :
          m_brain(brain),
-         m_strategy_gene(0),
+         m_strategy_gene(StrategyGeneFactory(brain, c_init)),
          m_death_gene(new DeathGene(m_brain, c_init)),
-         m_repro_gene(new ReproGene(m_brain, c_init)) {
-    switch ( c_init.strategy ) {
-        case tit_for_tat:
-            m_strategy_gene = new TitForTatGene(m_brain);
-            break;
-        case tit_for_two_tats:
-            m_strategy_gene = new TitForTwoTatsGene(m_brain);
-            break;
-        case susp_tit_for_tat:
-            m_strategy_gene = new SuspTitForTatGene(m_brain);
-            break;
-        case naive_prober:
-            m_strategy_gene = new NaiveProberGene(m_brain);
-            break;
-        case random_strategy:
-            m_strategy_gene = new RandomStrategyGene(m_brain);
-            break;
-        case always_cooperate:
-            m_strategy_gene = new AlwaysCooperateGene(m_brain);
-            break;
-        case always_defect:
-            m_strategy_gene = new AlwaysDefectGene(m_brain);
-            break;
-        default:
-            throw UnknownStrategy();
-     }
-}
+         m_repro_gene(new ReproGene(m_brain, c_init)) {}
 
 
 /*
