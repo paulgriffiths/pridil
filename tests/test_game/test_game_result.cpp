@@ -29,6 +29,19 @@ TEST_GROUP(GameResultGroup) {
 
 
 /*
+ *  Test that Nash equilibium and interative requirement hold.
+ */
+
+TEST(GameResultGroup, NashTest) {
+    CHECK(victor_result > mutual_coop_result);
+    CHECK(mutual_coop_result > mutual_defect_result);
+    CHECK(mutual_defect_result > sucker_result);
+    CHECK((mutual_coop_result * 2) >
+          victor_result + sucker_result); 
+}
+
+
+/*
  *  Tests that both players end up with mutual_coop_result
  *  when they both cooperate.
  */
