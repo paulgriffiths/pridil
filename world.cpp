@@ -65,40 +65,55 @@ World::World(const WorldInfo& wInfo) : m_wInfo(wInfo),
     c_init.repro_cost = wInfo.m_repro_cost;
     c_init.repro_min_resources = wInfo.m_repro_min_resources;
 
-    for ( int i = 0; i < wInfo.m_random_strategy; ++i ) {
-        c_init.strategy = random_strategy;
-        m_creatures.push_back(new Creature(c_init));
-        m_wInfo.m_starting_creatures++;
-    }
-    for ( int i = 0; i < wInfo.m_tit_for_tat; ++i ) {
-        c_init.strategy = tit_for_tat;
-        m_creatures.push_back(new Creature(c_init));
-        m_wInfo.m_starting_creatures++;
-    }
-    for ( int i = 0; i < wInfo.m_tit_for_two_tats; ++i ) {
-        c_init.strategy = tit_for_two_tats;
-        m_creatures.push_back(new Creature(c_init));
-        m_wInfo.m_starting_creatures++;
-    }
-    for ( int i = 0; i < wInfo.m_susp_tit_for_tat; ++i ) {
-        c_init.strategy = susp_tit_for_tat;
-        m_creatures.push_back(new Creature(c_init));
-        m_wInfo.m_starting_creatures++;
-    }
-    for ( int i = 0; i < wInfo.m_naive_prober; ++i ) {
-        c_init.strategy = naive_prober;
-        m_creatures.push_back(new Creature(c_init));
-        m_wInfo.m_starting_creatures++;
-    }
-    for ( int i = 0; i < wInfo.m_always_cooperate; ++i ) {
-        c_init.strategy = always_cooperate;
-        m_creatures.push_back(new Creature(c_init));
-        m_wInfo.m_starting_creatures++;
-    }
-    for ( int i = 0; i < wInfo.m_always_defect; ++i ) {
-        c_init.strategy = always_defect;
-        m_creatures.push_back(new Creature(c_init));
-        m_wInfo.m_starting_creatures++;
+    try {
+        for ( int i = 0; i < wInfo.m_random_strategy; ++i ) {
+            c_init.strategy = random_strategy;
+            m_creatures.push_back(new Creature(c_init));
+            m_wInfo.m_starting_creatures++;
+        }
+        for ( int i = 0; i < wInfo.m_tit_for_tat; ++i ) {
+            c_init.strategy = tit_for_tat;
+            m_creatures.push_back(new Creature(c_init));
+            m_wInfo.m_starting_creatures++;
+        }
+        for ( int i = 0; i < wInfo.m_tit_for_two_tats; ++i ) {
+            c_init.strategy = tit_for_two_tats;
+            m_creatures.push_back(new Creature(c_init));
+            m_wInfo.m_starting_creatures++;
+        }
+        for ( int i = 0; i < wInfo.m_susp_tit_for_tat; ++i ) {
+            c_init.strategy = susp_tit_for_tat;
+            m_creatures.push_back(new Creature(c_init));
+            m_wInfo.m_starting_creatures++;
+        }
+        for ( int i = 0; i < wInfo.m_naive_prober; ++i ) {
+            c_init.strategy = naive_prober;
+            m_creatures.push_back(new Creature(c_init));
+            m_wInfo.m_starting_creatures++;
+        }
+        for ( int i = 0; i < wInfo.m_always_cooperate; ++i ) {
+            c_init.strategy = always_cooperate;
+            m_creatures.push_back(new Creature(c_init));
+            m_wInfo.m_starting_creatures++;
+        }
+        for ( int i = 0; i < wInfo.m_always_defect; ++i ) {
+            c_init.strategy = always_defect;
+            m_creatures.push_back(new Creature(c_init));
+            m_wInfo.m_starting_creatures++;
+        }
+    } catch(...) {
+
+        //  Free allocated creatures if there was any problem
+        //  with construction
+
+        CreatureList::iterator itr_live_creature;
+        for ( itr_live_creature = m_creatures.begin();
+              itr_live_creature != m_creatures.end();
+              ++itr_live_creature ) {
+            delete *itr_live_creature;
+        }
+
+        throw;                      // Re-throw exception to caller
     }
 }
 
