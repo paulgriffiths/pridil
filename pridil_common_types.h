@@ -20,6 +20,7 @@
 #ifndef PG_PRIDIL_COMMON_TYPES_H
 #define PG_PRIDIL_COMMON_TYPES_H
 
+#include <memory>
 #include <vector>
 #include <map>
 #include <list>
@@ -138,7 +139,7 @@ struct WorldInfo {
 
 //  Class and struct typedefs
 
-typedef std::list<GameInfo *> GameInfoList;
+typedef std::list<GameInfo> GameInfoList;
 typedef std::map<CreatureID, GameInfoList > GameInfoMap;
 
 }       //  namespace pridil

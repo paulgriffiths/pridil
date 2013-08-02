@@ -28,28 +28,10 @@ Memory::Memory() : m_memories() {}
 
 
 /*
- *  Destructor. Delete all the memories.
+ *  Destructor.
  */
 
-Memory::~Memory() {
-
-    //  Iterate through keys of each creature encountered...
-
-    for ( GameInfoMap::iterator itr = m_memories.begin();
-          itr != m_memories.end(); ++itr ) {
-
-        // ...for each key get the associated memories list...
-
-        GameInfoList& memories_list = itr->second;
-
-        // ...and then delete all the memories in that list.
-
-        for ( GameInfoList::iterator gl_itr = memories_list.begin();
-              gl_itr != memories_list.end(); ++gl_itr ) {
-            delete *gl_itr;
-        }
-    }
-}
+Memory::~Memory() {}
 
 
 /*
@@ -61,7 +43,7 @@ Memory::~Memory() {
 
 void Memory::store_memory(const GameInfo& g_info) {
     GameInfoList& mem_list = m_memories[g_info.id];
-    mem_list.push_back(new GameInfo(g_info));
+    mem_list.push_back(g_info);
 }
 
 
@@ -76,13 +58,13 @@ void Memory::show_detailed_memories(std::ostream& out) const {
 
         for ( GameInfoList::const_iterator mem_itr = mem_list.begin();
               mem_itr != mem_list.end(); ++mem_itr ) {
-            GameInfo* ginfo = *mem_itr;
+            const GameInfo& ginfo = *mem_itr;
 
-            out << "C" << ginfo->id
-                << ", R" << ginfo->result << ". "
-                << game_move_name(ginfo->own_move)
+            out << "C" << ginfo.id
+                << ", R" << ginfo.result << ". "
+                << game_move_name(ginfo.own_move)
                 << " <--> "
-                << game_move_name(ginfo->opponent_move)
+                << game_move_name(ginfo.opponent_move)
                 << std::endl;
         }
     }
@@ -154,6 +136,6 @@ GameMove Memory::remember_move(const CreatureID opponent,
 
     //  ...and return the opponent's move contained in that memory.
 
-    const GameInfo* gInfo = *mem_itr;
-    return simplify_game_move(gInfo->opponent_move);
+    const GameInfo& gInfo = *mem_itr;
+    return simplify_game_move(gInfo.opponent_move);
 }
