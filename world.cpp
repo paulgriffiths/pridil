@@ -230,39 +230,6 @@ void World::advance_day() {
 
 
 /*
- *  Member function plays a game between two creatures.
- *
- *  Each creature is asked for a move, and told the ID of their
- *  opponent so that they can remember previous games with that
- *  opponent. The result of the game is calculated, and each
- *  creature is informed of the result so that they can update
- *  their memories.
- *
- *  Arguments: a pointer to each of the two creatures playing.
- */
-
-void World::play_game(Creature * creature1, Creature * creature2) {
-
-    //  Get the move from each of the two creatures
-
-    GameMove c1move = creature1->get_game_move(creature2->id());
-    GameMove c2move = creature2->get_game_move(creature1->id());
-
-    //  Populate GameInfo objects for each creature, and
-    //  populate with the game result.
-
-    GameInfo c1info(creature2->id(), c1move, c2move, 0);
-    GameInfo c2info(creature1->id(), c2move, c1move, 0);
-    game_result(c1info, c2info);
-
-    //  Communicate results of the game to each creature
-
-    creature1->give_game_result(c1info);
-    creature2->give_game_result(c2info);
-}
-
-
-/*
  *  Member function outputs summary statistics for the world.
  *
  *  Arguments: reference to a ostream object to which to output.
@@ -277,6 +244,31 @@ void World::output_world_stats(ostream& out) const {
         << "Creatures born: " << m_wInfo.m_born_creatures << endl
         << "Creatures died: " << m_wInfo.m_dead_creatures << endl
         << endl;
+}
+
+
+/*
+ *  Member function outputs summary statistics for all living creatures
+ *  currently in the world.
+ *
+ *  Arguments: reference to a ostream object to which to output.
+ */
+
+void World::output_summary_creature_stats(ostream& out) const {
+    CreatureList templist = m_creatures;
+    sort(templist.begin(), templist.end(), CompareCreatureByID());
+
+    out << "Summary creature statistics:" << endl;
+    for ( CreatureList::const_iterator itr = templist.begin();
+          itr != templist.end(); ++itr ) {
+        const Creature* creature = *itr;
+
+        out << "Creature " << creature->id()
+            << ", strategy '" << creature->strategy()
+            << "', resources " << creature->resources()
+            << endl;
+    }
+    out << endl;
 }
 
 
@@ -303,31 +295,6 @@ void World::output_full_creature_stats(ostream& out) const {
 
         creature->detailed_memories(out);
     }
-}
-
-
-/*
- *  Member function outputs summary statistics for all living creatures
- *  currently in the world.
- *
- *  Arguments: reference to a ostream object to which to output.
- */
-
-void World::output_summary_creature_stats(ostream& out) const {
-    CreatureList templist = m_creatures;
-    sort(templist.begin(), templist.end(), CompareCreatureByID());
-
-    out << "Summary creature statistics:" << endl;
-    for ( CreatureList::const_iterator itr = templist.begin();
-          itr != templist.end(); ++itr ) {
-        const Creature* creature = *itr;
-
-        out << "Creature " << creature->id()
-            << ", strategy '" << creature->strategy()
-            << "', resources " << creature->resources()
-            << endl;
-    }
-    out << endl;
 }
 
 
@@ -454,4 +421,37 @@ void World::output_summary_dead_by_strategy(ostream& out) const {
             << endl;
     }
     out << endl;
+}
+
+
+/*
+ *  Member function plays a game between two creatures.
+ *
+ *  Each creature is asked for a move, and told the ID of their
+ *  opponent so that they can remember previous games with that
+ *  opponent. The result of the game is calculated, and each
+ *  creature is informed of the result so that they can update
+ *  their memories.
+ *
+ *  Arguments: a pointer to each of the two creatures playing.
+ */
+
+void World::play_game(Creature * creature1, Creature * creature2) {
+
+    //  Get the move from each of the two creatures
+
+    GameMove c1move = creature1->get_game_move(creature2->id());
+    GameMove c2move = creature2->get_game_move(creature1->id());
+
+    //  Populate GameInfo objects for each creature, and
+    //  populate with the game result.
+
+    GameInfo c1info(creature2->id(), c1move, c2move, 0);
+    GameInfo c2info(creature1->id(), c2move, c1move, 0);
+    game_result(c1info, c2info);
+
+    //  Communicate results of the game to each creature
+
+    creature1->give_game_result(c1info);
+    creature2->give_game_result(c2info);
 }

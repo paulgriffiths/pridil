@@ -15,6 +15,38 @@
  *     dilemma with each other; and to
  *   - provide statistics about the population and the iterations played.
  *
+ *  Public member functions:
+ *    day() - returns the current world day.
+ *
+ *    advance_day() - advances the world by one day, including playing all
+ *                    that day's games, ageing each creature by one day,
+ *                    and processing any creatures which died or were born
+ *                    on that day.
+ *
+ *    output_world_stats() - outputs summary statistics of the world,
+ *                           including number of days passed, number of
+ *                           games played, number of creatures that died
+ *                           or were born, etc.
+ *
+ *    output_summary_creature_stats() - outputs summary statistics about
+ *                           each individual creature, including its
+ *                           game-playing strategy and the quantity of
+ *                           resources it ended with.
+ *
+ *    output_full_creature_stats() - outputs full statistics about each
+ *                           individual creature, including a full list of
+ *                           the details of the games it played.
+ *
+ *    output_summary_resources_by_strategy() - outputs summary statistics
+ *                           for all creatures of each game-playing
+ *                           strategy, including the minimum, maximum, and
+ *                           average resources held by creatures having
+ *                           that strategy.
+ *    
+ *    output_summary_dead_by_strategy() - outputs summary statistics showing
+ *                           the number of creatures of each game-playing
+ *                           strategy that died during the world time.
+ *
  *  Distributed under the terms of the GNU General Public License.
  *  http://www.gnu.org/licenses/
  */
