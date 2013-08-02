@@ -15,7 +15,10 @@
  *     (DNA may consult Memory when making certain decisions), and which
  *     acts as an interface between the Creature owning the Brain, and its
  *     DNA and Memory. A liberty has been taken with the name, since DNA
- *     does not belong to the brain in real organisms.
+ *     does not belong to the brain in real organisms. A primary motivation
+ *     of providing the Brain class is to avoid exposing the Memory interface
+ *     (which the DNA sometimes needs to access) in the main Creature
+ *     interface.
  *
  *  Attention to forward declarations is necessary since the Brain class
  *  has a DNA member variable, and DNA class contains a reference to its
