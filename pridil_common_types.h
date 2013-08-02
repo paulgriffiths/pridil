@@ -25,6 +25,7 @@
 #include <vector>
 #include <map>
 #include <list>
+#include "pridil_exceptions.h"
 
 namespace pridil {
 
@@ -41,41 +42,6 @@ enum GameMove { coop, defect, coop_recip, defect_retal,
 enum Strategy { random_strategy, tit_for_tat, susp_tit_for_tat,
                 tit_for_two_tats, grudger, naive_prober, remorseful_prober,
                 always_cooperate, always_defect };
-
-//  Exceptions
-
-//  Base exception, all custom exceptions thrown by this module
-//  are derived from CmdLineException
-
-class PridilException {
-    private:
-        std::string m_error_message;
-
-    public:
-        explicit PridilException(const std::string& msg =
-                                 "No error message")
-            : m_error_message(msg) {}
-        virtual ~PridilException() {}
-
-        const std::string& what() const { return m_error_message; }
-};
-
-
-class BadGameMove : public PridilException {
-    public:
-        explicit BadGameMove() : PridilException("unknown game move") {};
-};
-
-class UnknownStrategy : public PridilException {
-    public:
-        explicit UnknownStrategy() : PridilException("unknown strategy") {};
-};
-
-class InvalidOpponentMemory : public PridilException {
-    public:
-        explicit InvalidOpponentMemory() :
-            PridilException("invalid opponent memory index") {};
-};
 
 
 //  Structures and classes

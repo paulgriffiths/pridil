@@ -18,6 +18,7 @@
 #ifndef PG_PRIDIL_INTERFACE_H
 #define PG_PRIDIL_INTERFACE_H
 
+#include "pridil_exceptions.h"
 #include "world.h"
 
 #endif      //  PG_PRIDIL_INTERFACE_H
