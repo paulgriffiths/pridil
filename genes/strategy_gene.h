@@ -15,7 +15,7 @@
 #define PG_PRIDIL_STRATEGY_GENE_H
 
 #include <string>
-
+#include <memory>
 #include "../pridil_common.h"
 #include "gene.h"
 
@@ -34,8 +34,10 @@ class StrategyGene : public Gene {
         Strategy m_strategy;
 };
 
-StrategyGene* StrategyGeneFactory(const Brain& brain,
-                                  const CreatureInit& c_init);
+/*  Strategy gene factor function  */
+
+std::auto_ptr<StrategyGene>
+StrategyGeneFactory(const Brain& brain, const CreatureInit& c_init);
 
 }       //  namespace pridil
 

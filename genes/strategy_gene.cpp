@@ -11,6 +11,7 @@
  */
 
 
+#include <memory>
 #include "../pridil_common.h"
 #include "strategy_gene.h"
 #include "strategy/strategy_genes.h"
@@ -32,8 +33,8 @@ Strategy StrategyGene::strategy() const {
  *  contained in the provided CreatureInit struct.
  */
 
-StrategyGene* pridil::StrategyGeneFactory(const Brain& brain,
-                                          const CreatureInit& c_init) {
+std::auto_ptr<StrategyGene>
+pridil::StrategyGeneFactory(const Brain& brain, const CreatureInit& c_init) {
     StrategyGene* new_gene;
 
     switch ( c_init.strategy ) {
@@ -62,5 +63,5 @@ StrategyGene* pridil::StrategyGeneFactory(const Brain& brain,
             throw UnknownStrategy();
      }
 
-    return new_gene;
+    return std::auto_ptr<StrategyGene>(new_gene);
 }

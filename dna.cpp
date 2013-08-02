@@ -40,14 +40,10 @@ DNA::DNA(const Brain& brain, const CreatureInit& c_init) :
 
 
 /*
- *  DNA destructor, deletes genes
+ *  DNA destructor
  */
 
-DNA::~DNA() {
-    delete m_strategy_gene;
-    delete m_death_gene;
-    delete m_repro_gene;
-}
+DNA::~DNA() {} 
 
 
 /*

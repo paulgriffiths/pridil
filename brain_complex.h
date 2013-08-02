@@ -33,6 +33,7 @@
 #define PG_PRIDIL_BRAIN_COMPLEX_H
 
 #include <ostream>
+#include <memory>
 #include "pridil_common.h"
 
 namespace pridil {
@@ -92,9 +93,9 @@ class DNA {
 
     private:
         const Brain& m_brain;
-        StrategyGene * m_strategy_gene;
-        DeathGene * m_death_gene;
-        ReproGene * m_repro_gene;
+        std::auto_ptr<StrategyGene> m_strategy_gene;
+        std::auto_ptr<DeathGene> m_death_gene;
+        std::auto_ptr<ReproGene> m_repro_gene;
 
         DNA(const DNA&);                // Prevent copying
         DNA& operator=(const DNA&);     // Prevent assignment
