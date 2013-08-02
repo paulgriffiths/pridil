@@ -21,6 +21,7 @@
 #define PG_PRIDIL_COMMON_TYPES_H
 
 #include <memory>
+#include <string>
 #include <vector>
 #include <map>
 #include <list>
@@ -43,9 +44,39 @@ enum Strategy { random_strategy, tit_for_tat, susp_tit_for_tat,
 
 //  Exceptions
 
-class BadGameMove {};
-class UnknownStrategy {};
-class InvalidOpponentMemory {};
+//  Base exception, all custom exceptions thrown by this module
+//  are derived from CmdLineException
+
+class PridilException {
+    private:
+        std::string m_error_message;
+
+    public:
+        explicit PridilException(const std::string& msg =
+                                 "No error message")
+            : m_error_message(msg) {}
+        virtual ~PridilException() {}
+
+        const std::string& what() const { return m_error_message; }
+};
+
+
+class BadGameMove : public PridilException {
+    public:
+        explicit BadGameMove() : PridilException("unknown game move") {};
+};
+
+class UnknownStrategy : public PridilException {
+    public:
+        explicit UnknownStrategy() : PridilException("unknown strategy") {};
+};
+
+class InvalidOpponentMemory : public PridilException {
+    public:
+        explicit InvalidOpponentMemory() :
+            PridilException("invalid opponent memory index") {};
+};
+
 
 //  Structures and classes
 
