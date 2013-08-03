@@ -26,6 +26,7 @@ CXX_PROFILE_FLAGS=-fprofile-arcs -ftest-coverage -pg
 # Linker flags
 LDFLAGS=
 LD_TEST_FLAGS=-lCppUTest -lCppUTestExt
+LD_PROFILE_FLAGS=-pg -fprofile-arcs
 
 # Object code files
 MAINOBJ=main.o
@@ -130,7 +131,9 @@ release: main
 
 # profile - builds with information for gcov and gprof tools
 .PHONY: profile
+profile: CXXFLAGS+=$(CXX_RELEASE_FLAGS)
 profile: CXXFLAGS+=$(CXX_PROFILE_FLAGS)
+profile: LDFLAGS+=$(LD_PROFILE_FLAGS)
 profile: main
 
 # tests - builds unit tests
