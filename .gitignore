@@ -25,6 +25,7 @@ unittests
 *.gcno
 *.gcda
 gmon.out
+run_profile
 
 # Temporary configuration files
 pridil-nicenasty
