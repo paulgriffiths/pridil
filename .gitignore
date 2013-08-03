@@ -21,6 +21,11 @@ unittests
 # vim swap files
 *.swp
 
+# gcov and gprof files
+*.gcno
+*.gcda
+gmon.out
+
 # Temporary configuration files
 pridil-nicenasty
 pridil-onenice
